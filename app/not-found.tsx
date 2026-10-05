@@ -2,8 +2,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="editorial-page flex min-h-[100svh] flex-col justify-between pt-28">
-      <p className="editorial-kicker">Error · 404</p>
+    <div className="editorial-page flex min-h-[100svh] flex-col justify-center pt-28">
       <div className="grid grid-cols-12 gap-5 py-20">
         <h1 className="type-sheet-title col-span-12 md:col-span-9">
           Page not

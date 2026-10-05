@@ -41,12 +41,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
   const { prev, next } = getAdjacentWorks(work.slug);
   const poster = plateSrc(work);
 
-  const meta = [
-    work.type ? `TYPE · ${work.type}` : null,
-    work.date || work.year ? `DATE · ${work.date || work.year}` : null,
-    work.location ? `LOCATION · ${work.location}` : null,
-    work.role ? `ROLE · ${work.role}` : null,
-  ].filter(Boolean);
+  const meta = [work.type, work.location, work.role].filter(Boolean);
 
   return (
     <article className="editorial-page">
@@ -62,7 +57,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
           {work.title}
         </h1>
 
-        <div className="col-span-12 space-y-4 border-t border-border pt-5 md:col-span-4 md:col-start-3">
+        <div className="border-border col-span-12 space-y-4 border-t pt-5 md:col-span-4 md:col-start-3">
           <p className="font-meta leading-relaxed">{meta.join("  ·  ")}</p>
           {work.with.length > 0 ? (
             <p className="font-meta-value text-muted">
@@ -86,7 +81,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
         <div className="col-span-12 md:col-span-5 md:col-start-8">
           {work.short ? <p className="type-lead">{work.short}</p> : null}
           {work.subtitle ? (
-            <p className="type-body mt-5 text-muted">{work.subtitle}</p>
+            <p className="type-body text-muted mt-5">{work.subtitle}</p>
           ) : null}
         </div>
       </header>
@@ -116,7 +111,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
             <MediaSwitch stills={work.stills} title={work.title} />
           </div>
         ) : !work.primaryVideo && !work.soundcloud && poster ? (
-          <div className="relative col-span-12 aspect-video overflow-hidden bg-elevated md:col-span-10 md:col-start-2">
+          <div className="bg-elevated relative col-span-12 aspect-video overflow-hidden md:col-span-10 md:col-start-2">
             <Image
               src={poster}
               alt={work.title}
@@ -131,7 +126,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
       </div>
 
       {work.externalLinks.length > 0 ? (
-        <ul className="mt-12 flex flex-wrap gap-6 border-t border-border pt-5">
+        <ul className="border-border mt-12 flex flex-wrap gap-6 border-t pt-5">
           {work.externalLinks.map((link) => (
             <li key={link.url}>
               <a
@@ -148,7 +143,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
       ) : null}
 
       <nav
-        className="mt-24 grid grid-cols-12 gap-5 border-t border-border pt-8 md:mt-36"
+        className="border-border mt-24 grid grid-cols-12 gap-5 border-t pt-8 md:mt-36"
         aria-label="Adjacent projects"
       >
         {prev ? (
@@ -156,28 +151,20 @@ export default async function ProjectSheetPage({ params }: PageProps) {
             href={`/works/${encodeURI(prev.slug)}`}
             className="group col-span-6 no-underline md:col-span-5"
           >
-            <p className="font-meta mb-3">← Previous</p>
-            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] font-bold leading-none tracking-[-0.045em]">
-              {prev.title}
+            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] leading-none font-bold tracking-[-0.045em]">
+              ← {prev.title}
             </p>
           </Link>
         ) : (
           <span />
         )}
-        <Link
-          href="/works"
-          className="btn-text col-span-12 row-start-2 mt-8 md:col-span-2 md:col-start-6 md:row-start-1 md:mt-0 md:justify-self-center"
-        >
-          Index
-        </Link>
         {next ? (
           <Link
             href={`/works/${encodeURI(next.slug)}`}
             className="group col-span-6 text-right no-underline md:col-span-5 md:col-start-8"
           >
-            <p className="font-meta mb-3">Next →</p>
-            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] font-bold leading-none tracking-[-0.045em]">
-              {next.title}
+            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] leading-none font-bold tracking-[-0.045em]">
+              {next.title} →
             </p>
           </Link>
         ) : (

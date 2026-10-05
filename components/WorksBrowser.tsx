@@ -50,11 +50,8 @@ export default function WorksBrowser({ works }: WorksBrowserProps) {
 
   return (
     <div className="space-y-16 md:space-y-24">
-      <div className="sticky top-[55px] z-20 -mx-[clamp(18px,4.2vw,72px)] flex flex-col gap-3 border-y border-border bg-base/95 px-[clamp(18px,4.2vw,72px)] py-3 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between">
+      <div className="border-border bg-base/95 sticky top-[55px] z-20 -mx-[clamp(18px,4.2vw,72px)] border-y px-[clamp(18px,4.2vw,72px)] py-3 backdrop-blur-sm">
         <FilterChips filters={filters} active={active} onChange={setFilter} />
-        <p className="font-meta shrink-0 text-muted">
-          {String(gridWorks.length).padStart(2, "0")}
-        </p>
       </div>
 
       {gridWorks.length === 0 ? (
