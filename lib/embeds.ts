@@ -1,27 +1,40 @@
 export type EmbedResult =
-  | { type: "youtube"; src: string }
+  | { type: "youtube"; src: string; id: string }
   | { type: "soundcloud"; src: string }
   | { type: "spotify"; src: string }
   | { type: "link"; src: null; href: string };
 
-export function youtubeEmbedUrl(url: string): string | null {
+export function youtubeId(url: string): string | null {
   if (!url) return null;
   try {
     const u = new URL(url);
     let id: string | null = null;
     if (u.hostname.includes("youtu.be")) {
-      id = u.pathname.replace("/", "");
+      id = u.pathname.replace("/", "").split("/")[0] ?? null;
     } else if (u.hostname.includes("youtube.com")) {
       id = u.searchParams.get("v");
       if (!id && u.pathname.startsWith("/embed/")) {
         id = u.pathname.split("/")[2] ?? null;
       }
     }
-    if (!id) return null;
-    return `https://www.youtube.com/embed/${id}`;
+    return id;
   } catch {
     return null;
   }
+}
+
+export function youtubePosterUrl(
+  url: string,
+  quality: "maxresdefault" | "sddefault" | "hqdefault" = "maxresdefault",
+): string | null {
+  const id = youtubeId(url);
+  return id ? `https://i.ytimg.com/vi/${id}/${quality}.jpg` : null;
+}
+
+export function youtubeEmbedUrl(url: string): string | null {
+  const id = youtubeId(url);
+  if (!id) return null;
+  return `https://www.youtube.com/embed/${id}`;
 }
 
 export function soundcloudEmbedUrl(url: string): string | null {
@@ -35,8 +48,9 @@ export function getEmbedSrc(
   url: string,
 ): EmbedResult {
   if (kind === "youtube" || (!kind && /youtu\.?be/.test(url))) {
+    const id = youtubeId(url);
     const src = youtubeEmbedUrl(url);
-    if (src) return { type: "youtube", src };
+    if (src && id) return { type: "youtube", src, id };
   }
   if (kind === "soundcloud" || /soundcloud\.com/.test(url)) {
     const src = soundcloudEmbedUrl(url);
