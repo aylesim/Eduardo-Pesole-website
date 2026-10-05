@@ -30,7 +30,7 @@ export default function CueCard({
   const body = (
     <article
       ref={ref}
-      className="group relative border border-transparent transition-[border-color,transform] duration-(--duration-ui) ease-(--ease-ui) hover:border-accent"
+      className="group relative"
     >
       <motion.div
         className={`relative overflow-hidden bg-elevated ${
@@ -50,7 +50,7 @@ export default function CueCard({
             alt=""
             fill
             priority={priority}
-            className="object-cover"
+            className="object-cover transition-transform duration-700 ease-(--ease-ui) group-hover:scale-[1.015]"
             style={{ objectPosition: work.focal || "50% 50%" }}
             sizes="(max-width: 768px) 100vw, 60vw"
             unoptimized={src.startsWith("http")}
@@ -61,17 +61,19 @@ export default function CueCard({
           </div>
         )}
       </motion.div>
-      <div className="space-y-1 pt-3 transition-transform duration-(--duration-ui) ease-(--ease-ui) group-hover:translate-x-1">
-        <p className="font-meta">
+      <div className="grid grid-cols-12 gap-3 border-b border-border py-4">
+        <p className="font-meta col-span-4">
           {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
         </p>
-        <h3 className="type-h2 text-text">
-          {work.title}
-          {external ? " ↗" : ""}
-        </h3>
-        {work.role ? (
-          <p className="font-meta-value text-muted">{work.role}</p>
-        ) : null}
+        <div className="col-span-8">
+          <h3 className="font-display text-[clamp(1.35rem,2.2vw,2.6rem)] font-bold leading-[0.95] tracking-[-0.04em] text-text">
+            {work.title}
+            {external ? " ↗" : ""}
+          </h3>
+          {work.role ? (
+            <p className="font-meta-value mt-2 text-muted">{work.role}</p>
+          ) : null}
+        </div>
       </div>
     </article>
   );

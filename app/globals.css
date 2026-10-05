@@ -1,18 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-base: #0a0a09;
-  --color-surface: #141413;
-  --color-elevated: #1c1b19;
-  --color-text: #f2efe8;
-  --color-muted: #8a8780;
-  --color-border: #2a2926;
-  --color-accent: #f5a623;
-  --color-accent-ink: #0a0a09;
-  --color-focus: #ffd166;
+  --color-base: #eeeeec;
+  --color-surface: #e8e8e5;
+  --color-elevated: #deded9;
+  --color-text: #151417;
+  --color-muted: #67666a;
+  --color-border: #c9c8c4;
+  --color-accent: #151417;
+  --color-accent-ink: #eeeeec;
+  --color-focus: #151417;
 
-  --radius-sm: 2px;
-  --radius-md: 4px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
 
   --ease-cut: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-ui: cubic-bezier(0.22, 1, 0.36, 1);
@@ -32,28 +32,8 @@
     color: var(--color-text);
   }
 
-  /* Index editorial WebGL gallery — Design Embraced–inspired light field */
   html.index-embraced {
-    background: #eeeeee;
-    color: #151417;
-  }
-
-  html.index-embraced body {
-    background: #eeeeee;
-    color: #151417;
-  }
-
-  html.index-embraced .site-chrome {
-    color: #151417;
-  }
-
-  html.index-embraced .site-chrome a {
-    color: #151417;
-  }
-
-  html.index-embraced .site-chrome a:hover {
-    color: #151417;
-    opacity: 0.65;
+    overflow: hidden;
   }
 
   html.index-embraced footer {
@@ -66,6 +46,7 @@
 
   body {
     @apply bg-base font-body text-text antialiased;
+    min-height: 100svh;
   }
 
   a {
@@ -73,12 +54,12 @@
   }
 
   a:hover {
-    @apply text-accent;
+    opacity: 0.58;
   }
 
   ::selection {
-    background: var(--color-accent);
-    color: var(--color-accent-ink);
+    background: var(--color-text);
+    color: var(--color-base);
   }
 
   img {
@@ -93,69 +74,96 @@
 
 @layer utilities {
   .page-gutter {
-    padding-inline: clamp(16px, 4vw, 48px);
+    padding-inline: clamp(18px, 4.2vw, 72px);
   }
 
   .font-meta {
-    @apply font-mono text-[0.6875rem] font-medium tracking-[0.1em] text-muted uppercase;
+    @apply font-mono text-[0.625rem] font-medium tracking-[0.13em] text-muted uppercase;
   }
 
   .font-meta-value {
-    @apply font-mono text-[0.8125rem] font-normal text-text;
+    @apply font-mono text-[0.75rem] font-normal leading-relaxed text-text;
   }
 
   .font-ui {
-    @apply font-mono text-[0.75rem] font-medium tracking-[0.08em] uppercase;
+    @apply font-mono text-[0.625rem] font-medium tracking-[0.13em] uppercase;
   }
 
   .type-display {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(2.75rem, 7vw, 6.5rem);
-    line-height: 0.92;
-    letter-spacing: -0.02em;
+    font-size: clamp(4rem, 11vw, 11rem);
+    line-height: 0.82;
+    letter-spacing: -0.065em;
   }
 
   .type-sheet-title {
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(2rem, 4.5vw, 3.75rem);
-    line-height: 0.98;
+    font-weight: 800;
+    font-size: clamp(3.5rem, 9vw, 9rem);
+    line-height: 0.84;
+    letter-spacing: -0.055em;
   }
 
   .type-h2 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.125rem, 1.5vw, 1.5rem);
-    line-height: 1.15;
+    font-size: clamp(1.5rem, 2.4vw, 2.75rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
   }
 
   .type-body {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: 1.0625rem;
-    line-height: 1.65;
-    max-width: 60ch;
+    font-size: clamp(1rem, 1.25vw, 1.25rem);
+    line-height: 1.48;
+    max-width: 56ch;
   }
 
   .type-lead {
     font-family: var(--font-body);
-    font-weight: 400;
-    font-size: 1.125rem;
-    line-height: 1.7;
-    max-width: 60ch;
+    font-weight: 500;
+    font-size: clamp(1.45rem, 2.5vw, 2.8rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    max-width: 30ch;
   }
 
   .btn-accent {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-md bg-accent px-5 py-2.5 font-mono text-[0.75rem] font-medium tracking-[0.08em] text-accent-ink uppercase transition-opacity duration-(--duration-ui) ease-(--ease-ui) hover:opacity-90;
+    @apply inline-flex cursor-pointer items-center justify-center border border-text bg-text px-5 py-3 font-mono text-[0.6875rem] font-medium tracking-[0.13em] text-base uppercase transition-colors duration-(--duration-ui) hover:bg-transparent hover:text-text;
   }
 
   .btn-ghost {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-md border border-border px-5 py-2.5 font-mono text-[0.75rem] font-medium tracking-[0.08em] text-text uppercase transition-colors duration-(--duration-ui) ease-(--ease-ui) hover:border-accent;
+    @apply inline-flex cursor-pointer items-center justify-center border border-text px-5 py-3 font-mono text-[0.6875rem] font-medium tracking-[0.13em] text-text uppercase transition-colors duration-(--duration-ui) hover:bg-text hover:text-base;
   }
 
   .btn-text {
-    @apply inline-flex cursor-pointer items-center font-mono text-[0.75rem] font-medium tracking-[0.08em] text-text uppercase transition-colors duration-(--duration-ui) ease-(--ease-ui) hover:text-accent;
+    @apply inline-flex cursor-pointer items-center font-mono text-[0.625rem] font-medium tracking-[0.13em] text-text uppercase transition-opacity duration-(--duration-ui) hover:opacity-50;
+  }
+
+  .editorial-rule {
+    @apply border-t border-border;
+  }
+
+  .editorial-kicker {
+    @apply font-mono text-[0.625rem] font-medium tracking-[0.13em] text-muted uppercase;
+  }
+
+  .editorial-page {
+    width: 100%;
+    max-width: 1720px;
+    margin-inline: auto;
+    padding-inline: clamp(18px, 4.2vw, 72px);
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .editorial-page {
+    padding-top: 6rem;
+    padding-bottom: 9rem;
   }
 }
 

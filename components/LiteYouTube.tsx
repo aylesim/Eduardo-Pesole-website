@@ -38,7 +38,7 @@ export default function LiteYouTube({
         frameBorder="no"
         allow="autoplay"
         src={embed.src}
-        className="w-full rounded-md"
+        className="w-full"
       />
     );
   }
@@ -57,7 +57,7 @@ export default function LiteYouTube({
     return (
       <button
         type="button"
-        className="group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-md bg-elevated text-left"
+        className="group relative block aspect-video w-full cursor-pointer overflow-hidden bg-elevated text-left"
         onClick={() => {
           if (onPlayIntent) onPlayIntent();
           else setPlaying(true);
@@ -75,7 +75,7 @@ export default function LiteYouTube({
             priority
           />
         ) : null}
-        <span className="absolute inset-0 bg-base/35" />
+        <span className="absolute inset-0 bg-text/10 transition-colors group-hover:bg-transparent" />
         {!hideCtaChrome ? (
           <span className="absolute inset-0 flex items-center justify-center">
             <span className="btn-accent pointer-events-none">
@@ -88,7 +88,7 @@ export default function LiteYouTube({
   }
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-md bg-elevated">
+    <div className="relative aspect-video w-full overflow-hidden bg-elevated">
       <iframe
         title={title}
         src={`${embed.src}?autoplay=1&rel=0`}

@@ -13,7 +13,7 @@ export default function IndexGalleryFallback({ works }: Props) {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex h-[100svh] flex-col bg-[#eeeeee] text-[#151417]">
+    <div className="flex h-[100svh] flex-col bg-[#eeeeec] text-[#151417]">
       <div
         ref={scrollerRef}
         className="flex flex-1 items-center gap-8 overflow-x-auto px-[clamp(16px,6vw,72px)] py-16 scroll-smooth snap-x snap-mandatory"

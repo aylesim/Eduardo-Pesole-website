@@ -15,21 +15,24 @@ export default function AboutPage() {
   const { contact, global, about_bio, about_lead } = site;
 
   return (
-    <div className="page-gutter mx-auto max-w-[1536px] py-14 md:py-20">
-      <div className="mb-20 grid gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
-        <div className="space-y-8">
-          <h1 className="type-sheet-title">About</h1>
+    <div className="editorial-page">
+      <header className="grid grid-cols-12 gap-x-5 pt-10 pb-16 md:pt-16 md:pb-24">
+        <p className="editorial-kicker col-span-12 mb-6 md:col-span-3">
+          Profile · Berlin
+        </p>
+        <h1 className="type-sheet-title col-span-12 md:col-span-9">About</h1>
+      </header>
+
+      <div className="grid grid-cols-12 gap-x-5 gap-y-14 border-t border-border py-12 md:py-20">
+        <div className="col-span-12 md:col-span-6">
           <ExpandableBio lead={about_lead} full={about_bio} />
-          <div className="space-y-3 border-t border-border pt-8">
-            <h2 className="type-h2">Studios & collaborators</h2>
-            <p className="font-meta-value text-muted">
-              {global.credits.join(" · ")}
-            </p>
-          </div>
         </div>
 
-        <div id="showreel" className="scroll-mt-24 space-y-4 lg:pt-4">
-          <p className="font-meta">Showreel 2025</p>
+        <div
+          id="showreel"
+          className="col-span-12 scroll-mt-24 space-y-4 md:col-span-5 md:col-start-8"
+        >
+          <p className="font-meta">Showreel · 2025</p>
           <LiteYouTube
             url={global.showreel_video.url}
             title={global.showreel_video.aria_label}
@@ -37,19 +40,29 @@ export default function AboutPage() {
             kind="youtube"
           />
         </div>
+
+        <div className="col-span-12 mt-6 grid grid-cols-12 gap-5 border-t border-border pt-6">
+          <h2 className="font-meta col-span-12 md:col-span-3">
+            Studios & collaborators
+          </h2>
+          <p className="font-meta-value col-span-12 text-muted md:col-span-7 md:col-start-6">
+            {global.credits.join(" · ")}
+          </p>
+        </div>
       </div>
 
-      <section id="contact" className="scroll-mt-24 border-t border-border pt-12">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
-          <div className="space-y-6">
-            <h2 className="type-sheet-title text-[clamp(2rem,4vw,3rem)]">
-              {contact.heading}
-            </h2>
-            <ul className="space-y-3">
+      <section
+        id="contact"
+        className="scroll-mt-24 border-t border-border pt-12 md:pt-20"
+      >
+        <h2 className="type-sheet-title mb-16 md:mb-24">{contact.heading}</h2>
+        <div className="grid grid-cols-12 gap-x-5 gap-y-14">
+          <div className="col-span-12 md:col-span-5">
+            <ul className="space-y-4">
               <li>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="font-display text-[clamp(1.25rem,2.5vw,2rem)] font-bold tracking-[-0.02em] text-text hover:text-accent"
+                  className="font-display text-[clamp(1.3rem,2.4vw,2.5rem)] font-bold tracking-[-0.04em] text-text"
                 >
                   {contact.email}
                 </a>
@@ -57,7 +70,7 @@ export default function AboutPage() {
               <li>
                 <a
                   href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                  className="text-lg text-text hover:text-accent"
+                  className="font-meta-value text-text"
                 >
                   {contact.phone}
                 </a>
@@ -68,7 +81,7 @@ export default function AboutPage() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-lg text-text hover:text-accent"
+                    className="font-meta-value text-text"
                   >
                     {social.label}
                   </a>
@@ -76,13 +89,15 @@ export default function AboutPage() {
               ))}
             </ul>
           </div>
-          <ContactForm
-            email={contact.email}
-            fields={contact.form_fields}
-            submitLabel={contact.form_submit_label}
-            successMessage={contact.form_success_message}
-            services={site.services}
-          />
+          <div className="col-span-12 md:col-span-5 md:col-start-8">
+            <ContactForm
+              email={contact.email}
+              fields={contact.form_fields}
+              submitLabel={contact.form_submit_label}
+              successMessage={contact.form_success_message}
+              services={site.services}
+            />
+          </div>
         </div>
       </section>
     </div>

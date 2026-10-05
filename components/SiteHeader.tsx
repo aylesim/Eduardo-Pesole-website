@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import MobileNav from "@/components/MobileNav";
 import { getNav, getSite } from "@/lib/content";
@@ -10,41 +10,32 @@ export default function SiteHeader() {
   const nav = getNav();
   const site = getSite();
   const pathname = usePathname();
-  const [opaque, setOpaque] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const mailHref = "/about#contact";
   const isIndex = pathname === "/";
 
-  useEffect(() => {
-    function onScroll() {
-      setOpaque(window.scrollY > 8);
-    }
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <header
-      className={`site-chrome sticky top-0 z-40 transition-colors duration-(--duration-ui) ease-(--ease-ui) ${
-        isIndex
-          ? "border-b border-transparent bg-transparent"
-          : opaque
-            ? "border-b border-border bg-surface"
-            : "border-b border-transparent bg-transparent"
+      className={`site-chrome fixed inset-x-0 top-0 z-40 ${
+        isIndex ? "bg-transparent" : "border-b border-border bg-base/95 backdrop-blur-sm"
       }`}
     >
-      <div className="page-gutter mx-auto flex max-w-[1536px] items-center justify-between gap-4 py-4">
+      <div className="page-gutter mx-auto grid max-w-[1720px] grid-cols-2 items-center gap-4 py-[18px] md:grid-cols-12">
         <Link
           href="/"
-          className={`font-display text-[0.9375rem] font-bold tracking-[-0.02em] no-underline ${
-            isIndex ? "hover:opacity-70" : "hover:text-text"
-          }`}
+          className="font-display text-[0.875rem] font-bold tracking-[-0.035em] no-underline md:col-span-3"
         >
           {site.global.brand_name}
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Main">
+        <p className="editorial-kicker hidden md:col-span-3 md:block">
+          Sound design · Berlin
+        </p>
+
+        <nav
+          className="hidden items-center justify-end gap-7 md:col-span-6 md:flex"
+          aria-label="Main"
+        >
           {nav.map((item) => {
             const active =
               item.href === "/"
@@ -54,14 +45,8 @@ export default function SiteHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`font-ui no-underline transition-colors ${
-                  isIndex
-                    ? active
-                      ? "opacity-100"
-                      : "opacity-45 hover:opacity-100"
-                    : active
-                      ? "text-text"
-                      : "text-muted hover:text-text"
+                className={`font-ui no-underline ${
+                  active ? "opacity-100" : "opacity-45 hover:opacity-100"
                 }`}
                 aria-current={active ? "page" : undefined}
               >
@@ -71,9 +56,7 @@ export default function SiteHeader() {
           })}
           <Link
             href={mailHref}
-            className={`btn-text ${
-              isIndex ? "opacity-45 hover:opacity-100" : "text-muted hover:text-accent"
-            }`}
+            className="font-ui opacity-45 hover:opacity-100"
           >
             Mail
           </Link>
