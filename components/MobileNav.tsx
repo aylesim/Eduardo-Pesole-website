@@ -25,14 +25,10 @@ export default function MobileNav({
       <Dialog.Trigger asChild>
         <button
           type="button"
-          className="border-text/20 bg-base/60 text-text hover:bg-text inline-flex items-center gap-2 border px-3 py-2 font-mono text-[0.625rem] font-medium tracking-[0.13em] uppercase backdrop-blur-sm transition-colors hover:text-base"
+          className="text-text font-mono text-[0.625rem] font-medium tracking-[0.13em] uppercase opacity-80 transition-opacity hover:opacity-100"
           aria-label="Open menu"
         >
-          <span>Menu</span>
-          <span className="flex w-3 flex-col gap-[3px]" aria-hidden="true">
-            <span className="h-px w-full bg-current" />
-            <span className="h-px w-full bg-current" />
-          </span>
+          Menu
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
