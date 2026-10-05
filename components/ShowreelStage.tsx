@@ -6,6 +6,7 @@ import LiteYouTube from "@/components/LiteYouTube";
 type ShowreelStageProps = {
   url: string;
   title: string;
+  poster?: string | null;
   ctaLabel?: string;
   playing: boolean;
   onPlayingChange: (playing: boolean) => void;
@@ -14,6 +15,7 @@ type ShowreelStageProps = {
 export default function ShowreelStage({
   url,
   title,
+  poster,
   ctaLabel = "Play showreel",
   playing,
   onPlayingChange,
@@ -35,6 +37,7 @@ export default function ShowreelStage({
             <LiteYouTube
               url={url}
               title={title}
+              poster={poster}
               kind="youtube"
               ctaLabel={ctaLabel}
               hideCtaChrome

@@ -33,6 +33,7 @@ export default function AboutPage() {
           <LiteYouTube
             url={global.showreel_video.url}
             title={global.showreel_video.aria_label}
+            poster="/images/showreel-2025-poster.jpg"
             kind="youtube"
           />
         </div>

@@ -20,11 +20,12 @@ const SPANS = [
   "col-span-12 lg:col-span-5",
   "col-span-12 lg:col-span-5",
   "col-span-12 lg:col-span-7",
-  "col-span-12 lg:col-span-6",
-  "col-span-12 lg:col-span-6",
   "col-span-12",
   "col-span-12 lg:col-span-7",
   "col-span-12 lg:col-span-5",
+  "col-span-12 lg:col-span-5",
+  "col-span-12 lg:col-span-7",
+  "col-span-12",
 ] as const;
 
 export default function WorksBrowser({ works }: WorksBrowserProps) {

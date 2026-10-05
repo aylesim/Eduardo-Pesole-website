@@ -18,10 +18,12 @@ const HOME_SPANS = [
   "col-span-12 lg:col-span-5",
   "col-span-12 lg:col-span-7",
   "col-span-12",
-  "col-span-12 lg:col-span-6",
-  "col-span-12 lg:col-span-6",
   "col-span-12 lg:col-span-7",
+  "col-span-12 lg:col-span-5",
+  "col-span-12 lg:col-span-5",
 ] as const;
+
+const SHOWREEL_POSTER = "/images/showreel-2025-poster.jpg";
 
 export default function IndexPage() {
   const site = getSite();
@@ -31,10 +33,10 @@ export default function IndexPage() {
   return (
     <>
       <HomeARoll
-        brandName={site.global.brand_name}
         roleLine={site.global.role_line}
         showreelUrl={site.global.showreel_video.url}
         showreelTitle={site.global.showreel_video.aria_label}
+        showreelPoster={SHOWREEL_POSTER}
         ctaLabel={site.global.showreel_cta}
       />
 
