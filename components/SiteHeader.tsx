@@ -64,12 +64,14 @@ export default function SiteHeader() {
           </a>
         </nav>
 
-        <MobileNav
-          open={menuOpen}
-          onOpenChange={setMenuOpen}
-          nav={nav}
-          mailHref={mailHref}
-        />
+        <div className="md:hidden">
+          <MobileNav
+            open={menuOpen}
+            onOpenChange={setMenuOpen}
+            nav={nav}
+            mailHref={mailHref}
+          />
+        </div>
       </div>
     </header>
   );
