@@ -1,21 +1,37 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import type { ServiceOffer } from "@/lib/types";
 
 type ContactFormProps = {
   email: string;
   fields: string[];
   submitLabel: string;
   successMessage: string;
+  services?: ServiceOffer[];
 };
+
+function topicPrefill(services: ServiceOffer[]) {
+  if (typeof window === "undefined") return "";
+  const hash = window.location.hash;
+  const query = hash.includes("?")
+    ? hash.slice(hash.indexOf("?") + 1)
+    : window.location.search.slice(1);
+  const topic = new URLSearchParams(query).get("topic");
+  if (!topic) return "";
+  const service = services.find((s) => s.id === topic);
+  return service ? `Inquiry: ${service.title}` : "";
+}
 
 export default function ContactForm({
   email,
   fields,
   submitLabel,
   successMessage,
+  services = [],
 }: ContactFormProps) {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [message] = useState(() => topicPrefill(services));
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,10 +39,10 @@ export default function ContactForm({
     const first = String(data.get("First Name") || "");
     const last = String(data.get("Last Name") || "");
     const from = String(data.get("Email") || "");
-    const message = String(data.get("Message") || "");
+    const bodyMessage = String(data.get("Message") || "");
     const subject = encodeURIComponent(`Contact from ${first} ${last}`.trim());
     const body = encodeURIComponent(
-      `From: ${first} ${last}\nEmail: ${from}\n\n${message}`,
+      `From: ${first} ${last}\nEmail: ${from}\n\n${bodyMessage}`,
     );
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     setStatus("sent");
@@ -42,20 +58,21 @@ export default function ContactForm({
         const isMessage = field === "Message";
         return (
           <label key={field} className="flex flex-col gap-1.5 text-sm">
-            <span className="font-meta text-muted">{field}</span>
+            <span className="font-meta">{field}</span>
             {isMessage ? (
               <textarea
                 name={field}
                 rows={5}
                 required
-                className="rounded-sm border border-line bg-surface px-3 py-2 font-[inherit] text-ink focus-ring"
+                defaultValue={message}
+                className="rounded-sm border border-border bg-surface px-3 py-2 font-[inherit] text-text"
               />
             ) : (
               <input
                 type={field === "Email" ? "email" : "text"}
                 name={field}
                 required={field === "Email" || field === "Message"}
-                className="rounded-sm border border-line bg-surface px-3 py-2 font-[inherit] text-ink focus-ring"
+                className="rounded-sm border border-border bg-surface px-3 py-2 font-[inherit] text-text"
               />
             )}
           </label>
@@ -63,7 +80,7 @@ export default function ContactForm({
       })}
       <button
         type="submit"
-        className="focus-ring self-start cursor-pointer border border-accent bg-accent px-5 py-2.5 font-meta text-base hover:opacity-90"
+        className="cursor-pointer self-start border border-primary bg-primary px-5 py-2.5 font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-base hover:opacity-90"
       >
         {submitLabel}
       </button>

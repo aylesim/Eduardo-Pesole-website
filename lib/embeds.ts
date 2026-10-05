@@ -23,9 +23,12 @@ export function youtubeId(url: string): string | null {
   }
 }
 
-export function youtubePosterUrl(url: string): string | null {
+export function youtubePosterUrl(
+  url: string,
+  quality: "maxresdefault" | "sddefault" | "hqdefault" = "maxresdefault",
+): string | null {
   const id = youtubeId(url);
-  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : null;
+  return id ? `https://i.ytimg.com/vi/${id}/${quality}.jpg` : null;
 }
 
 export function youtubeEmbedUrl(url: string): string | null {

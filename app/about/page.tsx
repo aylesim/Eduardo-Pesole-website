@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
 import ExpandableBio from "@/components/ExpandableBio";
+import LiteYouTube from "@/components/LiteYouTube";
 import ScrollReveal from "@/components/ScrollReveal";
-import ShowreelButton from "@/components/ShowreelButton";
 import { getSite } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -18,40 +18,46 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
       <ScrollReveal className="mb-16 space-y-8">
-        <p className="font-meta text-accent">About</p>
-        <h1 className="max-w-3xl text-4xl md:text-5xl">
-          {global.role_line}
-        </h1>
+        <p className="font-meta text-primary">About</p>
+        <h1 className="type-sheet-title max-w-4xl">{global.role_line}</h1>
         <ExpandableBio lead={about_lead} full={about_bio} />
-        <ShowreelButton
-          url={global.showreel_video.url}
-          label={global.showreel_cta}
-          ariaLabel={global.showreel_video.aria_label}
-        />
       </ScrollReveal>
 
-      <ScrollReveal className="mb-20 max-w-3xl space-y-4 border-t border-line pt-12">
-        <h2 className="text-2xl">Selected studios & credits</h2>
-        <p className="text-muted">
-          Point Blank Games · 505 Games · Oneoone Games · Glitch Studios · Call
-          and Response Studio · Barbican Centre · End of Nations · Nostro Hood
-          System
-        </p>
-        <p className="font-meta text-accent-secondary/80">
-          Drawn from existing bio text
-        </p>
+      <ScrollReveal className="mb-20 scroll-mt-24" >
+        <div id="showreel" className="scroll-mt-24 space-y-4">
+          <p className="font-meta text-secondary">Showreel 2025</p>
+          <LiteYouTube
+            url={global.showreel_video.url}
+            title={global.showreel_video.aria_label}
+            kind="youtube"
+          />
+        </div>
       </ScrollReveal>
 
-      <section id="contact" className="scroll-mt-24 border-t border-line pt-12">
+      <ScrollReveal className="mb-20 max-w-3xl space-y-4 border-t border-border pt-12">
+        <h2 className="type-h2">Selected credits</h2>
+        <ul className="flex flex-wrap gap-2">
+          {global.credits.map((credit) => (
+            <li
+              key={credit}
+              className="border border-border px-3 py-1.5 font-mono text-[0.75rem] uppercase tracking-[0.08em] text-muted"
+            >
+              {credit}
+            </li>
+          ))}
+        </ul>
+      </ScrollReveal>
+
+      <section id="contact" className="scroll-mt-24 border-t border-border pt-12">
         <ScrollReveal>
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
             <div className="space-y-6">
-              <h2 className="text-3xl">{contact.heading}</h2>
+              <h2 className="type-h2 text-[2rem]">{contact.heading}</h2>
               <ul className="space-y-3 text-lg">
                 <li>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="text-ink hover:text-accent"
+                    className="text-text hover:text-primary"
                   >
                     {contact.email}
                   </a>
@@ -59,7 +65,7 @@ export default function AboutPage() {
                 <li>
                   <a
                     href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                    className="text-ink hover:text-accent"
+                    className="text-text hover:text-primary"
                   >
                     {contact.phone}
                   </a>
@@ -70,7 +76,7 @@ export default function AboutPage() {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-ink hover:text-accent"
+                      className="text-text hover:text-primary"
                     >
                       {social.label}
                     </a>
@@ -83,6 +89,7 @@ export default function AboutPage() {
               fields={contact.form_fields}
               submitLabel={contact.form_submit_label}
               successMessage={contact.form_success_message}
+              services={site.services}
             />
           </div>
         </ScrollReveal>

@@ -63,6 +63,7 @@ export default function MediaSwitch({
           alt={current.alt || title}
           fill
           className="object-cover"
+          style={{ objectPosition: current.focal || "50% 50%" }}
           sizes="(max-width: 768px) 100vw, 900px"
           unoptimized={current.src.startsWith("http")}
         />

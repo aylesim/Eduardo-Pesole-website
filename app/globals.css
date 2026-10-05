@@ -1,24 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: var(--font-display), "Neue Haas Grotesk", "Helvetica Neue",
-    sans-serif;
-  --font-mono: var(--font-mono), "IBM Plex Mono", ui-monospace, monospace;
+  --color-base: #0b0b0e;
+  --color-surface: #141418;
+  --color-surface-elevated: #1e1e24;
+  --color-text: #f2ede4;
+  --color-ink: #f2ede4;
+  --color-muted: #9c968c;
+  --color-border: #2c2c34;
+  --color-line: #2c2c34;
+  --color-primary: #ff4a7d;
+  --color-accent: #ff4a7d;
+  --color-secondary: #6b7bff;
+  --color-accent-secondary: #6b7bff;
+  --color-focus: #ffd166;
 
-  --color-base: #0a0a0b;
-  --color-surface: #141416;
-  --color-surface-elevated: #1c1c20;
-  --color-ink: #f2f0eb;
-  --color-muted: #9a9690;
-  --color-line: #2a2a2e;
-  --color-accent: #2dd4bf;
-  --color-accent-secondary: #f59e0b;
-
+  --ease-forward: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-heavy: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 180ms;
-  --duration-med: 420ms;
-  --duration-slow: 720ms;
+  --duration-base: 320ms;
+  --duration-med: 320ms;
+  --duration-settle: 650ms;
+  --duration-slow: 650ms;
+}
+
+@theme inline {
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
@@ -27,33 +36,82 @@
   }
 
   body {
-    @apply bg-base font-display text-ink antialiased;
+    @apply bg-base font-body text-text antialiased;
   }
 
   a {
-    @apply text-ink no-underline transition-colors duration-(--duration-fast);
+    @apply text-text no-underline transition-colors duration-(--duration-fast);
   }
 
   a:hover {
-    @apply text-accent;
+    @apply text-primary;
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    background: var(--color-primary);
+    color: var(--color-base);
   }
 
   img {
     @apply max-w-full h-auto;
   }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
 }
 
 @layer utilities {
   .font-meta {
-    @apply font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted;
+    @apply font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-muted;
   }
 
-  .focus-ring {
-    @apply outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-base;
+  .font-meta-value {
+    @apply font-mono text-[0.8125rem] font-normal text-text;
+  }
+
+  .type-hero {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 112%;
+    font-size: clamp(3.5rem, 9vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .type-index-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 112%;
+    font-size: clamp(2.25rem, 5vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+  }
+
+  .type-sheet-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 112%;
+    font-size: clamp(2.5rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.015em;
+  }
+
+  .type-h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.1;
+  }
+
+  .type-body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    max-width: 60ch;
   }
 }
 

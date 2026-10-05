@@ -14,7 +14,7 @@ export function getSite(): SiteContent {
 }
 
 export function getWorks(): WorkItem[] {
-  return site.works;
+  return [...site.works].sort((a, b) => a.order - b.order);
 }
 
 export function getWorkBySlug(slug: string): WorkItem | undefined {
@@ -23,25 +23,30 @@ export function getWorkBySlug(slug: string): WorkItem | undefined {
     (w) =>
       w.slug === slug ||
       w.slug === decoded ||
-      encodeURI(w.slug) === slug ||
-      w.legacySlug === slug ||
-      w.legacySlug === decoded,
+      encodeURI(w.slug) === slug,
   );
 }
 
 export function getInternalWorks(): WorkItem[] {
-  return site.works.filter((w) => !w.externalUrl);
+  return getWorks().filter((w) => !w.externalUrl);
 }
 
 export function getMusicWorks(): WorkItem[] {
-  return site.works.filter((w) => w.category === "music");
+  return getWorks().filter((w) => w.category === "music");
 }
 
 export function getWorksByCategory(
   category: WorkCategory | "all",
 ): WorkItem[] {
-  if (category === "all") return site.works;
-  return site.works.filter((w) => w.category === category);
+  if (category === "all") return getWorks();
+  return getWorks()
+    .filter((w) => w.category === category)
+    .sort((a, b) => {
+      const ya = Number(a.year) || 0;
+      const yb = Number(b.year) || 0;
+      if (yb !== ya) return yb - ya;
+      return a.order - b.order;
+    });
 }
 
 export function getAdjacentWorks(slug: string): {
@@ -49,9 +54,7 @@ export function getAdjacentWorks(slug: string): {
   next: WorkItem | null;
 } {
   const list = getInternalWorks();
-  const index = list.findIndex(
-    (w) => w.slug === slug || w.legacySlug === slug,
-  );
+  const index = list.findIndex((w) => w.slug === slug);
   if (index === -1) return { prev: null, next: null };
   return {
     prev: list[(index - 1 + list.length) % list.length] ?? null,
@@ -78,4 +81,10 @@ export function workHref(work: WorkItem): string {
 
 export function isExternalWork(work: WorkItem): boolean {
   return Boolean(work.externalUrl);
+}
+
+export function plateSrc(work: WorkItem): string | null {
+  if (work.stills[0]?.src) return work.stills[0].src;
+  if (work.poster) return work.poster;
+  return work.posterFallback ?? null;
 }

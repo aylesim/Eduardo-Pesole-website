@@ -1,35 +1,35 @@
 /** @type {import('next').NextConfig} */
-const projectRedirects = [
-  "stray-blade",
-  "games-moongaze",
-  "games-neural-investigation",
-  "feel-the-sound",
-  "sound-art-unstable-matter",
-  "collabs-art",
-  "sound-art-wasch-collective",
-  "sound-art-the-veil",
-  "copy-of-ineffable-qualitè-2019",
-  "movies-anedonia",
-  "movies-petricore",
-  "from-now-on",
-  "movies-per-non-sparire-lentamente",
-  "movies-balena-spiaggiata",
-  "movies-ori",
-  "movies-escape",
-  "movies-ineffable-qualitè",
-].flatMap((slug) => {
-  const encoded = encodeURI(slug);
+const legacyProjectRedirects = [
+  ["stray-blade", "stray-blade"],
+  ["games-moongaze", "moongaze"],
+  ["games-neural-investigation", "neural-investigations"],
+  ["feel-the-sound", "feel-the-sound"],
+  ["sound-art-unstable-matter", "unstable-matter"],
+  ["collabs-art", "berlin-winter"],
+  ["sound-art-wasch-collective", "wasch-collective"],
+  ["sound-art-the-veil", "the-veil"],
+  ["copy-of-ineffable-qualitè-2019", "betahaus-ads"],
+  ["movies-anedonia", "anedonia"],
+  ["movies-petricore", "petricore"],
+  ["from-now-on", "from-now-on"],
+  ["movies-per-non-sparire-lentamente", "per-non-sparire-lentamente"],
+  ["movies-balena-spiaggiata", "la-storia-della-balena-spiaggiata"],
+  ["movies-ori", "ori-and-the-will-of-the-wisps"],
+  ["movies-escape", "escape"],
+  ["movies-ineffable-qualitè", "ineffable-qualite"],
+].flatMap(([legacy, slug]) => {
+  const encodedLegacy = encodeURI(legacy);
   const entries = [
     {
-      source: `/${slug}`,
-      destination: `/works/${encoded}`,
+      source: `/${legacy}`,
+      destination: `/works/${slug}`,
       statusCode: 308,
     },
   ];
-  if (encoded !== slug) {
+  if (encodedLegacy !== legacy) {
     entries.push({
-      source: `/${encoded}`,
-      destination: `/works/${encoded}`,
+      source: `/${encodedLegacy}`,
+      destination: `/works/${slug}`,
       statusCode: 308,
     });
   }
@@ -40,14 +40,8 @@ const nextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "i.ytimg.com",
-      },
-      {
-        protocol: "https",
-        hostname: "static.wixstatic.com",
-      },
+      { protocol: "https", hostname: "i.ytimg.com" },
+      { protocol: "https", hostname: "static.wixstatic.com" },
     ],
   },
   async redirects() {
@@ -64,15 +58,15 @@ const nextConfig = {
       { source: "/music", destination: "/works", statusCode: 308 },
       {
         source: "/copy-of-ineffable-qualite-2019",
-        destination: "/works/copy-of-ineffable-qualit%C3%A8-2019",
+        destination: "/works/betahaus-ads",
         statusCode: 308,
       },
       {
         source: "/movies-ineffable-qualite",
-        destination: "/works/movies-ineffable-qualit%C3%A8",
+        destination: "/works/ineffable-qualite",
         statusCode: 308,
       },
-      ...projectRedirects,
+      ...legacyProjectRedirects,
     ];
   },
 };

@@ -37,7 +37,7 @@ export default function LiteYouTube({
 
   if (embed.type !== "youtube") {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className="text-accent">
+      <a href={url} target="_blank" rel="noopener noreferrer" className="text-primary">
         {title || url}
       </a>
     );
@@ -49,7 +49,7 @@ export default function LiteYouTube({
     return (
       <button
         type="button"
-        className="focus-ring group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-sm bg-surface"
+        className="group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-sm bg-surface-elevated"
         onClick={() => setPlaying(true)}
         aria-label={`Play ${title}`}
       >
@@ -58,14 +58,14 @@ export default function LiteYouTube({
             src={posterSrc}
             alt=""
             fill
-            className="object-cover transition-transform duration-(--duration-med) group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-(--duration-base) group-hover:scale-[1.03]"
             sizes="(max-width: 768px) 100vw, 800px"
             unoptimized={posterSrc.startsWith("http")}
           />
         ) : null}
         <span className="absolute inset-0 bg-base/35" />
         <span className="absolute inset-0 flex items-center justify-center">
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-base transition-transform duration-(--duration-fast) group-hover:scale-105">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-base transition-transform duration-(--duration-fast) group-hover:scale-105">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
               <path d="M8 5v14l11-7z" />
             </svg>
@@ -76,7 +76,7 @@ export default function LiteYouTube({
   }
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-sm bg-surface">
+    <div className="relative aspect-video w-full overflow-hidden rounded-sm bg-surface-elevated">
       <iframe
         title={title}
         src={`${embed.src}?autoplay=1&rel=0`}

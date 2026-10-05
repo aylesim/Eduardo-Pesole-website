@@ -27,10 +27,10 @@ export default function FilterChips({
             type="button"
             role="tab"
             aria-selected={selected}
-            className={`focus-ring cursor-pointer rounded-sm border px-3 py-1.5 font-meta transition-colors duration-(--duration-fast) ${
+            className={`cursor-pointer rounded-sm border px-3 py-1.5 font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] transition-colors duration-(--duration-fast) ${
               selected
-                ? "border-accent bg-accent/15 text-accent"
-                : "border-line text-muted hover:border-muted hover:text-ink"
+                ? "border-primary bg-primary text-base"
+                : "border-border text-muted hover:text-text"
             }`}
             onClick={() => onChange(filter.id)}
           >
