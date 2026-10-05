@@ -100,7 +100,7 @@
   .type-sheet-title {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(3.5rem, 9vw, 9rem);
+    font-size: clamp(3rem, 9vw, 9rem);
     line-height: 0.84;
     letter-spacing: -0.055em;
   }
