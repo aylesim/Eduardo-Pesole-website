@@ -74,7 +74,7 @@ export function GalleryScrollProvider({
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       const s = store.current;
-      const next = s.current + (s.target - s.current) * (1 - Math.exp(-dt * 4.2));
+      const next = s.current + (s.target - s.current) * (1 - Math.exp(-dt * 3.2));
       s.velocity = (next - s.current) / Math.max(dt, 0.001);
       s.current = next;
 
@@ -95,13 +95,15 @@ export function GalleryScrollProvider({
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
-      const delta = e.deltaY;
-      const step = Math.sign(delta) * Math.min(1, Math.abs(delta) / 320);
-      store.current.target = clampIndex(store.current.target + step * 0.55);
+      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      const magnitude = Math.min(1.15, Math.abs(delta) / 180);
+      store.current.target = clampIndex(
+        store.current.target + Math.sign(delta) * magnitude * 0.72,
+      );
       window.clearTimeout(snapTimer.current);
       snapTimer.current = window.setTimeout(() => {
         store.current.target = Math.round(store.current.target);
-      }, 140);
+      }, 180);
     };
 
     const onKey = (e: KeyboardEvent) => {

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useLayoutEffect, useState, useSyncExternalStore } from "react";
 import IndexGalleryFallback from "@/components/index-gallery/IndexGalleryFallback";
 import type { GalleryWork } from "@/lib/gallery-works";
 
@@ -49,26 +49,43 @@ function hasWebGL() {
   }
 }
 
+function useIsClient() {
+  return useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+}
+
 function usePreferFallback() {
   const reduced = useMediaQuery("(prefers-reduced-motion: reduce)", false);
-  const narrow = useMediaQuery("(max-width: 900px)", true);
   const webgl = useSyncExternalStore(
     () => () => {},
     hasWebGL,
     () => false,
   );
-  return reduced || narrow || !webgl;
+  return reduced || !webgl;
 }
 
 export default function IndexGallery({ works, brandName }: Props) {
+  const client = useIsClient();
   const fallback = usePreferFallback();
+  const compact = useMediaQuery("(max-width: 760px)", false);
   const [active, setActive] = useState(0);
   const work = works[active] ?? works[0];
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.classList.add("index-embraced");
     return () => document.documentElement.classList.remove("index-embraced");
   }, []);
+
+  if (!client) {
+    return (
+      <div className="index-gallery-root relative bg-[#eeeeec] text-[#151417]">
+        <GallerySkeleton />
+      </div>
+    );
+  }
 
   if (fallback) {
     return (
@@ -80,15 +97,19 @@ export default function IndexGallery({ works, brandName }: Props) {
 
   return (
     <div className="index-gallery-root relative h-[100svh] overflow-hidden bg-[#eeeeec] text-[#151417]">
-      <IndexGalleryCanvas works={works} onActiveChange={setActive} />
+      <IndexGalleryCanvas
+        works={works}
+        compact={compact}
+        onActiveChange={setActive}
+      />
 
       {work ? (
-        <aside className="pointer-events-none absolute inset-y-0 right-0 z-10 flex w-[min(42vw,420px)] flex-col justify-center pr-[clamp(16px,4vw,56px)] pl-6">
+        <aside className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end px-[clamp(16px,4vw,48px)] pb-16 md:inset-y-0 md:right-0 md:bottom-auto md:left-auto md:w-[min(38vw,460px)] md:justify-center md:pr-[clamp(16px,4vw,56px)] md:pb-0 md:pl-6">
           <p className="font-mono text-[0.6875rem] tracking-[0.14em] uppercase text-[#151417]/55">
             PR.{String(active + 1).padStart(2, "0")}/
             {String(works.length).padStart(2, "0")}
           </p>
-          <h1 className="mt-3 font-display text-[clamp(2.5rem,6vw,5.5rem)] font-extrabold leading-[0.92] tracking-[-0.03em] text-[#151417]">
+          <h1 className="mt-3 max-w-[12ch] font-display text-[clamp(2.2rem,5.2vw,4.6rem)] font-extrabold leading-[0.92] tracking-[-0.03em] text-[#151417]">
             {work.title}
           </h1>
           <p className="mt-4 font-mono text-[0.75rem] tracking-[0.1em] uppercase text-[#151417]/70">
@@ -98,7 +119,7 @@ export default function IndexGallery({ works, brandName }: Props) {
             href={work.href}
             target={work.external ? "_blank" : undefined}
             rel={work.external ? "noopener noreferrer" : undefined}
-            className="pointer-events-auto mt-8 w-fit font-mono text-[0.75rem] tracking-[0.12em] uppercase text-[#151417] underline-offset-4 hover:underline"
+            className="pointer-events-auto mt-6 w-fit font-mono text-[0.75rem] tracking-[0.12em] uppercase text-[#151417] underline-offset-4 hover:underline md:mt-8"
           >
             Open project{work.external ? " ↗" : " →"}
           </Link>
