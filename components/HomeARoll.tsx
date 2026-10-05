@@ -4,38 +4,40 @@ import { useState } from "react";
 import ShowreelStage from "@/components/ShowreelStage";
 
 type HomeARollProps = {
-  brandName: string;
   roleLine: string;
   showreelUrl: string;
   showreelTitle: string;
+  showreelPoster?: string | null;
   ctaLabel: string;
 };
 
 export default function HomeARoll({
-  brandName,
   roleLine,
   showreelUrl,
   showreelTitle,
+  showreelPoster,
   ctaLabel,
 }: HomeARollProps) {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section className="relative min-h-[85svh] lg:min-h-[100svh]">
-      <div className="page-gutter mx-auto grid max-w-[1536px] gap-8 py-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)] lg:items-end lg:gap-10 lg:py-10">
-        <div className="order-1">
+    <section className="relative min-h-[100svh]">
+      <div className="page-gutter mx-auto grid max-w-[1536px] gap-8 py-8 lg:min-h-[100svh] lg:grid-cols-12 lg:items-end lg:gap-8 lg:py-10">
+        <div className="order-1 lg:col-span-8">
           <ShowreelStage
             url={showreelUrl}
             title={showreelTitle}
+            poster={showreelPoster}
             ctaLabel={ctaLabel}
             playing={playing}
             onPlayingChange={setPlaying}
           />
         </div>
-        <div className="order-2 flex flex-col justify-end gap-5 pb-2 lg:min-h-[42vh] lg:pb-6">
+        <div className="order-2 flex flex-col justify-end gap-4 pb-2 lg:col-span-4 lg:pb-6">
           <p className="font-meta">Showreel · 2025</p>
-          <h1 className="type-display text-text">{brandName}</h1>
-          <p className="font-meta">{roleLine}</p>
+          <h1 className="type-h2 text-[clamp(1.25rem,2vw,1.75rem)] text-text">
+            {roleLine}
+          </h1>
           {!playing ? (
             <button
               type="button"
