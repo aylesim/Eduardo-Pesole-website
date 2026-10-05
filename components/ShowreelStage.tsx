@@ -37,6 +37,7 @@ export default function ShowreelStage({
               title={title}
               kind="youtube"
               ctaLabel={ctaLabel}
+              hideCtaChrome
               onPlayIntent={() => onPlayingChange(true)}
             />
           </motion.div>

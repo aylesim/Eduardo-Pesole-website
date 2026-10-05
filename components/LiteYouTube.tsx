@@ -12,6 +12,7 @@ type LiteYouTubeProps = {
   autoPlay?: boolean;
   onPlayIntent?: () => void;
   ctaLabel?: string;
+  hideCtaChrome?: boolean;
 };
 
 export default function LiteYouTube({
@@ -22,6 +23,7 @@ export default function LiteYouTube({
   autoPlay = false,
   onPlayIntent,
   ctaLabel,
+  hideCtaChrome = false,
 }: LiteYouTubeProps) {
   const [playing, setPlaying] = useState(autoPlay);
   const embed = getEmbedSrc(kind, url);
@@ -74,11 +76,13 @@ export default function LiteYouTube({
           />
         ) : null}
         <span className="absolute inset-0 bg-base/35" />
-        <span className="absolute inset-0 flex items-center justify-center">
-          <span className="btn-accent pointer-events-none">
-            {ctaLabel || "Play"}
+        {!hideCtaChrome ? (
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="btn-accent pointer-events-none">
+              {ctaLabel || "Play"}
+            </span>
           </span>
-        </span>
+        ) : null}
       </button>
     );
   }
