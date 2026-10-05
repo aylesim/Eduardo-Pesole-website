@@ -54,16 +54,11 @@ export function GalleryScrollProvider({
   const touchY = useRef<number | null>(null);
   const snapTimer = useRef(0);
 
-  const clampIndex = useCallback(
-    (v: number) => Math.min(Math.max(v, 0), Math.max(count - 1, 0)),
-    [count],
-  );
-
   const setTarget = useCallback(
     (index: number) => {
-      store.current.target = clampIndex(index);
+      store.current.target = index;
     },
-    [clampIndex],
+    [],
   );
 
   useEffect(() => {
@@ -78,7 +73,8 @@ export function GalleryScrollProvider({
       s.velocity = (next - s.current) / Math.max(dt, 0.001);
       s.current = next;
 
-      const active = Math.round(next);
+      const active =
+        count > 0 ? ((Math.round(next) % count) + count) % count : 0;
       if (active !== lastActive) {
         lastActive = active;
         setActiveIndex(active);
@@ -90,16 +86,14 @@ export function GalleryScrollProvider({
 
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [onActiveChange]);
+  }, [count, onActiveChange]);
 
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
       const magnitude = Math.min(1.15, Math.abs(delta) / 180);
-      store.current.target = clampIndex(
-        store.current.target + Math.sign(delta) * magnitude * 0.72,
-      );
+      store.current.target += Math.sign(delta) * magnitude * 0.72;
       window.clearTimeout(snapTimer.current);
       snapTimer.current = window.setTimeout(() => {
         store.current.target = Math.round(store.current.target);
@@ -125,7 +119,7 @@ export function GalleryScrollProvider({
       const y = e.touches[0]?.clientY ?? touchY.current;
       const dy = touchY.current - y;
       touchY.current = y;
-      store.current.target = clampIndex(store.current.target + dy / 280);
+      store.current.target += dy / 280;
     };
     const onTouchEnd = () => {
       touchY.current = null;
@@ -146,7 +140,7 @@ export function GalleryScrollProvider({
       window.removeEventListener("touchend", onTouchEnd);
       window.clearTimeout(snapTimer.current);
     };
-  }, [clampIndex, setTarget]);
+  }, [setTarget]);
 
   const api = useMemo<ScrollApi>(
     () => ({
