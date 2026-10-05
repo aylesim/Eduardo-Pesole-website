@@ -12,11 +12,12 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const [opaque, setOpaque] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const mailHref = `mailto:${site.contact.email}`;
+  const mailHref = "/about#contact";
+  const isIndex = pathname === "/";
 
   useEffect(() => {
     function onScroll() {
-      setOpaque(window.scrollY > 24);
+      setOpaque(window.scrollY > 8);
     }
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -25,22 +26,21 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-colors duration-(--duration-fast) ease-(--ease-oxide) ${
-        opaque ? "border-b border-border bg-surface" : "border-b border-transparent bg-transparent"
+      className={`sticky top-0 z-40 transition-colors duration-(--duration-ui) ease-(--ease-ui) ${
+        opaque || !isIndex
+          ? "border-b border-border bg-surface"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
       <div className="page-gutter mx-auto flex max-w-[1536px] items-center justify-between gap-4 py-4">
         <Link
           href="/"
-          className="font-display text-[clamp(0.9375rem,1.2vw,1.125rem)] font-bold tracking-[-0.02em] no-underline hover:text-text"
+          className="font-display text-[0.9375rem] font-bold tracking-[-0.02em] no-underline hover:text-text"
         >
           {site.global.brand_name}
         </Link>
 
-        <nav
-          className="hidden items-center gap-7 md:flex"
-          aria-label="Main"
-        >
+        <nav className="hidden items-center gap-7 md:flex" aria-label="Main">
           {nav.map((item) => {
             const active =
               item.href === "/"
@@ -59,9 +59,9 @@ export default function SiteHeader() {
               </Link>
             );
           })}
-          <a href={mailHref} className="btn-text text-muted hover:text-accent">
+          <Link href={mailHref} className="btn-text text-muted hover:text-accent">
             Mail
-          </a>
+          </Link>
         </nav>
 
         <div className="md:hidden">

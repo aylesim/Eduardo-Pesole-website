@@ -52,7 +52,9 @@ export default function MediaSwitch({
               <button
                 type="button"
                 className={`relative aspect-[16/10] w-full cursor-pointer overflow-hidden bg-elevated ${
-                  activeIndex === i ? "outline outline-2 outline-offset-2 outline-accent" : ""
+                  activeIndex === i
+                    ? "outline outline-2 outline-offset-2 outline-focus"
+                    : ""
                 }`}
                 onMouseEnter={() => setHeld(i)}
                 onMouseLeave={() => setHeld(null)}

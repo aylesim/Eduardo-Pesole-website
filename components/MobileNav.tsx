@@ -23,11 +23,7 @@ export default function MobileNav({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>
-        <button
-          type="button"
-          className="btn-text md:hidden"
-          aria-label="Open menu"
-        >
+        <button type="button" className="btn-text" aria-label="Open menu">
           Menu
         </button>
       </Dialog.Trigger>
@@ -39,7 +35,7 @@ export default function MobileNav({
             <Dialog.Description className="sr-only">
               Site navigation links
             </Dialog.Description>
-            <span className="font-display text-sm font-semibold tracking-[-0.02em]">
+            <span className="font-display text-sm font-bold tracking-[-0.02em]">
               Eduardo Pesole
             </span>
             <Dialog.Close asChild>
@@ -61,7 +57,7 @@ export default function MobileNav({
                 <Dialog.Close asChild key={item.href}>
                   <Link
                     href={item.href}
-                    className={`font-display text-[2rem] font-semibold tracking-[-0.02em] no-underline ${
+                    className={`font-display text-[2rem] font-bold tracking-[-0.02em] no-underline ${
                       active
                         ? "text-text underline decoration-accent decoration-2 underline-offset-8"
                         : "text-text hover:text-accent"
@@ -74,12 +70,12 @@ export default function MobileNav({
               );
             })}
             <Dialog.Close asChild>
-              <a
+              <Link
                 href={mailHref}
-                className="font-display text-[2rem] font-semibold tracking-[-0.02em] text-text no-underline hover:text-accent"
+                className="font-display text-[2rem] font-bold tracking-[-0.02em] text-text no-underline hover:text-accent"
               >
                 Mail
-              </a>
+              </Link>
             </Dialog.Close>
           </nav>
         </Dialog.Content>

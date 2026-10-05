@@ -5,24 +5,23 @@ export default function Footer() {
   const site = getSite();
   return (
     <footer className="mt-20 border-t border-border">
-      <div className="page-gutter mx-auto flex max-w-[1536px] flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
+      <div className="page-gutter mx-auto flex max-w-[1536px] flex-col gap-5 py-8 md:flex-row md:items-center md:justify-between">
         <p className="font-meta">{site.global.footer}</p>
         <div className="flex flex-wrap gap-5">
-          <Link href="/works" className="font-ui text-muted hover:text-accent">
-            Works
+          <Link href="/about#contact" className="font-ui text-muted hover:text-accent">
+            Mail
           </Link>
-          <Link
-            href="/services"
-            className="font-ui text-muted hover:text-accent"
-          >
-            Services
-          </Link>
-          <Link
-            href="/about#contact"
-            className="font-ui text-muted hover:text-accent"
-          >
-            Contact
-          </Link>
+          {site.contact.socials.map((social) => (
+            <a
+              key={social.url}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-ui text-muted hover:text-accent"
+            >
+              {social.label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

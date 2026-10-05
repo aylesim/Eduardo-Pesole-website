@@ -1,28 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-base: #0c0b0a;
-  --color-surface: #161412;
-  --color-elevated: #221e1a;
-  --color-text: #f3eee6;
-  --color-muted: #958c82;
-  --color-border: #2e2924;
-  --color-accent: #ff5e3a;
-  --color-accent-ink: #0c0b0a;
-  --color-focus: #f0d35c;
-  --color-rail: #a89880;
+  --color-base: #0a0a09;
+  --color-surface: #141413;
+  --color-elevated: #1c1b19;
+  --color-text: #f2efe8;
+  --color-muted: #8a8780;
+  --color-border: #2a2926;
+  --color-accent: #f5a623;
+  --color-accent-ink: #0a0a09;
+  --color-focus: #ffd166;
 
   --radius-sm: 2px;
   --radius-md: 4px;
-  --radius-dock: 9999px;
 
-  --ease-oxide: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-fast: 160ms;
-  --duration-base: 280ms;
-  --duration-settle: 600ms;
+  --ease-cut: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-ui: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-cut: 480ms;
+  --duration-ui: 180ms;
+  --duration-enter: 320ms;
 
-  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
@@ -37,7 +37,7 @@
   }
 
   a {
-    @apply text-text no-underline transition-colors duration-(--duration-fast) ease-(--ease-oxide);
+    @apply text-text no-underline transition-colors duration-(--duration-ui) ease-(--ease-ui);
   }
 
   a:hover {
@@ -65,29 +65,37 @@
   }
 
   .font-meta {
-    @apply font-body text-[0.6875rem] font-medium tracking-[0.12em] text-muted uppercase;
+    @apply font-mono text-[0.6875rem] font-medium tracking-[0.1em] text-muted uppercase;
   }
 
   .font-meta-value {
-    @apply font-body text-[0.8125rem] font-normal text-text;
+    @apply font-mono text-[0.8125rem] font-normal text-text;
   }
 
   .font-ui {
-    @apply font-body text-[0.75rem] font-medium tracking-[0.06em];
+    @apply font-mono text-[0.75rem] font-medium tracking-[0.08em] uppercase;
+  }
+
+  .type-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.75rem, 7vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
   }
 
   .type-sheet-title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(2.25rem, 5.5vw, 4.75rem);
-    line-height: 0.95;
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
+    line-height: 0.98;
   }
 
   .type-h2 {
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-    line-height: 1.05;
+    font-weight: 700;
+    font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+    line-height: 1.15;
   }
 
   .type-body {
@@ -95,18 +103,32 @@
     font-weight: 400;
     font-size: 1.0625rem;
     line-height: 1.65;
-    max-width: 58ch;
+    max-width: 60ch;
+  }
+
+  .type-lead {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1.7;
+    max-width: 60ch;
   }
 
   .btn-accent {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-md bg-accent px-5 py-2.5 font-body text-[0.6875rem] font-medium tracking-[0.1em] text-accent-ink uppercase transition-opacity duration-(--duration-fast) ease-(--ease-oxide) hover:opacity-90;
+    @apply inline-flex cursor-pointer items-center justify-center rounded-md bg-accent px-5 py-2.5 font-mono text-[0.75rem] font-medium tracking-[0.08em] text-accent-ink uppercase transition-opacity duration-(--duration-ui) ease-(--ease-ui) hover:opacity-90;
   }
 
   .btn-ghost {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-md border border-border px-5 py-2.5 font-body text-[0.6875rem] font-medium tracking-[0.1em] text-text uppercase transition-colors duration-(--duration-fast) ease-(--ease-oxide) hover:border-accent;
+    @apply inline-flex cursor-pointer items-center justify-center rounded-md border border-border px-5 py-2.5 font-mono text-[0.75rem] font-medium tracking-[0.08em] text-text uppercase transition-colors duration-(--duration-ui) ease-(--ease-ui) hover:border-accent;
   }
 
   .btn-text {
-    @apply inline-flex cursor-pointer items-center font-body text-[0.8125rem] font-medium tracking-[0.04em] text-text transition-colors duration-(--duration-fast) ease-(--ease-oxide) hover:text-accent;
+    @apply inline-flex cursor-pointer items-center font-mono text-[0.75rem] font-medium tracking-[0.08em] text-text uppercase transition-colors duration-(--duration-ui) ease-(--ease-ui) hover:text-accent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }

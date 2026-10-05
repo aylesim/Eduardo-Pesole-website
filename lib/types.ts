@@ -62,6 +62,8 @@ export type ExternalLink = {
 
 export type WorkCategory = "games" | "art-collabs" | "movies" | "music";
 
+export type FilterId = "selected" | "all" | WorkCategory;
+
 export type WorkItem = {
   slug: string;
   legacyPath: string | null;
@@ -89,6 +91,7 @@ export type WorkItem = {
   externalLinks: ExternalLink[];
   order: number;
   focal: string;
+  selected?: boolean;
 };
 
 export type ServiceOffer = {
@@ -101,7 +104,7 @@ export type ServiceOffer = {
 };
 
 export type CategoryFilter = {
-  id: "all" | WorkCategory;
+  id: FilterId;
   label: string;
 };
 

@@ -1,6 +1,7 @@
 import siteData from "@/content/site.json";
 import type {
   CategoryFilter,
+  FilterId,
   ServiceOffer,
   SiteContent,
   WorkCategory,
@@ -8,6 +9,17 @@ import type {
 } from "@/lib/types";
 
 const site = siteData as SiteContent;
+
+export const SELECTED_SLUGS = [
+  "stray-blade",
+  "feel-the-sound",
+  "unstable-matter",
+  "moongaze",
+  "berlin-winter",
+  "hypocyrta-glabra",
+  "betahaus-ads",
+  "petricore",
+] as const;
 
 export function getSite(): SiteContent {
   return site;
@@ -31,22 +43,31 @@ export function getInternalWorks(): WorkItem[] {
   return getWorks().filter((w) => !w.externalUrl);
 }
 
-export function getMusicWorks(): WorkItem[] {
-  return getWorks().filter((w) => w.category === "music");
+export function getSelectedWorks(limit?: number): WorkItem[] {
+  const bySlug = new Map(getWorks().map((w) => [w.slug, w]));
+  const list = SELECTED_SLUGS.map((slug) => bySlug.get(slug)).filter(
+    (w): w is WorkItem => Boolean(w),
+  );
+  return typeof limit === "number" ? list.slice(0, limit) : list;
 }
 
-export function getWorksByCategory(
-  category: WorkCategory | "all",
-): WorkItem[] {
-  if (category === "all") return getWorks();
+export function getWorksByFilter(filter: FilterId): WorkItem[] {
+  if (filter === "selected") return getSelectedWorks();
+  if (filter === "all") return getWorks();
   return getWorks()
-    .filter((w) => w.category === category)
+    .filter((w) => w.category === filter)
     .sort((a, b) => {
       const ya = Number(a.year) || 0;
       const yb = Number(b.year) || 0;
       if (yb !== ya) return yb - ya;
       return a.order - b.order;
     });
+}
+
+export function getWorksByCategory(
+  category: WorkCategory | "all",
+): WorkItem[] {
+  return getWorksByFilter(category);
 }
 
 export function getAdjacentWorks(slug: string): {
@@ -94,4 +115,18 @@ export function plateSrc(work: WorkItem): string | null {
   if (work.stills[0]?.src) return work.stills[0].src;
   if (work.poster) return work.poster;
   return work.posterFallback ?? null;
+}
+
+export function parseFilterParam(value: string | null): FilterId {
+  if (
+    value === "selected" ||
+    value === "all" ||
+    value === "games" ||
+    value === "art-collabs" ||
+    value === "movies" ||
+    value === "music"
+  ) {
+    return value;
+  }
+  return "selected";
 }

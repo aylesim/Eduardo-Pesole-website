@@ -15,7 +15,7 @@ export default function WorksPage() {
   return (
     <div className="page-gutter mx-auto max-w-[1536px] py-14 md:py-20">
       <header className="mb-10 space-y-3">
-        <h1 className="type-h2">Works</h1>
+        <h1 className="type-sheet-title">Works</h1>
       </header>
       <Suspense fallback={<div className="h-40" />}>
         <WorksBrowser works={works} />

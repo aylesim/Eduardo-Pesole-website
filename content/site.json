@@ -21,14 +21,14 @@
       }
     ],
     "footer": "© 2026 Eduardo Pesole",
-    "hero_tagline": "Sound designer · Artist · Composer",
-    "showreel_cta": "Showreel",
+    "hero_tagline": "Sound Designer · Sound Artist · Berlin",
+    "showreel_cta": "Play showreel",
     "showreel_video": {
       "url": "https://www.youtube.com/watch?v=emp2CZhNFGI",
       "aria_label": "Showreel 2025"
     },
     "meta_description_home": "Eduardo pesole is a passionate sound designer, sound explorer and composer.",
-    "role_line": "Sound designer · Artist · Composer",
+    "role_line": "Sound Designer · Sound Artist · Berlin",
     "contact_cta": "Mail",
     "brand_name": "Eduardo Pesole",
     "credits": [
@@ -1223,32 +1223,32 @@
     {
       "id": "games",
       "title": "Game & Interactive Audio",
-      "line1": "Sound design, tech audio and implementation in Wwise and Unreal.",
-      "line2": "Systems, spatial mix and optimization, from prototype to ship.",
+      "line1": "Sound design, tech audio and Wwise/Unreal implementation — systems, spatial mix, optimization.",
+      "line2": "",
       "cta": "Inquire",
       "isPlaceholder": false
     },
     {
       "id": "installations",
       "title": "Installation & Spatial Sound",
-      "line1": "Multichannel sound for exhibitions, AV installations and digital twins.",
-      "line2": "From speaker simulation to on-site tuning.",
+      "line1": "Multichannel for exhibitions, AV installs, digital twins — simulation to on-site tuning.",
+      "line2": "",
       "cta": "Collaborate",
       "isPlaceholder": false
     },
     {
       "id": "composition",
       "title": "Composition for Film, Fashion & Ads",
-      "line1": "Original scores and sonic identities for films, collections and campaigns.",
-      "line2": "Analog synths and granular textures, written to picture.",
+      "line1": "Scores and sonic identities written to picture.",
+      "line2": "",
       "cta": "Commission",
       "isPlaceholder": false
     },
     {
       "id": "mix",
       "title": "Mix & Post-Production",
-      "line1": "Sound editing, sound design and final mix for short film and video.",
-      "line2": "Production sound on set when the project needs it.",
+      "line1": "Editing, design, final mix; production sound when needed.",
+      "line2": "",
       "cta": "Book",
       "isPlaceholder": false
     }
@@ -1293,7 +1293,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 1,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": true
     },
     {
       "slug": "feel-the-sound",
@@ -1331,7 +1332,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 2,
-      "focal": "55% 45%"
+      "focal": "55% 45%",
+      "selected": true
     },
     {
       "slug": "unstable-matter",
@@ -1369,7 +1371,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 3,
-      "focal": "50% 55%"
+      "focal": "50% 55%",
+      "selected": true
     },
     {
       "slug": "moongaze",
@@ -1413,7 +1416,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 4,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": true
     },
     {
       "slug": "berlin-winter",
@@ -1458,7 +1462,8 @@
       "soundcloud": "https://soundcloud.com/user-571648323/walking-blind-in-uncertain-and-unexplored-territories/s-rYwvWXhjfZd",
       "externalLinks": [],
       "order": 5,
-      "focal": "45% 50%"
+      "focal": "45% 50%",
+      "selected": true
     },
     {
       "slug": "hypocyrta-glabra",
@@ -1483,7 +1488,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 6,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": true
     },
     {
       "slug": "betahaus-ads",
@@ -1510,7 +1516,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 7,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": true
     },
     {
       "slug": "petricore",
@@ -1538,7 +1545,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 8,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": true
     },
     {
       "slug": "the-veil",
@@ -1565,7 +1573,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 9,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": false
     },
     {
       "slug": "neural-investigations",
@@ -1598,7 +1607,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 10,
-      "focal": "50% 42%"
+      "focal": "50% 42%",
+      "selected": false
     },
     {
       "slug": "wasch-collective",
@@ -1633,7 +1643,8 @@
         }
       ],
       "order": 11,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": false
     },
     {
       "slug": "from-now-on",
@@ -1666,7 +1677,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 12,
-      "focal": "55% 45%"
+      "focal": "55% 45%",
+      "selected": false
     },
     {
       "slug": "per-non-sparire-lentamente",
@@ -1699,7 +1711,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 13,
-      "focal": "50% 55%"
+      "focal": "50% 55%",
+      "selected": false
     },
     {
       "slug": "anedonia",
@@ -1734,7 +1747,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 14,
-      "focal": "50% 30%"
+      "focal": "50% 30%",
+      "selected": false
     },
     {
       "slug": "ineffable-qualite",
@@ -1761,7 +1775,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 15,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": false
     },
     {
       "slug": "la-storia-della-balena-spiaggiata",
@@ -1794,7 +1809,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 16,
-      "focal": "50% 40%"
+      "focal": "50% 40%",
+      "selected": false
     },
     {
       "slug": "ori-and-the-will-of-the-wisps",
@@ -1831,7 +1847,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 17,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": false
     },
     {
       "slug": "escape",
@@ -1868,7 +1885,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 18,
-      "focal": "45% 40%"
+      "focal": "45% 40%",
+      "selected": false
     },
     {
       "slug": "tonino-davola",
@@ -1893,7 +1911,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 19,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": false
     },
     {
       "slug": "pixie-fairy-lawn",
@@ -1917,7 +1936,8 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 20,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": false
     },
     {
       "slug": "just-for-fun",
@@ -1941,10 +1961,15 @@
       "soundcloud": null,
       "externalLinks": [],
       "order": 21,
-      "focal": "50% 50%"
+      "focal": "50% 50%",
+      "selected": false
     }
   ],
   "category_filters": [
+    {
+      "id": "selected",
+      "label": "Selected"
+    },
     {
       "id": "all",
       "label": "All"
