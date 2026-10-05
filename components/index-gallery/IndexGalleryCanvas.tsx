@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import * as THREE from "three";
+import AmbientParticles from "@/components/index-gallery/AmbientParticles";
 import CurvedPlane from "@/components/index-gallery/CurvedPlane";
 import {
   GalleryScrollProvider,
@@ -29,27 +30,37 @@ function Scene({
   const { store } = useGalleryScroll();
 
   const layout = compact
-    ? { width: 2.4, height: 1.35, radius: 3.4, step: 0.5, x: 0, y: 0.5 }
-    : { width: 3.2, height: 1.8, radius: 5.4, step: 0.42, x: -1.05, y: 0.08 };
+    ? { width: 1.9, height: 1.069, radius: 2.6, step: 0.44, x: 0, y: 0.34 }
+    : {
+        width: 2.65,
+        height: 1.491,
+        radius: 3.85,
+        step: 0.38,
+        x: -0.35,
+        y: 0.04,
+      };
 
   return (
-    <group position={[layout.x, layout.y, 0]}>
+    <>
       <color attach="background" args={["#eeeeec"]} />
-      {works.map((work, index) => (
-        <CurvedPlane
-          key={work.slug}
-          work={work}
-          index={index}
-          count={works.length}
-          store={store}
-          width={layout.width}
-          height={layout.height}
-          radius={layout.radius}
-          step={layout.step}
-          onSelect={onSelect}
-        />
-      ))}
-    </group>
+      <AmbientParticles compact={compact} />
+      <group position={[layout.x, layout.y, 0]}>
+        {works.map((work, index) => (
+          <CurvedPlane
+            key={work.slug}
+            work={work}
+            index={index}
+            count={works.length}
+            store={store}
+            width={layout.width}
+            height={layout.height}
+            radius={layout.radius}
+            step={layout.step}
+            onSelect={onSelect}
+          />
+        ))}
+      </group>
+    </>
   );
 }
 
