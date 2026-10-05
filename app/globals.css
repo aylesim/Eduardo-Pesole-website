@@ -1,31 +1,69 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --color-page: #f7f7f5;
-  --color-ink: #1a1a1a;
-  --color-muted: #555555;
-  --color-line: #dddddd;
+  --font-display: var(--font-display), "Neue Haas Grotesk", "Helvetica Neue",
+    sans-serif;
+  --font-mono: var(--font-mono), "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-base: #0a0a0b;
+  --color-surface: #141416;
+  --color-surface-elevated: #1c1c20;
+  --color-ink: #f2f0eb;
+  --color-muted: #9a9690;
+  --color-line: #2a2a2e;
+  --color-accent: #2dd4bf;
+  --color-accent-secondary: #f59e0b;
+
+  --ease-heavy: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 180ms;
+  --duration-med: 420ms;
+  --duration-slow: 720ms;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   body {
-    @apply bg-page font-sans text-ink antialiased;
+    @apply bg-base font-display text-ink antialiased;
   }
 
   a {
-    @apply text-ink underline underline-offset-2;
+    @apply text-ink no-underline transition-colors duration-(--duration-fast);
   }
 
   a:hover {
-    @apply opacity-70;
+    @apply text-accent;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
   }
 
   img {
     @apply max-w-full h-auto;
+  }
+}
+
+@layer utilities {
+  .font-meta {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted;
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-base;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -42,20 +42,20 @@ export default function ContactForm({
         const isMessage = field === "Message";
         return (
           <label key={field} className="flex flex-col gap-1.5 text-sm">
-            <span>{field}</span>
+            <span className="font-meta text-muted">{field}</span>
             {isMessage ? (
               <textarea
                 name={field}
                 rows={5}
                 required
-                className="rounded-sm border border-line bg-white px-2.5 py-2 font-[inherit] text-ink"
+                className="rounded-sm border border-line bg-surface px-3 py-2 font-[inherit] text-ink focus-ring"
               />
             ) : (
               <input
                 type={field === "Email" ? "email" : "text"}
                 name={field}
                 required={field === "Email" || field === "Message"}
-                className="rounded-sm border border-line bg-white px-2.5 py-2 font-[inherit] text-ink"
+                className="rounded-sm border border-line bg-surface px-3 py-2 font-[inherit] text-ink focus-ring"
               />
             )}
           </label>
@@ -63,7 +63,7 @@ export default function ContactForm({
       })}
       <button
         type="submit"
-        className="self-start cursor-pointer border border-ink bg-ink px-5 py-2 font-[inherit] text-page hover:opacity-85"
+        className="focus-ring self-start cursor-pointer border border-accent bg-accent px-5 py-2.5 font-meta text-base hover:opacity-90"
       >
         {submitLabel}
       </button>

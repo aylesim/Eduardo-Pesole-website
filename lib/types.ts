@@ -15,6 +15,8 @@ export type SiteGlobal = {
   showreel_cta: string;
   showreel_video: ShowreelVideo;
   meta_description_home: string;
+  role_line: string;
+  contact_cta: string;
 };
 
 export type ContactSocial = {
@@ -46,6 +48,7 @@ export type ProjectVideo = {
   label?: string;
   url: string;
   compId?: string;
+  kind?: string;
 };
 
 export type ProjectEmbed = {
@@ -75,6 +78,7 @@ export type Project = {
   socials_on_page?: string[];
   subtitle?: string;
   page_title_note?: string;
+  collaborators?: Array<string | { name?: string; org?: string; url?: string }>;
 };
 
 export type PortfolioItem = {
@@ -88,6 +92,47 @@ export type PortfolioItem = {
 export type PortfolioGroup = {
   category: string;
   items: PortfolioItem[];
+};
+
+export type WorkCategory = "games" | "art-collabs" | "movies" | "music";
+
+export type WorkStill = {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+};
+
+export type WorkItem = {
+  slug: string;
+  legacySlug: string | null;
+  title: string;
+  category: WorkCategory;
+  categoryLabel: string;
+  year: string;
+  role: string;
+  collaborators: string[];
+  short: string;
+  shortIsInterim: boolean;
+  primaryVideo: ProjectVideo | null;
+  stills: WorkStill[];
+  poster: string | null;
+  externalUrl: string | null;
+  location: string;
+  projectType: string;
+  subtitle: string;
+};
+
+export type ServiceOffer = {
+  id: string;
+  title: string;
+  body: string;
+  isPlaceholder: boolean;
+};
+
+export type CategoryFilter = {
+  id: "all" | WorkCategory;
+  label: string;
 };
 
 export type MusicHubItem = {
@@ -144,15 +189,16 @@ export type SiteContent = {
   extracted_at: string;
   global: SiteGlobal;
   about_bio: string;
+  about_lead: string;
   contact: Contact;
   portfolio: PortfolioGroup[];
   projects: Project[];
+  works: WorkItem[];
+  services: ServiceOffer[];
+  category_filters: CategoryFilter[];
   secondary: SecondaryPages;
   media_map: Record<string, string>;
   favicon: string;
   gaps: string[];
   site_map: SiteMapEntry[];
 };
-
-export type HubKey = "games" | "sound-art" | "movies" | "music";
-export type SecondaryKey = keyof SecondaryPages;

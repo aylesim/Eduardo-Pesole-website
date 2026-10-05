@@ -1,21 +1,15 @@
 import type { MetadataRoute } from "next";
-import { getProjects, getSite } from "@/lib/content";
+import { getInternalWorks, getSite } from "@/lib/content";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const site = getSite();
   const base = "https://www.eduardopesole.com";
-  const staticRoutes = [
-    "",
-    "/s-projects-basic",
-    "/contact-8",
-    "/music",
-    "/games",
-    "/sound-art",
-    "/movies",
-  ];
-  const projectRoutes = getProjects().map((p) => `/${encodeURI(p.slug)}`);
+  const staticRoutes = ["", "/works", "/services", "/about"];
+  const projectRoutes = getInternalWorks().map(
+    (w) => `/works/${encodeURI(w.slug)}`,
+  );
 
   return [...staticRoutes, ...projectRoutes].map((path) => ({
     url: `${base}${path}`,

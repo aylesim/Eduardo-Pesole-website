@@ -1,12 +1,10 @@
 import siteData from "@/content/site.json";
 import type {
-  HubKey,
-  PortfolioGroup,
-  PortfolioItem,
-  Project,
-  SecondaryKey,
-  SecondaryPages,
+  CategoryFilter,
+  ServiceOffer,
   SiteContent,
+  WorkCategory,
+  WorkItem,
 } from "@/lib/types";
 
 const site = siteData as SiteContent;
@@ -15,59 +13,69 @@ export function getSite(): SiteContent {
   return site;
 }
 
-export function getProjects(): Project[] {
-  return site.projects;
+export function getWorks(): WorkItem[] {
+  return site.works;
 }
 
-export function getProjectBySlug(slug: string): Project | undefined {
+export function getWorkBySlug(slug: string): WorkItem | undefined {
   const decoded = decodeURIComponent(slug);
-  return site.projects.find(
-    (p) => p.slug === slug || p.slug === decoded || encodeURI(p.slug) === slug,
+  return site.works.find(
+    (w) =>
+      w.slug === slug ||
+      w.slug === decoded ||
+      encodeURI(w.slug) === slug ||
+      w.legacySlug === slug ||
+      w.legacySlug === decoded,
   );
 }
 
-export function getPortfolio(): PortfolioGroup[] {
-  return site.portfolio;
+export function getInternalWorks(): WorkItem[] {
+  return site.works.filter((w) => !w.externalUrl);
+}
+
+export function getMusicWorks(): WorkItem[] {
+  return site.works.filter((w) => w.category === "music");
+}
+
+export function getWorksByCategory(
+  category: WorkCategory | "all",
+): WorkItem[] {
+  if (category === "all") return site.works;
+  return site.works.filter((w) => w.category === category);
+}
+
+export function getAdjacentWorks(slug: string): {
+  prev: WorkItem | null;
+  next: WorkItem | null;
+} {
+  const list = getInternalWorks();
+  const index = list.findIndex(
+    (w) => w.slug === slug || w.legacySlug === slug,
+  );
+  if (index === -1) return { prev: null, next: null };
+  return {
+    prev: list[(index - 1 + list.length) % list.length] ?? null,
+    next: list[(index + 1) % list.length] ?? null,
+  };
 }
 
 export function getNav() {
   return site.global.nav;
 }
 
-export function getProjectCategory(slug: string): string | null {
-  for (const group of site.portfolio) {
-    for (const item of group.items) {
-      if (item.slug === slug || item.slug === decodeURIComponent(slug)) {
-        return group.category;
-      }
-    }
-  }
-  return null;
+export function getServices(): ServiceOffer[] {
+  return site.services;
 }
 
-export function getHubLinks(hubKey: HubKey): PortfolioItem[] {
-  const portfolio = site.portfolio;
-  if (hubKey === "games") {
-    return portfolio.find((g) => g.category === "Games")?.items ?? [];
-  }
-  if (hubKey === "sound-art") {
-    return portfolio.find((g) => g.category === "Art Collabs")?.items ?? [];
-  }
-  if (hubKey === "movies") {
-    return portfolio.find((g) => g.category === "Movies")?.items ?? [];
-  }
-  if (hubKey === "music") {
-    return portfolio.find((g) => g.category === "Music")?.items ?? [];
-  }
-  return [];
+export function getCategoryFilters(): CategoryFilter[] {
+  return site.category_filters;
 }
 
-export function getSecondary<K extends SecondaryKey>(
-  hubKey: K,
-): SecondaryPages[K] {
-  return site.secondary[hubKey];
+export function workHref(work: WorkItem): string {
+  if (work.externalUrl) return work.externalUrl;
+  return `/works/${encodeURI(work.slug)}`;
 }
 
-export function isLogoMark(localPath: string | undefined): boolean {
-  return Boolean(localPath?.includes("984ee3bf58d04fdda67fe9f48d7d5003"));
+export function isExternalWork(work: WorkItem): boolean {
+  return Boolean(work.externalUrl);
 }

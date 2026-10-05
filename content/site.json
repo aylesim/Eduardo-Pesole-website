@@ -4,20 +4,20 @@
   "global": {
     "nav": [
       {
-        "label": "Home",
+        "label": "Index",
         "href": "/"
       },
       {
+        "label": "Works",
+        "href": "/works"
+      },
+      {
+        "label": "Services",
+        "href": "/services"
+      },
+      {
         "label": "About",
-        "href": "/#about"
-      },
-      {
-        "label": "Portfolio",
-        "href": "/s-projects-basic"
-      },
-      {
-        "label": "Contact",
-        "href": "/contact-8"
+        "href": "/about"
       }
     ],
     "footer": "©2023 eduardopesole",
@@ -27,7 +27,9 @@
       "url": "https://youtu.be/emp2CZhNFGI",
       "aria_label": "Watch my Sound Design reel"
     },
-    "meta_description_home": "Eduardo pesole is a passionate sound designer, sound explorer and composer."
+    "meta_description_home": "Eduardo pesole is a passionate sound designer, sound explorer and composer.",
+    "role_line": "Sound Designer · Artist · Composer",
+    "contact_cta": "Get in touch"
   },
   "about_bio": "Eduardo Pesole is a Berlin-based sound designer, sound artist and composer. He is a graduate in Sound Design from IED - Istituto Europeo di Design, Rome. He has worked with studios like Point Blank Games, 505 Games and Oneoone Games, developing multi-platform games such as \"Stray Blade\" a 3rd person action RPG, the generative environmental systems for the unreleased \"Aftermath\", and some music for online racing games. Eduardo started playing guitars and bass at the age of 14 in some psychedelic rock bands. From 2019 to 2021, he worked as mix engineer, audio editor and sound designer for short movies, until he switched to interactive sound design and tech audio for video games and interactive installations  and eventually left Rome to move to Berlin. Recently He has worked on interactive installations such as \"Unstable matter\" for end of nation in Berlin , \"Feel the sound\" fo the Barbican Museum in London, the LBVR experience \"Viking's saga: the myth of yggdrasill\" with Glitch Studios. Meanwhile, he also worked as a composer for fashion movies and collections, collaborated with other artists and developed solo projects: the latest under the name: \"Hypocyrta Glabra\" with which, on september 2024 released the album \"Botanical Garden\" out with the bristol based Nostro Hood System. The knowledge acquired from the game industry makes him able to move easily through multidisciplinary projects and to experiment with acoustics and the architecture of spaces through the use of spatial audio technology, within both the digital and the real world. He has a personal and genuine aesthetic that fully encloses all different genres he likes and gets inspiration from, in an organic and evolving form of sound narration. The use of analog synthesizers, granular synthesis and resampling allows him to design soundscapes and explore unique and interesting timbres.",
   "contact": {
@@ -1205,6 +1207,528 @@
       "slug": "movies-ineffable-qualitè",
       "title": "Ineffable Qualitè (2019) | Eduardopesole",
       "role": "Project detail"
+    }
+  ],
+  "about_lead": "Eduardo Pesole is a Berlin-based sound designer, sound artist and composer.",
+  "services": [
+    {
+      "id": "interactive-game-audio",
+      "title": "Interactive / game audio",
+      "body": "Interactive sound design and tech audio for video games — Wwise, Unreal, spatial systems, multi-platform work.",
+      "isPlaceholder": true
+    },
+    {
+      "id": "installation-spatial",
+      "title": "Installation & spatial audio",
+      "body": "Interactive installations and spatial audio for museums, events, and digital twins of physical spaces.",
+      "isPlaceholder": true
+    },
+    {
+      "id": "composition-film-fashion",
+      "title": "Composition for film / fashion",
+      "body": "Composition for fashion movies, collections, and audiovisual pieces across film and advertising.",
+      "isPlaceholder": true
+    },
+    {
+      "id": "mix-editorial",
+      "title": "Mix / editorial",
+      "body": "Mix engineering, audio editing, and floor sound for short and medium-length films.",
+      "isPlaceholder": true
+    }
+  ],
+  "works": [
+    {
+      "slug": "stray-blade",
+      "legacySlug": "stray-blade",
+      "title": "Stray Blade",
+      "category": "games",
+      "categoryLabel": "Games",
+      "year": "2023",
+      "role": "Sound Designer",
+      "collaborators": [],
+      "short": "Sound design - Creatures: vocalizations, attacks, foleys, footsteps, spells. Bosses: I took part to actor casting and voice recording sessions, voice fx design, foley, footsteps, attacks, spells. Environment: indoor and outdoor ambisonic soundscapes using IEM plugin in reaper.",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "Stray Blade Sound Design reel",
+        "url": "https://youtu.be/mTxFCiWiDk8"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_5a18cab079da49968a61db451e503ee3-mv2.jpg",
+      "externalUrl": null,
+      "location": "Remote",
+      "projectType": "Videogame (PC, PS5, XBOX Series X/S)",
+      "subtitle": ""
+    },
+    {
+      "slug": "games-moongaze",
+      "legacySlug": "games-moongaze",
+      "title": "Moongaze",
+      "category": "games",
+      "categoryLabel": "Games",
+      "year": "2020",
+      "role": "Technical sound designer",
+      "collaborators": [],
+      "short": "Environment sound design, creating ambisonics tracks in Reaper with IEM plugins. Tech audio system design such as death system and distanced based sea's sound. Integration using unreal and Wwise.",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "Stray Blade Sound Design reel",
+        "url": "https://youtu.be/jrzq1BnMFmQ?si=uc0dc8QEkSAMRbMl"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_d841b51553904be69a8d7c72182dbbaa-mv2.jpg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Videogame - Bachelor Thesis (PC)",
+      "subtitle": ""
+    },
+    {
+      "slug": "games-neural-investigation",
+      "legacySlug": "games-neural-investigation",
+      "title": "Neural Investigations",
+      "category": "games",
+      "categoryLabel": "Games",
+      "year": "2020",
+      "role": "Sound designer",
+      "collaborators": [],
+      "short": "Game concepting. Sound logo design. Music composition.",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/Eoeagk5wv2o?si=09UMdRG4o7tci9yM"
+      },
+      "stills": [],
+      "poster": "https://i.ytimg.com/vi/Eoeagk5wv2o/hqdefault.jpg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Game pitch",
+      "subtitle": ""
+    },
+    {
+      "slug": "feel-the-sound",
+      "legacySlug": "feel-the-sound",
+      "title": "FEEL THE SOUND",
+      "category": "art-collabs",
+      "categoryLabel": "Art Collabs",
+      "year": "2025",
+      "role": "Tech Sound Designer",
+      "collaborators": [
+        "Tom Slater"
+      ],
+      "short": "Together with Tom Slater (Call and Response Studio) the audio system designer of the exhibition, we built a digital twin of the exhibition space. My role was to recreate the sonic environment using Audiokinetic Wwise and Unreal Engine 5's spatial audio features, making the virtual experience feel as close as possible to being there in person. The digital twin gave designers and architects a virtual playground to test curatorial ideas before accessing the real space.",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/VxD-vS5RfAA"
+      },
+      "stills": [
+        {
+          "src": "/images/f9476d_7a4eddcef7d7439499bfb71a2091f8d6-mv2.png",
+          "alt": "Screenshot 2025-10-28 112155.png",
+          "width": 727,
+          "height": 484
+        }
+      ],
+      "poster": "/images/f9476d_7a4eddcef7d7439499bfb71a2091f8d6-mv2.png",
+      "externalUrl": null,
+      "location": "London - @ Barbican Centre",
+      "projectType": "Exibithion digital twin",
+      "subtitle": ""
+    },
+    {
+      "slug": "sound-art-unstable-matter",
+      "legacySlug": "sound-art-unstable-matter",
+      "title": "Unstable Matter",
+      "category": "art-collabs",
+      "categoryLabel": "Art Collabs",
+      "year": "2023",
+      "role": "Sound Designer",
+      "collaborators": [
+        "Daniel Molnar / Function store"
+      ],
+      "short": "Modern physics has demonstrated that matter is a form of energy. Instability arises due to changing environmental conditions. The energy engaged in the visual process, that is, the visual material, effortlessly transcends the limitations of screens, transforming from a fluid ethereal vision into a sound wave that travels through physical space.",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/IVQj9uBhQ2E?si=5Fkzrts9R14Xgzfd"
+      },
+      "stills": [
+        {
+          "src": "/images/f9476d_e2507fa842554591ba7fe6af473c2545-mv2.jpg",
+          "alt": "Unstable Matter_02.JPG",
+          "width": 1600,
+          "height": 1200
+        }
+      ],
+      "poster": "/images/f9476d_e2507fa842554591ba7fe6af473c2545-mv2.jpg",
+      "externalUrl": null,
+      "location": "Berlin - @ Monopol for \"End of Nations\"",
+      "projectType": "8 Screen/Speakers AV Installation",
+      "subtitle": ""
+    },
+    {
+      "slug": "collabs-art",
+      "legacySlug": "collabs-art",
+      "title": "A Blind Walk Through Uncertain And Unexplored Territories",
+      "category": "art-collabs",
+      "categoryLabel": "Art Collabs",
+      "year": "2022",
+      "role": "Composer",
+      "collaborators": [
+        "Jung Soo Cho (Video art)"
+      ],
+      "short": "Pesole and Jung-soo shared ideas for this exhibition. Pesole designed the sound by capturing the loneliness of being a stranger in an unfamiliar place and the melancholy that cannot be turned away from the work \"Berlin Winter\". For the artist who has left for an unknown place called Berlin, everything is uncertain and unknown.",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "walking-blind-in-uncertain-and-unexplored-territories",
+        "url": "https://soundcloud.com/user-571648323/walking-blind-in-uncertain-and-unexplored-territories/s-rYwvWXhjfZd",
+        "kind": "soundcloud"
+      },
+      "stills": [
+        {
+          "src": "/images/f9476d_09adb2314ee34b46b5e253d2bebdf8a1-mv2.jpg",
+          "alt": "A Blind Walk Through Uncertain And Unexplored Territories"
+        },
+        {
+          "src": "/images/f9476d_243c20e12ca0400fb28b739dd146865f-mv2.jpg",
+          "alt": "A Blind Walk Through Uncertain And Unexplored Territories"
+        },
+        {
+          "src": "/images/f9476d_7d80d32c73ec430cbbde6e3b73d6c3a1-mv2.jpg",
+          "alt": "A Blind Walk Through Uncertain And Unexplored Territories"
+        }
+      ],
+      "poster": "/images/f9476d_09adb2314ee34b46b5e253d2bebdf8a1-mv2.jpg",
+      "externalUrl": null,
+      "location": "Seoul - @ Oksangfactory for \"Patch & Stitch\"",
+      "projectType": "Headphones and video Installation",
+      "subtitle": "As part of Jung Soo Cho's exhibition \"Berlin Winter\""
+    },
+    {
+      "slug": "sound-art-wasch-collective",
+      "legacySlug": "sound-art-wasch-collective",
+      "title": "Wasch Collective",
+      "category": "art-collabs",
+      "categoryLabel": "Art Collabs",
+      "year": "2022",
+      "role": "",
+      "collaborators": [],
+      "short": "Wasch is a multicultural intermedia art collective based in Moabit, Berlin. We share our work and creative processes with the goal of mutually stimulating growth, encouraging cooperation and critical thinking, and connecting with audiences to create something fresh and innovative. Wasch—the German word for \"wash\"—is a nod towards our values.",
+      "shortIsInterim": true,
+      "primaryVideo": null,
+      "stills": [
+        {
+          "src": "/images/f9476d_9fc97c63d2b6437f924ac90425a61696-mv2.jpg",
+          "alt": "IMG_3444.jpg",
+          "width": 828,
+          "height": 823
+        }
+      ],
+      "poster": "/images/f9476d_9fc97c63d2b6437f924ac90425a61696-mv2.jpg",
+      "externalUrl": null,
+      "location": "Berlin",
+      "projectType": "Intermedia arts collective",
+      "subtitle": ""
+    },
+    {
+      "slug": "sound-art-the-veil",
+      "legacySlug": "sound-art-the-veil",
+      "title": "_the veil",
+      "category": "art-collabs",
+      "categoryLabel": "Art Collabs",
+      "year": "2019",
+      "role": "Sound designer/ sound programmer",
+      "collaborators": [],
+      "short": "Our reality is increasingly characterized by contaminations and overruns between real and virtual perceptions. The world as we have always known it for millennia of storytelling, no longer exists. Society and relationships between people develop between the two worlds.",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/boezig9Pwsg"
+      },
+      "stills": [],
+      "poster": "https://i.ytimg.com/vi/boezig9Pwsg/hqdefault.jpg",
+      "externalUrl": null,
+      "location": "Rome - IED for \"PNA\" 2019",
+      "projectType": "Interactive AV Installation",
+      "subtitle": ""
+    },
+    {
+      "slug": "copy-of-ineffable-qualitè-2019",
+      "legacySlug": "copy-of-ineffable-qualitè-2019",
+      "title": "Betahaus Ads",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2025",
+      "role": "Composer",
+      "collaborators": [],
+      "short": "Meta Ads Campaign. Composer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://www.youtube.com/watch?v=FcN6wg9Sr9Q"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_20be61799b0a4dc4bc67e3d16e521a79-mv2.jpg",
+      "externalUrl": null,
+      "location": "Berlin",
+      "projectType": "Meta Ads Campaign",
+      "subtitle": ""
+    },
+    {
+      "slug": "movies-anedonia",
+      "legacySlug": "movies-anedonia",
+      "title": "Anedonia",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2021",
+      "role": "Floor Sound Engineer",
+      "collaborators": [],
+      "short": "Medium-Length Film. Floor Sound Engineer",
+      "shortIsInterim": true,
+      "primaryVideo": null,
+      "stills": [
+        {
+          "src": "/images/f9476d_aca30cbe260a47d1aaf004cd376a3588-mv2.jpeg",
+          "alt": "Anedonia"
+        }
+      ],
+      "poster": "/images/f9476d_aca30cbe260a47d1aaf004cd376a3588-mv2.jpeg",
+      "externalUrl": null,
+      "location": "Rieti (RM)",
+      "projectType": "Medium-Length Film",
+      "subtitle": ""
+    },
+    {
+      "slug": "movies-petricore",
+      "legacySlug": "movies-petricore",
+      "title": "Petricore",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2020",
+      "role": "Composer, Sound Designer",
+      "collaborators": [],
+      "short": "Fashion Movie. Composer, Sound Designer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/rptVEs7lgQM?si=aHMSQm-xn825pRgz"
+      },
+      "stills": [],
+      "poster": "https://i.ytimg.com/vi/rptVEs7lgQM/hqdefault.jpg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Fashion Movie",
+      "subtitle": ""
+    },
+    {
+      "slug": "from-now-on",
+      "legacySlug": "from-now-on",
+      "title": "From now on",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2020",
+      "role": "Sound Designer, Sound Editor, Floor Sound Engineer, Mix Engineer",
+      "collaborators": [],
+      "short": "Short Movie. Sound Designer, Sound Editor, Floor Sound Engineer, Mix Engineer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/aWfF8m0mgXQ?si=ISQYKcqfcJnoeFOw"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_a46ac2fb6f4c48cc9afcb2dca11dd7fa-mv2.jpeg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Short Movie",
+      "subtitle": ""
+    },
+    {
+      "slug": "movies-per-non-sparire-lentamente",
+      "legacySlug": "movies-per-non-sparire-lentamente",
+      "title": "Per non sparire lentamente",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2021",
+      "role": "Sound Designer, Sound Editor, Floor Sound Engineer, Mix Engineer",
+      "collaborators": [],
+      "short": "Short Movie. Sound Designer, Sound Editor, Floor Sound Engineer, Mix Engineer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/-3qrebxszR8?si=tqwREeiojNeDHVe9"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_2269a57c8f1647d48743a6b7e724e32a-mv2.jpg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Short Movie",
+      "subtitle": ""
+    },
+    {
+      "slug": "movies-balena-spiaggiata",
+      "legacySlug": "movies-balena-spiaggiata",
+      "title": "La storia della balena spiaggiata",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2020",
+      "role": "Sound Editor, Mix Engineer",
+      "collaborators": [],
+      "short": "Short Movie. Sound Editor, Mix Engineer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/OJB0EYUHrOY"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_cf812ead9127470299e772b3f0b21977-mv2.jpeg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Short Movie",
+      "subtitle": ""
+    },
+    {
+      "slug": "movies-ori",
+      "legacySlug": "movies-ori",
+      "title": "ori and the will of the wisps",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2020",
+      "role": "Mix Engineer",
+      "collaborators": [],
+      "short": "Sound design and music. Mix Engineer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/r582pCNvPzI?si=aLa7mQJFD5TZZLxa"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_26d059a76ebd413881e4de959743907d-mv2.png",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Sound design and music",
+      "subtitle": ""
+    },
+    {
+      "slug": "movies-escape",
+      "legacySlug": "movies-escape",
+      "title": "Escape",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2020",
+      "role": "Mix Engineer",
+      "collaborators": [],
+      "short": "Sound design and music. Mix Engineer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/IgjsYLSMQes?si=vEckZSeF40M4R-0M"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_d527d4d6932e459190b7eaff9be031ca-mv2.jpeg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Sound design and music",
+      "subtitle": ""
+    },
+    {
+      "slug": "movies-ineffable-qualitè",
+      "legacySlug": "movies-ineffable-qualitè",
+      "title": "Ineffable Qualitè",
+      "category": "movies",
+      "categoryLabel": "Movies",
+      "year": "2019",
+      "role": "Composer",
+      "collaborators": [],
+      "short": "Fashion Movie. Composer",
+      "shortIsInterim": true,
+      "primaryVideo": {
+        "label": "",
+        "url": "https://youtu.be/0xkCuXvutdI?si=gZEeAjOGEJvgHthL"
+      },
+      "stills": [],
+      "poster": "/images/f9476d_fc300702ce9347b6ab7fc2905520cd0c-mv2.jpg",
+      "externalUrl": null,
+      "location": "Rome",
+      "projectType": "Fashion Movie",
+      "subtitle": ""
+    },
+    {
+      "slug": "hypocyrta-glabra",
+      "legacySlug": null,
+      "title": "Hypocyrta Glabra",
+      "category": "music",
+      "categoryLabel": "Music",
+      "year": "2024",
+      "role": "",
+      "collaborators": [],
+      "short": "album Botanical Garden, Sept 2024",
+      "shortIsInterim": true,
+      "primaryVideo": null,
+      "stills": [],
+      "poster": "/images/f9476d_f52aa58e86784c52b6b3b74247ee03be-mv2.jpeg",
+      "externalUrl": "https://nostrohoodsystem.bandcamp.com/album/botanical-garden",
+      "location": "",
+      "projectType": "Music",
+      "subtitle": ""
+    },
+    {
+      "slug": "just-for-fun",
+      "legacySlug": null,
+      "title": "Just For Fun",
+      "category": "music",
+      "categoryLabel": "Music",
+      "year": "",
+      "role": "",
+      "collaborators": [],
+      "short": "",
+      "shortIsInterim": true,
+      "primaryVideo": null,
+      "stills": [],
+      "poster": "/images/f9476d_a7525a4d898941789eb3f732deb7d97a-mv2.jpg",
+      "externalUrl": "https://soundcloud.com/user-571648323/sets/eduardo-pesole-just-for-fun",
+      "location": "",
+      "projectType": "Music",
+      "subtitle": ""
+    },
+    {
+      "slug": "tonino-davola",
+      "legacySlug": null,
+      "title": "Tonino D'avola",
+      "category": "music",
+      "categoryLabel": "Music",
+      "year": "2021",
+      "role": "",
+      "collaborators": [],
+      "short": "",
+      "shortIsInterim": true,
+      "primaryVideo": null,
+      "stills": [],
+      "poster": "/images/f9476d_a7525a4d898941789eb3f732deb7d97a-mv2.jpg",
+      "externalUrl": "https://toninodavola.bandcamp.com/",
+      "location": "",
+      "projectType": "Music",
+      "subtitle": ""
+    }
+  ],
+  "category_filters": [
+    {
+      "id": "all",
+      "label": "All"
+    },
+    {
+      "id": "games",
+      "label": "Games"
+    },
+    {
+      "id": "art-collabs",
+      "label": "Art Collabs"
+    },
+    {
+      "id": "movies",
+      "label": "Movies"
+    },
+    {
+      "id": "music",
+      "label": "Music"
     }
   ]
 }
