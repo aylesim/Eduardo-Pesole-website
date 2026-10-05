@@ -4,7 +4,7 @@ import { getSite } from "@/lib/content";
 export default function Footer() {
   const site = getSite();
   return (
-    <footer className="mt-20 border-t border-border">
+    <footer className="site-chrome mt-20 border-t border-border">
       <div className="page-gutter mx-auto flex max-w-[1536px] flex-col gap-5 py-8 md:flex-row md:items-center md:justify-between">
         <p className="font-meta">{site.global.footer}</p>
         <div className="flex flex-wrap gap-5">
