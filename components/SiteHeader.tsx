@@ -32,7 +32,7 @@ export default function SiteHeader() {
       <div className="page-gutter mx-auto flex max-w-[1536px] items-center justify-between gap-4 py-4">
         <Link
           href="/"
-          className="font-display text-sm font-semibold tracking-[-0.02em] no-underline hover:text-text"
+          className="font-display text-[clamp(0.9375rem,1.2vw,1.125rem)] font-bold tracking-[-0.02em] no-underline hover:text-text"
         >
           {site.global.brand_name}
         </Link>

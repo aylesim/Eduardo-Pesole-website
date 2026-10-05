@@ -14,7 +14,7 @@
 
   --radius-sm: 2px;
   --radius-md: 4px;
-  --radius-full: 9999px;
+  --radius-dock: 9999px;
 
   --ease-oxide: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 160ms;
@@ -73,23 +73,7 @@
   }
 
   .font-ui {
-    @apply font-body text-[0.8125rem] font-medium tracking-[0.04em];
-  }
-
-  .type-hero {
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(3.25rem, 8.5vw, 7.5rem);
-    line-height: 0.88;
-    letter-spacing: -0.03em;
-  }
-
-  .type-index-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(2rem, 4.6vw, 4.25rem);
-    line-height: 0.95;
-    letter-spacing: -0.02em;
+    @apply font-body text-[0.75rem] font-medium tracking-[0.06em];
   }
 
   .type-sheet-title {

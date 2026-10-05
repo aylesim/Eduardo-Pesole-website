@@ -9,8 +9,22 @@ declare global {
   }
 }
 
-export default function SmoothScroll({ children }: { children: ReactNode }) {
+export default function SmoothScroll({
+  children,
+  enabled = true,
+}: {
+  children: ReactNode;
+  enabled?: boolean;
+}) {
   useEffect(() => {
+    if (!enabled) {
+      if (window.__lenis) {
+        window.__lenis.destroy();
+        delete window.__lenis;
+      }
+      return;
+    }
+
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coarse = window.matchMedia("(pointer: coarse)").matches;
     if (reduced || coarse) return;
@@ -35,7 +49,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       lenis.destroy();
       delete window.__lenis;
     };
-  }, []);
+  }, [enabled]);
 
   return children;
 }
