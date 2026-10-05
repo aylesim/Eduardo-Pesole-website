@@ -23,13 +23,21 @@ export default function MobileNav({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>
-        <button type="button" className="btn-text justify-self-end" aria-label="Open menu">
-          Menu
+        <button
+          type="button"
+          className="border-text/20 bg-base/60 text-text hover:bg-text inline-flex items-center gap-2 border px-3 py-2 font-mono text-[0.625rem] font-medium tracking-[0.13em] uppercase backdrop-blur-sm transition-colors hover:text-base"
+          aria-label="Open menu"
+        >
+          <span>Menu</span>
+          <span className="flex w-3 flex-col gap-[3px]" aria-hidden="true">
+            <span className="h-px w-full bg-current" />
+            <span className="h-px w-full bg-current" />
+          </span>
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-text/10" />
-        <Dialog.Content className="page-gutter fixed inset-0 z-50 flex flex-col bg-base outline-none">
+        <Dialog.Overlay className="bg-text/10 fixed inset-0 z-50" />
+        <Dialog.Content className="page-gutter bg-base fixed inset-0 z-50 flex flex-col outline-none">
           <div className="flex items-center justify-between py-[18px]">
             <Dialog.Title className="sr-only">Navigation</Dialog.Title>
             <Dialog.Description className="sr-only">
@@ -57,10 +65,8 @@ export default function MobileNav({
                 <Dialog.Close asChild key={item.href}>
                   <Link
                     href={item.href}
-                    className={`font-display text-[clamp(3rem,15vw,5rem)] font-extrabold leading-[0.9] tracking-[-0.055em] no-underline ${
-                      active
-                        ? "text-text"
-                        : "text-text/30 hover:text-text"
+                    className={`font-display text-[clamp(3rem,15vw,5rem)] leading-[0.9] font-extrabold tracking-[-0.055em] no-underline ${
+                      active ? "text-text" : "text-text/30 hover:text-text"
                     }`}
                     aria-current={active ? "page" : undefined}
                   >
@@ -72,7 +78,7 @@ export default function MobileNav({
             <Dialog.Close asChild>
               <Link
                 href={mailHref}
-                className="mt-8 font-mono text-xs font-medium tracking-[0.13em] text-text uppercase no-underline"
+                className="text-text mt-8 font-mono text-xs font-medium tracking-[0.13em] uppercase no-underline"
               >
                 Mail
               </Link>
