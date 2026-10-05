@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import { instrument, syne } from "@/app/fonts";
-import Footer from "@/components/Footer";
-import SiteHeader from "@/components/SiteHeader";
-import SmoothScroll from "@/components/SmoothScroll";
+import AppChrome from "@/components/AppChrome";
 import { getSite } from "@/lib/content";
 
 const site = getSite();
@@ -28,11 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${syne.variable} ${instrument.variable}`}
     >
       <body>
-        <SmoothScroll>
-          <SiteHeader />
-          <main className="min-h-[70vh]">{children}</main>
-          <Footer />
-        </SmoothScroll>
+        <AppChrome>{children}</AppChrome>
       </body>
     </html>
   );
