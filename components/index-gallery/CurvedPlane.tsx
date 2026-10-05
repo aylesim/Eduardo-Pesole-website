@@ -48,10 +48,21 @@ void main() {
 const fragmentShader = /* glsl */ `
 uniform sampler2D uMap;
 uniform float uOpacity;
+uniform float uImageAspect;
+uniform float uPlaneAspect;
 varying vec2 vUv;
 
 void main() {
-  vec4 tex = texture2D(uMap, vUv);
+  vec2 uv = vUv - 0.5;
+
+  // CSS object-fit: cover in shader space: crop, never stretch.
+  if (uImageAspect > uPlaneAspect) {
+    uv.x *= uPlaneAspect / uImageAspect;
+  } else {
+    uv.y *= uImageAspect / uPlaneAspect;
+  }
+
+  vec4 tex = texture2D(uMap, uv + 0.5);
   gl_FragColor = vec4(tex.rgb, tex.a * uOpacity);
 }
 `;
@@ -98,8 +109,10 @@ export default function CurvedPlane({
       uProgress: { value: 0 },
       uPlaneH: { value: height },
       uOpacity: { value: 1 },
+      uImageAspect: { value: 16 / 9 },
+      uPlaneAspect: { value: width / height },
     }),
-    [texture, height],
+    [texture, width, height],
   );
 
   const theta0 = index * step;
@@ -108,6 +121,20 @@ export default function CurvedPlane({
     const mat = matRef.current;
     const mesh = meshRef.current;
     if (!mat || !mesh) return;
+
+    const image = texture.image as
+      | {
+          naturalWidth?: number;
+          naturalHeight?: number;
+          width?: number;
+          height?: number;
+        }
+      | undefined;
+    const imageWidth = image?.naturalWidth ?? image?.width ?? 0;
+    const imageHeight = image?.naturalHeight ?? image?.height ?? 0;
+    if (imageWidth > 0 && imageHeight > 0) {
+      mat.uniforms.uImageAspect.value = imageWidth / imageHeight;
+    }
 
     let distance = index - store.current.current;
     distance -= Math.round(distance / count) * count;
