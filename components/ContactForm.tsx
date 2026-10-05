@@ -65,23 +65,20 @@ export default function ContactForm({
                 rows={5}
                 required
                 defaultValue={message}
-                className="rounded-sm border border-border bg-surface px-3 py-2 font-[inherit] text-text"
+                className="rounded-none border border-border bg-elevated px-3 py-2 font-[inherit] text-text outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
               />
             ) : (
               <input
                 type={field === "Email" ? "email" : "text"}
                 name={field}
                 required={field === "Email" || field === "Message"}
-                className="rounded-sm border border-border bg-surface px-3 py-2 font-[inherit] text-text"
+                className="rounded-none border border-border bg-elevated px-3 py-2 font-[inherit] text-text outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-focus"
               />
             )}
           </label>
         );
       })}
-      <button
-        type="submit"
-        className="cursor-pointer self-start border border-primary bg-primary px-5 py-2.5 font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-base hover:opacity-90"
-      >
+      <button type="submit" className="btn-accent self-start">
         {submitLabel}
       </button>
     </form>

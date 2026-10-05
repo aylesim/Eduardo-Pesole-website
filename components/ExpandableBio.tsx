@@ -11,10 +11,8 @@ export default function ExpandableBio({ lead, full }: ExpandableBioProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="max-w-3xl space-y-4">
-      <p className="type-body text-xl leading-relaxed text-text md:text-2xl md:leading-relaxed">
-        {lead}
-      </p>
+    <div className="max-w-[58ch] space-y-4">
+      <p className="type-body text-text">{lead}</p>
       {open ? (
         <div className="space-y-4 text-muted">
           {full.split(/\n\n+/).map((para) => (
@@ -26,11 +24,11 @@ export default function ExpandableBio({ lead, full }: ExpandableBioProps) {
       ) : null}
       <button
         type="button"
-        className="cursor-pointer font-meta text-primary hover:text-text"
+        className="btn-text text-muted hover:text-accent"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
-        {open ? "Hide full bio" : "Read full bio +"}
+        {open ? "Hide full bio" : "Read more"}
       </button>
     </div>
   );

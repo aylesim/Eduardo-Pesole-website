@@ -5,21 +5,21 @@ export default function Footer() {
   const site = getSite();
   return (
     <footer className="mt-20 border-t border-border">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 md:flex-row md:items-center md:justify-between md:px-8">
+      <div className="page-gutter mx-auto flex max-w-[1536px] flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
         <p className="font-meta">{site.global.footer}</p>
         <div className="flex flex-wrap gap-5">
-          <Link href="/works" className="font-meta text-muted hover:text-primary">
+          <Link href="/works" className="font-ui text-muted hover:text-accent">
             Works
           </Link>
           <Link
             href="/services"
-            className="font-meta text-muted hover:text-primary"
+            className="font-ui text-muted hover:text-accent"
           >
             Services
           </Link>
           <Link
             href="/about#contact"
-            className="font-meta text-muted hover:text-primary"
+            className="font-ui text-muted hover:text-accent"
           >
             Contact
           </Link>

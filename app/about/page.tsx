@@ -16,48 +16,42 @@ export default function AboutPage() {
   const { contact, global, about_bio, about_lead } = site;
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
-      <ScrollReveal className="mb-16 space-y-8">
-        <p className="font-meta text-primary">About</p>
-        <h1 className="type-sheet-title max-w-4xl">{global.role_line}</h1>
-        <ExpandableBio lead={about_lead} full={about_bio} />
-      </ScrollReveal>
+    <div className="page-gutter mx-auto max-w-[1536px] py-14 md:py-20">
+      <div className="mb-20 grid gap-12 lg:grid-cols-[2fr_3fr] lg:gap-16">
+        <ScrollReveal className="lg:sticky lg:top-24 lg:self-start">
+          <div id="showreel" className="scroll-mt-24 space-y-4">
+            <p className="font-meta">Showreel 2025</p>
+            <LiteYouTube
+              url={global.showreel_video.url}
+              title={global.showreel_video.aria_label}
+              kind="youtube"
+            />
+          </div>
+        </ScrollReveal>
 
-      <ScrollReveal className="mb-20 scroll-mt-24" >
-        <div id="showreel" className="scroll-mt-24 space-y-4">
-          <p className="font-meta text-secondary">Showreel 2025</p>
-          <LiteYouTube
-            url={global.showreel_video.url}
-            title={global.showreel_video.aria_label}
-            kind="youtube"
-          />
-        </div>
-      </ScrollReveal>
+        <ScrollReveal className="space-y-8">
+          <h1 className="type-h2 max-w-[20ch]">{global.role_line}</h1>
+          <ExpandableBio lead={about_lead} full={about_bio} />
+        </ScrollReveal>
+      </div>
 
-      <ScrollReveal className="mb-20 max-w-3xl space-y-4 border-t border-border pt-12">
+      <ScrollReveal className="mb-20 space-y-4 border-t border-border pt-12">
         <h2 className="type-h2">Selected credits</h2>
-        <ul className="flex flex-wrap gap-2">
-          {global.credits.map((credit) => (
-            <li
-              key={credit}
-              className="border border-border px-3 py-1.5 font-mono text-[0.75rem] uppercase tracking-[0.08em] text-muted"
-            >
-              {credit}
-            </li>
-          ))}
-        </ul>
+        <p className="max-w-3xl font-ui text-muted">
+          {global.credits.join(" · ")}
+        </p>
       </ScrollReveal>
 
       <section id="contact" className="scroll-mt-24 border-t border-border pt-12">
         <ScrollReveal>
           <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
             <div className="space-y-6">
-              <h2 className="type-h2 text-[2rem]">{contact.heading}</h2>
-              <ul className="space-y-3 text-lg">
+              <h2 className="type-h2">{contact.heading}</h2>
+              <ul className="space-y-3">
                 <li>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="text-text hover:text-primary"
+                    className="font-display text-[clamp(1.25rem,2.5vw,2rem)] font-semibold tracking-[-0.02em] text-text hover:text-accent"
                   >
                     {contact.email}
                   </a>
@@ -65,7 +59,7 @@ export default function AboutPage() {
                 <li>
                   <a
                     href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                    className="text-text hover:text-primary"
+                    className="text-lg text-text hover:text-accent"
                   >
                     {contact.phone}
                   </a>
@@ -76,7 +70,7 @@ export default function AboutPage() {
                       href={social.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-text hover:text-primary"
+                      className="text-lg text-text hover:text-accent"
                     >
                       {social.label}
                     </a>

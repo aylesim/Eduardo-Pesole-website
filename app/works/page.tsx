@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import WorksBrowser from "@/components/WorksBrowser";
 import { getWorks } from "@/lib/content";
 
@@ -12,12 +13,13 @@ export default function WorksPage() {
   const works = getWorks();
 
   return (
-    <div className="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
+    <div className="page-gutter mx-auto max-w-[1536px] py-14 md:py-20">
       <header className="mb-10 space-y-3">
-        <p className="font-meta text-primary">Works</p>
-        <h1 className="type-sheet-title">All projects</h1>
+        <h1 className="type-h2">Works</h1>
       </header>
-      <WorksBrowser works={works} />
+      <Suspense fallback={<div className="h-40" />}>
+        <WorksBrowser works={works} />
+      </Suspense>
     </div>
   );
 }

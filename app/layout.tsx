@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { archivo, plexMono } from "@/app/fonts";
-import Header from "@/components/Header";
+import { instrument, syne } from "@/app/fonts";
 import Footer from "@/components/Footer";
+import SiteHeader from "@/components/SiteHeader";
 import SmoothScroll from "@/components/SmoothScroll";
 import { getSite } from "@/lib/content";
 
@@ -25,11 +25,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${archivo.variable} ${plexMono.variable}`}
+      className={`${syne.variable} ${instrument.variable}`}
     >
       <body>
         <SmoothScroll>
-          <Header />
+          <SiteHeader />
           <main className="min-h-[70vh]">{children}</main>
           <Footer />
         </SmoothScroll>
