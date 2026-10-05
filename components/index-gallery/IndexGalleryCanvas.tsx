@@ -29,8 +29,8 @@ function Scene({
   const { store } = useGalleryScroll();
 
   const layout = compact
-    ? { width: 2.35, height: 1.32, radius: 2.05, step: 0.7, x: 0, y: 0.48 }
-    : { width: 3.25, height: 1.62, radius: 3.15, step: 0.58, x: -1.05, y: 0.08 };
+    ? { width: 2.35, height: 1.32, radius: 3.4, step: 0.5, x: 0, y: 0.62 }
+    : { width: 3.25, height: 1.62, radius: 5.4, step: 0.42, x: -1.05, y: 0.08 };
 
   return (
     <group position={[layout.x, layout.y, 0]}>
@@ -40,6 +40,7 @@ function Scene({
           key={work.slug}
           work={work}
           index={index}
+          count={works.length}
           store={store}
           width={layout.width}
           height={layout.height}
