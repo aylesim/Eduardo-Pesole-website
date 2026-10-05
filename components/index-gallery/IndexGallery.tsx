@@ -97,37 +97,56 @@ export default function IndexGallery({ works, brandName }: Props) {
 
   return (
     <div className="index-gallery-root relative h-[100svh] overflow-hidden bg-[#eeeeec] text-[#151417]">
-      <IndexGalleryCanvas
-        works={works}
-        compact={compact}
-        onActiveChange={setActive}
-      />
+      <div className="absolute inset-x-0 top-0 h-[58svh] overflow-hidden md:inset-y-0 md:right-[38%] md:h-auto">
+        <IndexGalleryCanvas
+          works={works}
+          compact={compact}
+          onActiveChange={setActive}
+        />
+      </div>
 
       {work ? (
-        <aside className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end px-[clamp(16px,4vw,48px)] pb-16 md:inset-y-0 md:right-0 md:bottom-auto md:left-auto md:w-[min(38vw,460px)] md:justify-center md:pr-[clamp(16px,4vw,56px)] md:pb-0 md:pl-6">
-          <p className="font-mono text-[0.6875rem] tracking-[0.14em] uppercase text-[#151417]/55">
-            PR.{String(active + 1).padStart(2, "0")}/
-            {String(works.length).padStart(2, "0")}
-          </p>
-          <h1 className="mt-3 max-w-[12ch] font-display text-[clamp(2.2rem,5.2vw,4.6rem)] font-extrabold leading-[0.92] tracking-[-0.03em] text-[#151417]">
-            {work.title}
-          </h1>
-          <p className="mt-4 font-mono text-[0.75rem] tracking-[0.1em] uppercase text-[#151417]/70">
-            {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
-          </p>
-          <Link
-            href={work.href}
-            target={work.external ? "_blank" : undefined}
-            rel={work.external ? "noopener noreferrer" : undefined}
-            className="pointer-events-auto mt-6 w-fit font-mono text-[0.75rem] tracking-[0.12em] uppercase text-[#151417] underline-offset-4 hover:underline md:mt-8"
+        <aside
+          className="pointer-events-none absolute inset-x-0 top-[58svh] bottom-0 z-20 flex flex-col border-t border-[#c9c8c4] bg-[#eeeeec] px-[clamp(18px,4vw,56px)] pt-5 pb-5 md:inset-y-0 md:right-0 md:left-auto md:w-[38%] md:border-t-0 md:border-l md:pt-[clamp(110px,16vh,180px)] md:pb-[clamp(32px,6vh,72px)]"
+          aria-live="polite"
+        >
+          <div className="flex items-baseline justify-between gap-4 border-b border-[#c9c8c4] pb-3 font-mono text-[0.625rem] tracking-[0.13em] uppercase">
+            <p className="text-[#151417]/55">
+              PR.{String(active + 1).padStart(2, "0")}/
+              {String(works.length).padStart(2, "0")}
+            </p>
+            <p className="truncate text-right text-[#151417]/65">
+              {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
+            </p>
+          </div>
+
+          <div
+            key={work.slug}
+            className="flex min-h-0 flex-1 flex-col justify-center py-4 md:py-8"
           >
-            Open project{work.external ? " ↗" : " →"}
-          </Link>
+            <h1 className="font-display max-w-[13ch] text-[clamp(2rem,8vw,3.25rem)] leading-[0.88] font-extrabold tracking-[-0.045em] text-balance break-words text-[#151417] md:text-[clamp(2.5rem,4.5vw,4.75rem)]">
+              {work.title}
+            </h1>
+          </div>
+
+          <div className="flex items-end justify-between gap-6 border-t border-[#c9c8c4] pt-3">
+            <p className="hidden max-w-[18ch] font-mono text-[0.625rem] leading-relaxed tracking-[0.1em] text-[#151417]/50 uppercase sm:block">
+              Scroll or drag to rotate
+            </p>
+            <Link
+              href={work.href}
+              target={work.external ? "_blank" : undefined}
+              rel={work.external ? "noopener noreferrer" : undefined}
+              className="pointer-events-auto ml-auto font-mono text-[0.6875rem] font-medium tracking-[0.12em] text-[#151417] uppercase underline decoration-1 underline-offset-4"
+            >
+              View project{work.external ? " ↗" : " →"}
+            </Link>
+          </div>
         </aside>
       ) : null}
 
-      <p className="pointer-events-none absolute bottom-6 left-[clamp(16px,4vw,48px)] font-mono text-[0.625rem] tracking-[0.14em] uppercase text-[#151417]/45">
-        {brandName} · scroll
+      <p className="pointer-events-none absolute top-[78px] left-[clamp(16px,4vw,48px)] z-10 font-mono text-[0.625rem] tracking-[0.14em] text-[#151417]/45 uppercase md:top-auto md:bottom-6">
+        {brandName} · circular index
       </p>
     </div>
   );
