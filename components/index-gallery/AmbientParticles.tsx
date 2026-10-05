@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 const vertexShader = /* glsl */ `
@@ -9,16 +9,16 @@ attribute float aPhase;
 attribute float aSpeed;
 attribute float aSize;
 uniform float uTime;
+uniform float uDpr;
 
 void main() {
   vec3 pos = position;
   float time = uTime * aSpeed;
-  pos.x += sin(time * 0.18 + aPhase) * 0.11;
-  pos.y += cos(time * 0.14 + aPhase * 1.7) * 0.09;
-  pos.z += sin(time * 0.1 + aPhase * 0.7) * 0.04;
+  pos.x += sin(time * 0.22 + aPhase) * 0.28;
+  pos.y += cos(time * 0.18 + aPhase * 1.4) * 0.22;
 
   vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-  gl_PointSize = aSize * (18.0 / max(1.0, -mvPosition.z));
+  gl_PointSize = aSize * uDpr;
   gl_Position = projectionMatrix * mvPosition;
 }
 `;
@@ -26,8 +26,8 @@ void main() {
 const fragmentShader = /* glsl */ `
 void main() {
   float distanceToCenter = distance(gl_PointCoord, vec2(0.5));
-  float alpha = 1.0 - smoothstep(0.08, 0.5, distanceToCenter);
-  gl_FragColor = vec4(0.082, 0.078, 0.09, alpha * 0.16);
+  float alpha = 1.0 - smoothstep(0.18, 0.5, distanceToCenter);
+  gl_FragColor = vec4(0.082, 0.078, 0.09, alpha * 0.55);
 }
 `;
 
@@ -44,12 +44,12 @@ function makeParticles(count: number) {
   const sizes = new Float32Array(count);
 
   for (let i = 0; i < count; i += 1) {
-    positions[i * 3] = (random() - 0.5) * 11;
-    positions[i * 3 + 1] = (random() - 0.5) * 5.2;
-    positions[i * 3 + 2] = -0.8 - random() * 2.4;
+    positions[i * 3] = (random() - 0.5) * 12;
+    positions[i * 3 + 1] = (random() - 0.5) * 6.4;
+    positions[i * 3 + 2] = -1.6 - random() * 1.4;
     phases[i] = random() * Math.PI * 2;
-    speeds[i] = 0.55 + random() * 0.9;
-    sizes[i] = 0.55 + random() * 1.1;
+    speeds[i] = 0.45 + random() * 0.7;
+    sizes[i] = 5 + random() * 8;
   }
 
   return { positions, phases, speeds, sizes };
@@ -57,39 +57,38 @@ function makeParticles(count: number) {
 
 export default function AmbientParticles({ compact }: { compact: boolean }) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
-  const particleCount = compact ? 48 : 76;
-  const particles = useMemo(
-    () => makeParticles(particleCount),
-    [particleCount],
+  const dpr = useThree((state) => state.gl.getPixelRatio());
+  const particleCount = compact ? 64 : 110;
+
+  const geometry = useMemo(() => {
+    const particles = makeParticles(particleCount);
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(particles.positions, 3),
+    );
+    geo.setAttribute("aPhase", new THREE.BufferAttribute(particles.phases, 1));
+    geo.setAttribute("aSpeed", new THREE.BufferAttribute(particles.speeds, 1));
+    geo.setAttribute("aSize", new THREE.BufferAttribute(particles.sizes, 1));
+    return geo;
+  }, [particleCount]);
+
+  const uniforms = useMemo(
+    () => ({
+      uTime: { value: 0 },
+      uDpr: { value: Math.min(dpr, 2) },
+    }),
+    [dpr],
   );
-  const uniforms = useMemo(() => ({ uTime: { value: 0 } }), []);
 
   useFrame(({ clock }) => {
-    if (materialRef.current) {
-      materialRef.current.uniforms.uTime.value = clock.elapsedTime;
-    }
+    const material = materialRef.current;
+    if (!material) return;
+    material.uniforms.uTime.value = clock.elapsedTime;
   });
 
   return (
-    <points frustumCulled={false} renderOrder={-10}>
-      <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[particles.positions, 3]}
-        />
-        <bufferAttribute
-          attach="attributes-aPhase"
-          args={[particles.phases, 1]}
-        />
-        <bufferAttribute
-          attach="attributes-aSpeed"
-          args={[particles.speeds, 1]}
-        />
-        <bufferAttribute
-          attach="attributes-aSize"
-          args={[particles.sizes, 1]}
-        />
-      </bufferGeometry>
+    <points geometry={geometry} frustumCulled={false} renderOrder={-10}>
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}
