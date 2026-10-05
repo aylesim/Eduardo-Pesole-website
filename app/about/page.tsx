@@ -16,23 +16,19 @@ export default function AboutPage() {
 
   return (
     <div className="editorial-page">
-      <header className="grid grid-cols-12 gap-x-5 pt-10 pb-16 md:pt-16 md:pb-24">
-        <p className="editorial-kicker col-span-12 mb-6 md:col-span-3">
-          Profile · Berlin
-        </p>
-        <h1 className="type-sheet-title col-span-12 md:col-span-9">About</h1>
+      <header className="pt-10 pb-16 md:pt-16 md:pb-24">
+        <h1 className="type-sheet-title">About</h1>
       </header>
 
-      <div className="grid grid-cols-12 gap-x-5 gap-y-14 border-t border-border py-12 md:py-20">
+      <div className="border-border grid grid-cols-12 gap-x-5 gap-y-14 border-t py-12 md:py-20">
         <div className="col-span-12 md:col-span-6">
           <ExpandableBio lead={about_lead} full={about_bio} />
         </div>
 
         <div
           id="showreel"
-          className="col-span-12 scroll-mt-24 space-y-4 md:col-span-5 md:col-start-8"
+          className="col-span-12 scroll-mt-24 md:col-span-5 md:col-start-8"
         >
-          <p className="font-meta">Showreel · 2025</p>
           <LiteYouTube
             url={global.showreel_video.url}
             title={global.showreel_video.aria_label}
@@ -41,11 +37,11 @@ export default function AboutPage() {
           />
         </div>
 
-        <div className="col-span-12 mt-6 grid grid-cols-12 gap-5 border-t border-border pt-6">
+        <div className="border-border col-span-12 mt-6 grid grid-cols-12 gap-5 border-t pt-6">
           <h2 className="font-meta col-span-12 md:col-span-3">
             Studios & collaborators
           </h2>
-          <p className="font-meta-value col-span-12 text-muted md:col-span-7 md:col-start-6">
+          <p className="font-meta-value text-muted col-span-12 md:col-span-7 md:col-start-6">
             {global.credits.join(" · ")}
           </p>
         </div>
@@ -53,7 +49,7 @@ export default function AboutPage() {
 
       <section
         id="contact"
-        className="scroll-mt-24 border-t border-border pt-12 md:pt-20"
+        className="border-border scroll-mt-24 border-t pt-12 md:pt-20"
       >
         <h2 className="type-sheet-title mb-16 md:mb-24">{contact.heading}</h2>
         <div className="grid grid-cols-12 gap-x-5 gap-y-14">
@@ -62,7 +58,7 @@ export default function AboutPage() {
               <li>
                 <a
                   href={`mailto:${contact.email}`}
-                  className="font-display text-[clamp(1.3rem,2.4vw,2.5rem)] font-bold tracking-[-0.04em] text-text"
+                  className="font-display text-text text-[clamp(1.3rem,2.4vw,2.5rem)] font-bold tracking-[-0.04em]"
                 >
                   {contact.email}
                 </a>

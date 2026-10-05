@@ -16,13 +16,7 @@ type Props = {
 };
 
 function GallerySkeleton() {
-  return (
-    <div className="flex h-[100svh] items-center justify-center bg-[#eeeeec] text-[#151417]/50">
-      <p className="font-mono text-[0.75rem] tracking-[0.12em] uppercase">
-        Loading gallery…
-      </p>
-    </div>
-  );
+  return <div className="h-[100svh] bg-[#eeeeec]" />;
 }
 
 function subscribeMedia(query: string, onChange: () => void) {
@@ -120,23 +114,21 @@ export default function IndexGallery({ works }: Props) {
             </p>
 
             <h1
-              className={`font-display mt-3 max-w-[13ch] leading-[0.88] font-extrabold tracking-[-0.05em] text-balance break-words text-[#151417] ${
+              className={`font-display mt-3 max-w-[13ch] leading-[0.88] font-extrabold tracking-[-0.05em] text-balance break-words ${
                 work.title.length > 24
                   ? "text-[clamp(1.9rem,9vw,2.75rem)] md:text-[clamp(2.4rem,4vw,4rem)]"
                   : "text-[clamp(2.25rem,11vw,3.5rem)] md:text-[clamp(2.75rem,4.8vw,5rem)]"
               }`}
             >
-              {work.title}
+              <Link
+                href={work.href}
+                target={work.external ? "_blank" : undefined}
+                rel={work.external ? "noopener noreferrer" : undefined}
+                className="pointer-events-auto text-[#151417] no-underline"
+              >
+                {work.title}
+              </Link>
             </h1>
-
-            <Link
-              href={work.href}
-              target={work.external ? "_blank" : undefined}
-              rel={work.external ? "noopener noreferrer" : undefined}
-              className="pointer-events-auto mt-5 font-mono text-[0.6875rem] font-medium tracking-[0.12em] text-[#151417] uppercase underline decoration-1 underline-offset-4 md:mt-7"
-            >
-              View project{work.external ? " ↗" : " →"}
-            </Link>
           </div>
         </aside>
       ) : null}

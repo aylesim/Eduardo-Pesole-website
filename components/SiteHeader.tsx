@@ -22,20 +22,16 @@ export default function SiteHeader() {
           : "border-border bg-base/95 backdrop-blur-sm"
       }`}
     >
-      <div className="page-gutter mx-auto grid max-w-[1720px] grid-cols-2 items-center gap-4 py-4 md:grid-cols-12">
+      <div className="page-gutter mx-auto flex max-w-[1720px] items-center justify-between gap-4 py-4">
         <Link
           href="/"
-          className="font-display text-[0.875rem] font-bold tracking-[-0.035em] no-underline md:col-span-3"
+          className="font-display text-[0.875rem] font-bold tracking-[-0.035em] no-underline"
         >
           {site.global.brand_name}
         </Link>
 
-        <p className="editorial-kicker hidden md:col-span-3 md:block">
-          Sound design · Berlin
-        </p>
-
         <nav
-          className="hidden items-center justify-end gap-7 md:col-span-6 md:flex"
+          className="hidden items-center justify-end gap-7 md:flex"
           aria-label="Main"
         >
           {nav.map((item) => {
