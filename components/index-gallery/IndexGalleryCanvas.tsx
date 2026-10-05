@@ -13,35 +13,38 @@ import type { GalleryWork } from "@/lib/gallery-works";
 
 type Props = {
   works: GalleryWork[];
+  compact: boolean;
   onActiveChange: (index: number) => void;
 };
 
 function Scene({
   works,
+  compact,
   onSelect,
 }: {
   works: GalleryWork[];
+  compact: boolean;
   onSelect: (work: GalleryWork) => void;
 }) {
   const { store } = useGalleryScroll();
 
-  const width = 3.55;
-  const height = 2.05;
-  const gap = 3.2;
+  const layout = compact
+    ? { width: 2.35, height: 1.32, radius: 2.05, step: 0.7, x: 0, y: 0.48 }
+    : { width: 3.25, height: 1.62, radius: 3.15, step: 0.58, x: -1.05, y: 0.08 };
 
   return (
-    <group position={[-0.85, 0.05, 0]}>
+    <group position={[layout.x, layout.y, 0]}>
       <color attach="background" args={["#eeeeec"]} />
-      <ambientLight intensity={1} />
-      {works.map((work, i) => (
+      {works.map((work, index) => (
         <CurvedPlane
           key={work.slug}
           work={work}
-          index={i}
+          index={index}
           store={store}
-          width={width}
-          height={height}
-          gap={gap}
+          width={layout.width}
+          height={layout.height}
+          radius={layout.radius}
+          step={layout.step}
           onSelect={onSelect}
         />
       ))}
@@ -49,7 +52,11 @@ function Scene({
   );
 }
 
-export default function IndexGalleryCanvas({ works, onActiveChange }: Props) {
+export default function IndexGalleryCanvas({
+  works,
+  compact,
+  onActiveChange,
+}: Props) {
   const router = useRouter();
 
   const onSelect = useMemo(
@@ -66,7 +73,9 @@ export default function IndexGalleryCanvas({ works, onActiveChange }: Props) {
   return (
     <GalleryScrollProvider count={works.length} onActiveChange={onActiveChange}>
       <Canvas
+        key={compact ? "compact" : "desk"}
         className="h-full w-full touch-none"
+        style={{ width: "100%", height: "100%" }}
         dpr={[1, 1.5]}
         gl={{
           antialias: true,
@@ -74,13 +83,18 @@ export default function IndexGalleryCanvas({ works, onActiveChange }: Props) {
           powerPreference: "high-performance",
           toneMapping: THREE.NoToneMapping,
         }}
-        camera={{ position: [0, 0, 6.2], fov: 32, near: 0.1, far: 80 }}
+        camera={{
+          position: [0, compact ? 0.2 : 0, compact ? 5.5 : 8.6],
+          fov: compact ? 40 : 30,
+          near: 0.1,
+          far: 40,
+        }}
         onCreated={({ gl }) => {
           gl.setClearColor("#eeeeec", 1);
           gl.outputColorSpace = THREE.SRGBColorSpace;
         }}
       >
-        <Scene works={works} onSelect={onSelect} />
+        <Scene works={works} compact={compact} onSelect={onSelect} />
       </Canvas>
     </GalleryScrollProvider>
   );
