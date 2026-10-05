@@ -16,13 +16,21 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`site-chrome fixed inset-x-0 top-0 z-40 border-b ${
+      className={`site-chrome fixed inset-x-0 top-0 z-40 ${
         isIndex
-          ? "border-text/10 bg-base/90 shadow-[0_1px_18px_rgba(21,20,23,0.035)] backdrop-blur-xl"
-          : "border-border bg-base/95 backdrop-blur-sm"
+          ? "pointer-events-none h-[22svh] border-0"
+          : "border-border bg-base/95 border-b backdrop-blur-sm"
       }`}
+      style={
+        isIndex
+          ? {
+              background:
+                "linear-gradient(to bottom, #eeeeec 0%, rgba(238,238,236,.96) 42%, rgba(238,238,236,0) 100%)",
+            }
+          : undefined
+      }
     >
-      <div className="page-gutter mx-auto flex max-w-[1720px] items-center justify-between gap-4 py-4">
+      <div className="page-gutter pointer-events-auto mx-auto flex max-w-[1720px] items-center justify-between gap-4 py-4">
         <Link
           href="/"
           className="font-display text-[0.875rem] font-bold tracking-[-0.035em] no-underline"
