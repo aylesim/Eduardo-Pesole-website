@@ -16,11 +16,13 @@ export default function SiteHeader() {
 
   return (
     <header
-      className={`site-chrome fixed inset-x-0 top-0 z-40 ${
-        isIndex ? "bg-transparent" : "border-b border-border bg-base/95 backdrop-blur-sm"
+      className={`site-chrome fixed inset-x-0 top-0 z-40 border-b ${
+        isIndex
+          ? "border-text/10 bg-base/90 shadow-[0_1px_18px_rgba(21,20,23,0.035)] backdrop-blur-xl"
+          : "border-border bg-base/95 backdrop-blur-sm"
       }`}
     >
-      <div className="page-gutter mx-auto grid max-w-[1720px] grid-cols-2 items-center gap-4 py-[18px] md:grid-cols-12">
+      <div className="page-gutter mx-auto grid max-w-[1720px] grid-cols-2 items-center gap-4 py-4 md:grid-cols-12">
         <Link
           href="/"
           className="font-display text-[0.875rem] font-bold tracking-[-0.035em] no-underline md:col-span-3"
@@ -46,7 +48,9 @@ export default function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={`font-ui no-underline ${
-                  active ? "opacity-100" : "opacity-45 hover:opacity-100"
+                  active
+                    ? "underline decoration-1 underline-offset-[7px] opacity-100"
+                    : "opacity-60 hover:opacity-100"
                 }`}
                 aria-current={active ? "page" : undefined}
               >
@@ -56,13 +60,13 @@ export default function SiteHeader() {
           })}
           <Link
             href={mailHref}
-            className="font-ui opacity-45 hover:opacity-100"
+            className="font-ui opacity-60 hover:opacity-100"
           >
             Mail
           </Link>
         </nav>
 
-        <div className="md:hidden">
+        <div className="flex justify-end md:hidden">
           <MobileNav
             open={menuOpen}
             onOpenChange={setMenuOpen}
