@@ -21,8 +21,8 @@ export default function IndexGalleryFallback({ works }: Props) {
       >
         {works.map((work) => {
           const inner = (
-            <article className="snap-center shrink-0 w-[min(72vw,380px)]">
-              <div className="relative aspect-[3/4] overflow-hidden bg-[#ddd]">
+            <article className="snap-center shrink-0 w-[min(78vw,420px)]">
+              <div className="relative aspect-video overflow-hidden bg-[#ddd]">
                 <Image
                   src={work.poster}
                   alt=""

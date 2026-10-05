@@ -120,35 +120,33 @@ export default function CurvedPlane({
     const dist = index - activeIndex;
     const abs = Math.abs(dist);
 
-    const targetZ = -dist * gap;
-    const targetY = dist * 0.08;
-    const targetX = dist * 0.12;
-    mesh.position.z += (targetZ - mesh.position.z) * 0.08;
-    mesh.position.y += (targetY - mesh.position.y) * 0.08;
-    mesh.position.x += (targetX - mesh.position.x) * 0.08;
+    // Future projects sit further back (−Z); past projects leave upward + fade
+    const targetZ = -Math.max(0, dist) * gap - Math.min(0, dist) * 0.35;
+    const targetY = Math.min(0, dist) * 1.15;
+    const targetX = dist * 0.02;
+    mesh.position.z += (targetZ - mesh.position.z) * 0.12;
+    mesh.position.y += (targetY - mesh.position.y) * 0.12;
+    mesh.position.x += (targetX - mesh.position.x) * 0.12;
 
-    const targetScale = abs < 0.15 ? 1 : Math.max(0.88, 1 - abs * 0.06);
-    const s = mesh.scale.x + (targetScale - mesh.scale.x) * 0.08;
+    const targetScale = abs < 0.12 ? 1 : Math.max(0.92, 1 - abs * 0.04);
+    const s = mesh.scale.x + (targetScale - mesh.scale.x) * 0.12;
     mesh.scale.setScalar(s);
 
-    const near = Math.max(0, 1 - abs);
-    const vel = THREE.MathUtils.clamp(scrollVel, -2.5, 2.5);
-    const curlAmt =
-      abs < 1.25
-        ? THREE.MathUtils.lerp(
-            0,
-            1.15,
-            Math.min(1, Math.abs(vel) * 0.55 + (1 - near) * 0.85),
-          )
-        : 0;
+    const vel = THREE.MathUtils.clamp(scrollVel, -2.2, 2.2);
+    const frac = Math.abs(activeIndex - Math.round(activeIndex));
+    const curlMix = Math.min(1, Math.abs(vel) * 0.8 + frac * 1.4);
+    const curlAmt = abs < 1.2 ? curlMix * 1.1 : 0;
 
     mat.uniforms.uCurl.value = curlAmt;
     mat.uniforms.uFlip.value = vel >= 0 ? 1 : 0;
-    mat.uniforms.uCurlPos.value = vel >= 0 ? 0.62 : 0.38;
-    mat.uniforms.uOpacity.value =
-      abs > 2.2 ? 0 : THREE.MathUtils.clamp(1.15 - abs * 0.35, 0.15, 1);
+    mat.uniforms.uCurlPos.value = vel >= 0 ? 0.58 : 0.42;
 
-    mesh.visible = abs < 2.6;
+    // Only the active (and briefly the neighbor during transit) should read
+    const show = abs < 1.15 || curlMix > 0.08;
+    mat.uniforms.uOpacity.value = show
+      ? THREE.MathUtils.clamp(1 - abs * 0.85, 0, 1)
+      : 0;
+    mesh.visible = show && mat.uniforms.uOpacity.value > 0.04;
   });
 
   return (

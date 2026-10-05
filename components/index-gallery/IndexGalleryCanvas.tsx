@@ -25,12 +25,12 @@ function Scene({
 }) {
   const { store } = useGalleryScroll();
 
-  const width = 2.35;
-  const height = 3.15;
-  const gap = 2.85;
+  const width = 3.55;
+  const height = 2.05;
+  const gap = 3.2;
 
   return (
-    <group position={[-1.15, 0, 0]}>
+    <group position={[-0.85, 0.05, 0]}>
       <color attach="background" args={["#eeeeee"]} />
       <ambientLight intensity={1} />
       {works.map((work, i) => (
