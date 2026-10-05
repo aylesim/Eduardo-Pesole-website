@@ -49,26 +49,29 @@ export default async function ProjectSheetPage({ params }: PageProps) {
   ].filter(Boolean);
 
   return (
-    <article className="page-gutter mx-auto max-w-[720px] py-14 md:py-20">
-      <header className="mb-10 space-y-5">
-        <Link href="/works" className="btn-text text-muted">
-          ← Works
+    <article className="editorial-page">
+      <header className="grid grid-cols-12 gap-x-5 gap-y-8 pt-10 pb-16 md:pt-16 md:pb-24">
+        <Link href="/works" className="btn-text col-span-6 md:col-span-3">
+          ← All works
         </Link>
-        <p className="font-meta leading-relaxed">
-          {meta.join("  ·  ")}
+        <p className="font-meta col-span-6 text-right md:col-span-3 md:col-start-10">
+          {work.year} · {work.categoryLabel}
+        </p>
+
+        <h1 className="type-sheet-title col-span-12 mt-6 md:col-span-10 md:col-start-3">
+          {work.title}
+        </h1>
+
+        <div className="col-span-12 space-y-4 border-t border-border pt-5 md:col-span-4 md:col-start-3">
+          <p className="font-meta leading-relaxed">{meta.join("  ·  ")}</p>
           {work.with.length > 0 ? (
-            <>
-              {"  ·  WITH · "}
+            <p className="font-meta-value text-muted">
+              With{" "}
               {work.with.map((c, i) => (
                 <span key={c.name}>
                   {i > 0 ? ", " : null}
                   {c.url ? (
-                    <a
-                      href={c.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted hover:text-accent"
-                    >
+                    <a href={c.url} target="_blank" rel="noopener noreferrer">
                       {c.name}
                     </a>
                   ) : (
@@ -76,65 +79,66 @@ export default async function ProjectSheetPage({ params }: PageProps) {
                   )}
                 </span>
               ))}
-            </>
+            </p>
           ) : null}
-        </p>
-        <h1 className="type-sheet-title text-text">{work.title}</h1>
-        {work.subtitle ? (
-          <p className="text-lg text-muted italic">{work.subtitle}</p>
-        ) : null}
+        </div>
+
+        <div className="col-span-12 md:col-span-5 md:col-start-8">
+          {work.short ? <p className="type-lead">{work.short}</p> : null}
+          {work.subtitle ? (
+            <p className="type-body mt-5 text-muted">{work.subtitle}</p>
+          ) : null}
+        </div>
       </header>
 
-      {work.short ? (
-        <p className="type-body mb-10 text-text/90">{work.short}</p>
-      ) : null}
+      <div className="grid grid-cols-12 gap-x-5 gap-y-8">
+        {work.primaryVideo ? (
+          <div className="col-span-12 md:col-span-10 md:col-start-2">
+            <LiteYouTube
+              url={work.primaryVideo.url}
+              title={work.primaryVideo.label || work.title}
+              poster={poster}
+              kind="youtube"
+            />
+          </div>
+        ) : work.soundcloud ? (
+          <div className="col-span-12 md:col-span-8 md:col-start-3">
+            <LiteYouTube
+              url={work.soundcloud}
+              title={work.title}
+              kind="soundcloud"
+            />
+          </div>
+        ) : null}
 
-      {work.primaryVideo ? (
-        <div className="mb-12 rounded-md bg-elevated p-1">
-          <LiteYouTube
-            url={work.primaryVideo.url}
-            title={work.primaryVideo.label || work.title}
-            poster={poster}
-            kind="youtube"
-          />
-        </div>
-      ) : work.soundcloud ? (
-        <div className="mb-12 rounded-md bg-elevated p-1">
-          <LiteYouTube
-            url={work.soundcloud}
-            title={work.title}
-            kind="soundcloud"
-          />
-        </div>
-      ) : null}
-
-      {work.stills.length > 0 ? (
-        <div className="mb-10">
-          <MediaSwitch stills={work.stills} title={work.title} />
-        </div>
-      ) : !work.primaryVideo && !work.soundcloud && poster ? (
-        <div className="relative mb-12 aspect-video overflow-hidden rounded-md bg-elevated">
-          <Image
-            src={poster}
-            alt={work.title}
-            fill
-            className="object-cover"
-            style={{ objectPosition: work.focal }}
-            sizes="(max-width: 768px) 100vw, 720px"
-            unoptimized={poster.startsWith("http")}
-          />
-        </div>
-      ) : null}
+        {work.stills.length > 0 ? (
+          <div className="col-span-12 mt-8 md:col-span-8 md:col-start-3">
+            <MediaSwitch stills={work.stills} title={work.title} />
+          </div>
+        ) : !work.primaryVideo && !work.soundcloud && poster ? (
+          <div className="relative col-span-12 aspect-video overflow-hidden bg-elevated md:col-span-10 md:col-start-2">
+            <Image
+              src={poster}
+              alt={work.title}
+              fill
+              className="object-cover"
+              style={{ objectPosition: work.focal }}
+              sizes="(max-width: 768px) 100vw, 83vw"
+              unoptimized={poster.startsWith("http")}
+            />
+          </div>
+        ) : null}
+      </div>
 
       {work.externalLinks.length > 0 ? (
-        <ul className="mb-12 space-y-2">
+        <ul className="mt-12 flex flex-wrap gap-6 border-t border-border pt-5">
           {work.externalLinks.map((link) => (
             <li key={link.url}>
               <a
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-ui text-accent"
+                className="font-ui"
               >
                 {link.label}
               </a>
@@ -144,30 +148,37 @@ export default async function ProjectSheetPage({ params }: PageProps) {
       ) : null}
 
       <nav
-        className="flex items-center justify-between gap-4 border-t border-border pt-8"
+        className="mt-24 grid grid-cols-12 gap-5 border-t border-border pt-8 md:mt-36"
         aria-label="Adjacent projects"
       >
         {prev ? (
           <Link
             href={`/works/${encodeURI(prev.slug)}`}
-            className="group max-w-[40%] no-underline"
+            className="group col-span-6 no-underline md:col-span-5"
           >
-            <p className="font-meta mb-1 group-hover:text-accent">← Prev</p>
-            <p className="text-text">{prev.title}</p>
+            <p className="font-meta mb-3">← Previous</p>
+            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] font-bold leading-none tracking-[-0.045em]">
+              {prev.title}
+            </p>
           </Link>
         ) : (
           <span />
         )}
-        <Link href="/works" className="btn-text text-muted">
-          All works
+        <Link
+          href="/works"
+          className="btn-text col-span-12 row-start-2 mt-8 md:col-span-2 md:col-start-6 md:row-start-1 md:mt-0 md:justify-self-center"
+        >
+          Index
         </Link>
         {next ? (
           <Link
             href={`/works/${encodeURI(next.slug)}`}
-            className="group max-w-[40%] text-right no-underline"
+            className="group col-span-6 text-right no-underline md:col-span-5 md:col-start-8"
           >
-            <p className="font-meta mb-1 group-hover:text-accent">Next →</p>
-            <p className="text-text">{next.title}</p>
+            <p className="font-meta mb-3">Next →</p>
+            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] font-bold leading-none tracking-[-0.045em]">
+              {next.title}
+            </p>
           </Link>
         ) : (
           <span />

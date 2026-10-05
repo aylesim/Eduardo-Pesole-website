@@ -31,7 +31,7 @@ function Scene({
 
   return (
     <group position={[-0.85, 0.05, 0]}>
-      <color attach="background" args={["#eeeeee"]} />
+      <color attach="background" args={["#eeeeec"]} />
       <ambientLight intensity={1} />
       {works.map((work, i) => (
         <CurvedPlane
@@ -76,7 +76,7 @@ export default function IndexGalleryCanvas({ works, onActiveChange }: Props) {
         }}
         camera={{ position: [0, 0, 6.2], fov: 32, near: 0.1, far: 80 }}
         onCreated={({ gl }) => {
-          gl.setClearColor("#eeeeee", 1);
+          gl.setClearColor("#eeeeec", 1);
           gl.outputColorSpace = THREE.SRGBColorSpace;
         }}
       >

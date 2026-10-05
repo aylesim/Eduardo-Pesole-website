@@ -18,7 +18,7 @@ type Props = {
 
 function GallerySkeleton() {
   return (
-    <div className="flex h-[100svh] items-center justify-center bg-[#eeeeee] text-[#151417]/50">
+    <div className="flex h-[100svh] items-center justify-center bg-[#eeeeec] text-[#151417]/50">
       <p className="font-mono text-[0.75rem] tracking-[0.12em] uppercase">
         Loading gallery…
       </p>
@@ -72,14 +72,14 @@ export default function IndexGallery({ works, brandName }: Props) {
 
   if (fallback) {
     return (
-      <div className="index-gallery-root relative bg-[#eeeeee] text-[#151417]">
+      <div className="index-gallery-root relative bg-[#eeeeec] text-[#151417]">
         <IndexGalleryFallback works={works} />
       </div>
     );
   }
 
   return (
-    <div className="index-gallery-root relative h-[100svh] overflow-hidden bg-[#eeeeee] text-[#151417]">
+    <div className="index-gallery-root relative h-[100svh] overflow-hidden bg-[#eeeeec] text-[#151417]">
       <IndexGalleryCanvas works={works} onActiveChange={setActive} />
 
       {work ? (
