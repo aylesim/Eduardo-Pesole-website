@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -5,7 +7,7 @@ import { getSite } from "@/lib/content";
 
 const site = getSite();
 
-export const metadata = {
+export const metadata: Metadata = {
   title: {
     default: "Eduardopesole | Sound designer",
     template: "%s | Eduardopesole",
@@ -17,12 +19,12 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
         <Header />
-        <main className="site-main">{children}</main>
+        <main className="min-h-[70vh]">{children}</main>
         <Footer />
       </body>
     </html>

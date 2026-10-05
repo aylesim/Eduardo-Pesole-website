@@ -1,19 +1,27 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import Embed from "@/components/Embed";
+import PageShell from "@/components/PageShell";
 import ProjectMeta from "@/components/ProjectMeta";
 import {
   getProjectBySlug,
-  getProjects,
   getProjectCategory,
+  getProjects,
 } from "@/lib/content";
-import { notFound } from "next/navigation";
+
+type PageProps = {
+  params: Promise<{ slug: string }>;
+};
 
 export function generateStaticParams() {
   return getProjects().map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) return { title: "Not found" };
@@ -26,7 +34,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function ProjectPage({ params }) {
+export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
   if (!project) notFound();
@@ -38,19 +46,19 @@ export default async function ProjectPage({ params }) {
   const links = project.external_links || [];
 
   return (
-    <div className="page">
-      <h1 className="page-title">{project.display_title}</h1>
+    <PageShell>
+      <h1 className="mb-6 text-3xl font-medium">{project.display_title}</h1>
       {project.subtitle ? (
-        <p className="project-subtitle">{project.subtitle}</p>
+        <p className="-mt-3 mb-6 text-muted">{project.subtitle}</p>
       ) : null}
 
       <ProjectMeta fields={project.fields} />
 
       {project.description ? (
-        <div className="project-body">{project.description}</div>
+        <div className="mb-8 whitespace-pre-wrap">{project.description}</div>
       ) : null}
 
-      <div className="project-media">
+      <div className="my-8 flex flex-col gap-6">
         {videos.map((v, i) => (
           <Embed
             key={`v-${i}`}
@@ -60,12 +68,7 @@ export default async function ProjectPage({ params }) {
           />
         ))}
         {embeds.map((e, i) => (
-          <Embed
-            key={`e-${i}`}
-            url={e.url}
-            kind={e.kind}
-            title={e.title}
-          />
+          <Embed key={`e-${i}`} url={e.url} kind={e.kind} title={e.title} />
         ))}
         {images.map((img, i) =>
           img.local ? (
@@ -76,13 +79,14 @@ export default async function ProjectPage({ params }) {
               width={img.width || 1200}
               height={img.height || 800}
               sizes="(max-width: 720px) 100vw, 720px"
+              className="w-full"
             />
-          ) : null
+          ) : null,
         )}
       </div>
 
       {links.length > 0 ? (
-        <ul className="project-links">
+        <ul className="mt-6 list-none space-y-1.5 p-0">
           {links.map((l) => (
             <li key={l.href}>
               <a href={l.href} target="_blank" rel="noopener noreferrer">
@@ -93,10 +97,10 @@ export default async function ProjectPage({ params }) {
         </ul>
       ) : null}
 
-      <Link href="/s-projects-basic" className="back-link">
+      <Link href="/s-projects-basic" className="mt-8 inline-block text-sm">
         ← Back to Portfolio
         {category ? ` (${category})` : ""}
       </Link>
-    </div>
+    </PageShell>
   );
 }

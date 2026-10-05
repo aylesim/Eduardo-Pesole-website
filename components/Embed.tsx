@@ -1,23 +1,32 @@
 import { getEmbedSrc } from "@/lib/embeds";
 
-export default function Embed({ url, kind, title, label }) {
-  const { type, src, href } = getEmbedSrc(kind, url);
+type EmbedProps = {
+  url: string;
+  kind?: string;
+  title?: string;
+  label?: string;
+};
+
+export default function Embed({ url, kind, title, label }: EmbedProps) {
+  const result = getEmbedSrc(kind, url);
   const caption = title || label || "";
 
-  if (type === "link" || !src) {
+  if (result.type === "link") {
     return (
-      <p className="embed-fallback">
-        <a href={href || url} target="_blank" rel="noopener noreferrer">
+      <p>
+        <a href={result.href} target="_blank" rel="noopener noreferrer">
           {caption || url}
         </a>
       </p>
     );
   }
 
-  if (type === "soundcloud") {
+  if (result.type === "soundcloud") {
     return (
-      <div className="embed embed-soundcloud">
-        {caption ? <p className="embed-caption">{caption}</p> : null}
+      <div>
+        {caption ? (
+          <p className="mb-2 text-sm text-muted">{caption}</p>
+        ) : null}
         <iframe
           title={caption || "SoundCloud player"}
           width="100%"
@@ -25,19 +34,21 @@ export default function Embed({ url, kind, title, label }) {
           scrolling="no"
           frameBorder="no"
           allow="autoplay"
-          src={src}
+          src={result.src}
         />
       </div>
     );
   }
 
-  if (type === "spotify") {
+  if (result.type === "spotify") {
     return (
-      <div className="embed embed-spotify">
-        {caption ? <p className="embed-caption">{caption}</p> : null}
+      <div>
+        {caption ? (
+          <p className="mb-2 text-sm text-muted">{caption}</p>
+        ) : null}
         <iframe
           title={caption || "Spotify player"}
-          src={src}
+          src={result.src}
           width="100%"
           height="152"
           frameBorder="0"
@@ -49,12 +60,13 @@ export default function Embed({ url, kind, title, label }) {
   }
 
   return (
-    <div className="embed embed-video">
-      {caption ? <p className="embed-caption">{caption}</p> : null}
-      <div className="embed-video-frame">
+    <div>
+      {caption ? <p className="mb-2 text-sm text-muted">{caption}</p> : null}
+      <div className="relative h-0 w-full overflow-hidden bg-neutral-900 pb-[56.25%]">
         <iframe
           title={caption || "Video"}
-          src={src}
+          src={result.src}
+          className="absolute inset-0 h-full w-full border-0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
           loading="lazy"

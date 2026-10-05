@@ -1,8 +1,10 @@
-import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { getHubLinks, getSecondary } from "@/lib/content";
+import PageShell from "@/components/PageShell";
+import ProjectCard from "@/components/ProjectCard";
+import { getHubLinks, getSecondary, isLogoMark } from "@/lib/content";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Music",
   description: "Music projects and releases by Eduardo Pesole.",
 };
@@ -12,14 +14,14 @@ export default function MusicHubPage() {
   const portfolioMusic = getHubLinks("music");
   const hubItems = hub.items || [];
   const gallery = (hub.images || []).filter(
-    (img) => img.local && !img.local.includes("984ee3bf58d04fdda67fe9f48d7d5003")
+    (img) => img.local && !isLogoMark(img.local),
   );
 
   return (
-    <div className="page page-wide">
-      <h1 className="page-title">Music</h1>
+    <PageShell wide>
+      <h1 className="mb-6 text-3xl font-medium">Music</h1>
 
-      <ul className="hub-list">
+      <ul className="mt-6 list-none space-y-2 p-0">
         {portfolioMusic.map((item) => (
           <li key={item.title}>
             <a href={item.url} target="_blank" rel="noopener noreferrer">
@@ -29,8 +31,8 @@ export default function MusicHubPage() {
         ))}
       </ul>
 
-      <section className="section">
-        <ul className="hub-list">
+      <section className="py-10">
+        <ul className="list-none space-y-2 p-0">
           {hubItems.map((item) => (
             <li key={item.label}>
               {item.url ? (
@@ -50,27 +52,25 @@ export default function MusicHubPage() {
       </section>
 
       {gallery.length > 0 ? (
-        <div className="hub-grid">
+        <div className="mt-6 grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-5">
           {gallery.map((img) => (
-            <div key={img.local} className="hub-card">
-              <Image
-                src={img.local}
-                alt={img.alt || "Music"}
-                width={img.width || 800}
-                height={img.height || 800}
-                sizes="(max-width: 600px) 100vw, 300px"
-              />
-              {img.alt ? (
-                <span>{img.alt.replace(/\.(jpeg|jpg|png|HEIC)$/i, "")}</span>
-              ) : null}
-            </div>
+            <ProjectCard
+              key={img.local}
+              image={img}
+              label={
+                img.alt
+                  ? img.alt.replace(/\.(jpeg|jpg|png|HEIC)$/i, "")
+                  : undefined
+              }
+              fallbackAlt="Music"
+            />
           ))}
         </div>
       ) : null}
 
-      <Link href="/s-projects-basic" className="back-link">
+      <Link href="/s-projects-basic" className="mt-8 inline-block text-sm">
         ← BACK
       </Link>
-    </div>
+    </PageShell>
   );
 }
