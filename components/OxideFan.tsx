@@ -254,9 +254,6 @@ export default function OxideFan({ works }: OxideFanProps) {
           <ReducedMotionIndex
             key={`${activeFilter}-${filterEpoch}`}
             works={items}
-            filters={filters}
-            activeFilter={activeFilter}
-            onFilterChange={setFilter}
           />
         </div>
       ) : (

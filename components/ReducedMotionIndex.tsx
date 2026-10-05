@@ -8,26 +8,19 @@ import {
   useState,
   type KeyboardEvent,
 } from "react";
-import FilterChips from "@/components/FilterChips";
 import {
   isExternalWork,
   plateSrc,
   workHref,
 } from "@/lib/content";
-import type { CategoryFilter, WorkCategory, WorkItem } from "@/lib/types";
+import type { WorkItem } from "@/lib/types";
 
 type ReducedMotionIndexProps = {
   works: WorkItem[];
-  filters: CategoryFilter[];
-  activeFilter: "all" | WorkCategory;
-  onFilterChange: (id: "all" | WorkCategory) => void;
 };
 
 export default function ReducedMotionIndex({
   works,
-  filters,
-  activeFilter,
-  onFilterChange,
 }: ReducedMotionIndexProps) {
   const [active, setActive] = useState(0);
   const scrollerRef = useRef<HTMLUListElement>(null);
@@ -70,23 +63,15 @@ export default function ReducedMotionIndex({
       tabIndex={0}
       onKeyDown={onKeyDown}
     >
-      <div className="page-gutter shrink-0 pt-16 pb-4">
-        <FilterChips
-          filters={filters}
-          active={activeFilter}
-          onChange={onFilterChange}
-        />
-      </div>
-
       {works.length === 0 ? (
-        <p className="page-gutter type-body text-muted">
+        <p className="page-gutter mt-24 type-body text-muted">
           No projects in this filter.
         </p>
       ) : (
         <>
           <ul
             ref={scrollerRef}
-            className="flex flex-1 items-center gap-5 overflow-x-auto px-[clamp(16px,4vw,48px)] pb-6 [scroll-snap-type:x_mandatory]"
+            className="flex flex-1 items-center gap-5 overflow-x-auto px-[clamp(16px,4vw,48px)] pt-20 pb-6 [scroll-snap-type:x_mandatory]"
           >
             {works.map((work, index) => {
               const href = workHref(work);
