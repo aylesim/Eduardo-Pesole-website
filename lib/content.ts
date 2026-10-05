@@ -53,7 +53,14 @@ export function getAdjacentWorks(slug: string): {
   prev: WorkItem | null;
   next: WorkItem | null;
 } {
-  const list = getInternalWorks();
+  const current = getWorkBySlug(slug);
+  if (!current || current.externalUrl) return { prev: null, next: null };
+
+  const sameCategory = getInternalWorks().filter(
+    (w) => w.category === current.category,
+  );
+  const list =
+    sameCategory.length > 1 ? sameCategory : getInternalWorks();
   const index = list.findIndex((w) => w.slug === slug);
   if (index === -1) return { prev: null, next: null };
   return {

@@ -23,7 +23,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import FilterChips from "@/components/FilterChips";
-import { forwardEase } from "@/components/SmoothScroll";
+import { oxideEase } from "@/components/SmoothScroll";
 import {
   getCategoryFilters,
   getWorksByCategory,
@@ -33,8 +33,8 @@ import {
 } from "@/lib/content";
 import type { WorkCategory, WorkItem } from "@/lib/types";
 
-const NOTCH_DESKTOP = 0.7;
-const NOTCH_MOBILE = 0.6;
+const NOTCH_DESKTOP = 0.68;
+const NOTCH_MOBILE = 0.58;
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
@@ -49,15 +49,14 @@ function sampleDepth(a: number, values: number[]) {
   return lerp(v0, v1, f);
 }
 
-function plateMetrics(d: number, mobile: boolean) {
+function plateMetrics(d: number) {
   const a = Math.abs(d);
-  const scale = sampleDepth(a, mobile ? [1, 0.78, 0.5, 0.38] : [1, 0.72, 0.5, 0.38]);
-  const z = sampleDepth(a, mobile ? [0, -120, -360, -540] : [0, -180, -360, -540]);
-  const yPct = sampleDepth(a, mobile ? [0, 0.52, 0.76, 0.96] : [0, 0.44, 0.76, 0.96]);
-  const upcoming = sampleDepth(a, mobile ? [1, 0.4, 0.22, 0] : [1, 0.6, 0.22, 0]);
-  const past = sampleDepth(a, mobile ? [1, 0.25, 0.1, 0] : [1, 0.4, 0.1, 0]);
-  const overlay = sampleDepth(a, mobile ? [0, 0.45, 0.6, 0.8] : [0, 0.35, 0.6, 0.8]);
-  const hiddenAt = mobile ? 1.5 : 2.5;
+  const scale = sampleDepth(a, [1, 0.74, 0.52, 0.4]);
+  const z = sampleDepth(a, [0, -160, -320, -480]);
+  const yPct = sampleDepth(a, [0, 0.42, 0.72, 0.94]);
+  const upcoming = sampleDepth(a, [1, 0.55, 0.2, 0]);
+  const past = sampleDepth(a, [1, 0.38, 0.1, 0]);
+  const overlay = sampleDepth(a, [0, 0.32, 0.55, 0.78]);
   return {
     a,
     scale,
@@ -65,7 +64,7 @@ function plateMetrics(d: number, mobile: boolean) {
     yPct: d > 0 ? -yPct : yPct,
     opacity: d >= 0 ? upcoming : past,
     overlay,
-    hidden: a > hiddenAt,
+    hidden: a > 2.5,
   };
 }
 
@@ -79,18 +78,15 @@ function PlateMedia({
   const src = plateSrc(work);
   const scale = work.posterScale ?? 1;
   if (!src) {
-    const gradient =
-      work.posterPlaceholder === "secondary"
-        ? "radial-gradient(circle at 40% 35%, var(--color-secondary), var(--color-base) 70%)"
-        : "radial-gradient(circle at 40% 35%, var(--color-primary), var(--color-base) 70%)";
     return (
       <div
         className="flex h-full w-full items-center justify-center p-8 text-center"
-        style={{ background: gradient }}
+        style={{
+          background:
+            "radial-gradient(circle at 40% 35%, color-mix(in oklab, var(--color-accent) 55%, var(--color-elevated)), var(--color-base) 72%)",
+        }}
       >
-        <span className="font-mono text-xs uppercase tracking-[0.08em] text-text/90">
-          {work.title}
-        </span>
+        <span className="font-meta text-text/90">{work.title}</span>
       </div>
     );
   }
@@ -106,7 +102,7 @@ function PlateMedia({
         objectPosition: work.focal || "50% 50%",
         transform: scale !== 1 ? `scale(${scale})` : undefined,
       }}
-      sizes="(min-width:768px) 36vw, 72vw"
+      sizes="(min-width:768px) 34vw, 72vw"
       unoptimized={src.startsWith("http")}
     />
   );
@@ -116,60 +112,61 @@ function Plate({
   work,
   index,
   progress,
-  mobile,
   active,
   onActivate,
 }: {
   work: WorkItem;
   index: number;
   progress: MotionValue<number>;
-  mobile: boolean;
   active: boolean;
   onActivate: () => void;
 }) {
   const href = workHref(work);
   const external = isExternalWork(work);
   const transform = useTransform(progress, (p) => {
-    const m = plateMetrics(index - p, mobile);
+    const m = plateMetrics(index - p);
     if (m.hidden) return "translate3d(0,0,-999px) scale(0.01)";
-    const plate = mobile ? Math.min(window.innerWidth * 0.72, 360) : Math.min(Math.max(window.innerWidth * 0.36, 280), 540);
+    const plate = Math.min(
+      Math.max(window.innerWidth * 0.34, 260),
+      500,
+    );
     return `translate3d(0, ${m.yPct * plate}px, ${m.z}px) scale(${m.scale})`;
   });
   const opacity = useTransform(progress, (p) => {
-    const m = plateMetrics(index - p, mobile);
+    const m = plateMetrics(index - p);
     return m.hidden ? 0 : m.opacity;
   });
   const overlay = useTransform(progress, (p) => {
-    const m = plateMetrics(index - p, mobile);
+    const m = plateMetrics(index - p);
     return m.hidden ? 0.8 : m.overlay;
   });
   const visibility = useTransform(progress, (p) => {
-    const m = plateMetrics(index - p, mobile);
+    const m = plateMetrics(index - p);
     return m.hidden ? "hidden" : "visible";
   });
   const zIndex = useTransform(progress, (p) => {
-    const m = plateMetrics(index - p, mobile);
+    const m = plateMetrics(index - p);
     return 100 - Math.round(m.a * 10);
   });
   const willChange = useTransform(progress, (p) => {
-    const m = plateMetrics(index - p, mobile);
+    const m = plateMetrics(index - p);
     return m.a <= 2.5 ? "transform, opacity" : "auto";
   });
 
   const body = (
     <motion.div
-      className={`relative aspect-square w-[clamp(280px,36vw,540px)] max-md:w-[min(72vw,360px)] overflow-hidden rounded-full ${
+      className={`relative aspect-square w-[clamp(260px,34vw,500px)] overflow-hidden rounded-full ${
         active
-          ? "shadow-[0_0_0_2px_color-mix(in_oklab,var(--color-primary)_70%,transparent)]"
+          ? "shadow-[0_0_0_2px_color-mix(in_oklab,var(--color-accent)_70%,transparent)]"
           : "shadow-[0_0_0_1px_var(--color-border)]"
-      } ${active ? "md:hover:scale-[1.03]" : ""}`}
+      } ${active ? "md:hover:scale-[1.025]" : ""}`}
       style={{
         transform,
         opacity,
         visibility,
         zIndex,
         willChange,
-        transition: "box-shadow 180ms var(--ease-forward)",
+        transition: "box-shadow var(--duration-fast) var(--ease-oxide)",
       }}
     >
       <PlateMedia work={work} priority={index < 2} />
@@ -181,6 +178,9 @@ function Plate({
     </motion.div>
   );
 
+  const positionClass =
+    "absolute left-[34%] top-1/2 -translate-x-1/2 -translate-y-1/2 max-md:left-1/2 max-md:top-[40%]";
+
   if (active) {
     if (external) {
       return (
@@ -188,7 +188,7 @@ function Plate({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute left-[38%] top-1/2 -translate-x-1/2 -translate-y-1/2 max-md:left-1/2 max-md:top-[42%] no-underline"
+          className={`${positionClass} no-underline`}
           aria-label={`${work.title}${work.year ? `, ${work.year}` : ""}`}
         >
           {body}
@@ -198,7 +198,7 @@ function Plate({
     return (
       <Link
         href={href}
-        className="absolute left-[38%] top-1/2 -translate-x-1/2 -translate-y-1/2 max-md:left-1/2 max-md:top-[42%] no-underline"
+        className={`${positionClass} no-underline`}
         aria-label={`${work.title}${work.year ? `, ${work.year}` : ""}`}
       >
         {body}
@@ -209,7 +209,7 @@ function Plate({
   return (
     <button
       type="button"
-      className="absolute left-[38%] top-1/2 -translate-x-1/2 -translate-y-1/2 max-md:left-1/2 max-md:top-[42%] cursor-pointer border-0 bg-transparent p-0"
+      className={`${positionClass} cursor-pointer border-0 bg-transparent p-0`}
       onClick={onActivate}
       tabIndex={-1}
       aria-label={`Go to ${work.title}`}
@@ -225,34 +225,31 @@ function TitleBlock({ work }: { work: WorkItem }) {
   return (
     <motion.div
       key={work.slug}
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -12 }}
-      transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-      className="max-w-[34ch]"
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+      className="max-w-[32ch]"
     >
       <p className="font-meta mb-3">
         {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
       </p>
       <h3 className="type-index-title mb-3 text-text">{work.title}</h3>
       {work.role ? (
-        <p className="font-meta-value mb-4 text-muted">{work.role}</p>
+        <p className="mb-4 text-[0.8125rem] text-muted">{work.role}</p>
       ) : null}
       {external ? (
         <a
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-primary"
+          className="font-ui text-accent"
         >
           Listen ↗
         </a>
       ) : (
-        <Link
-          href={href}
-          className="font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-primary"
-        >
-          View project →
+        <Link href={href} className="font-ui text-accent">
+          Open →
         </Link>
       )}
     </motion.div>
@@ -261,26 +258,33 @@ function TitleBlock({ work }: { work: WorkItem }) {
 
 function ReducedStrip({ works }: { works: WorkItem[] }) {
   return (
-    <div className="overflow-x-auto px-5 pb-6 [scroll-snap-type:x_mandatory]">
+    <div className="page-gutter overflow-x-auto pb-6 [scroll-snap-type:x_mandatory]">
       <ul className="flex gap-8">
         {works.map((work) => {
           const href = workHref(work);
           const external = isExternalWork(work);
           const card = (
             <div className="w-[240px] [scroll-snap-align:center]">
-              <div className="relative mb-4 aspect-square overflow-hidden rounded-full bg-surface-elevated shadow-[0_0_0_1px_var(--color-border)]">
+              <div className="relative mb-4 aspect-square overflow-hidden rounded-full bg-elevated shadow-[0_0_0_1px_var(--color-border)]">
                 <PlateMedia work={work} />
               </div>
               <p className="font-meta mb-1">
                 {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
               </p>
-              <h3 className="text-lg font-bold text-text">{work.title}</h3>
+              <h3 className="font-display text-lg font-semibold text-text">
+                {work.title}
+              </h3>
             </div>
           );
           return (
             <li key={work.slug}>
               {external ? (
-                <a href={href} target="_blank" rel="noopener noreferrer" className="block no-underline">
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block no-underline"
+                >
                   {card}
                 </a>
               ) : (
@@ -364,7 +368,7 @@ export default function ForwardIndex({ works }: ForwardIndexProps) {
         (k / max) * (section.offsetHeight - window.innerHeight);
       const lenis = window.__lenis;
       if (lenis && !immediate && !mobile) {
-        lenis.scrollTo(top, { duration: 0.65, easing: forwardEase });
+        lenis.scrollTo(top, { duration: 0.6, easing: oxideEase });
       } else {
         window.scrollTo({ top, behavior: immediate ? "auto" : "smooth" });
       }
@@ -382,7 +386,7 @@ export default function ForwardIndex({ works }: ForwardIndexProps) {
         const frac = p - base;
         const target = frac >= 0.18 ? base + 1 : base;
         scrollToIndex(target);
-      }, 120);
+      }, 110);
     });
     return () => {
       unsub();
@@ -405,7 +409,7 @@ export default function ForwardIndex({ works }: ForwardIndexProps) {
         else window.scrollTo({ top: section.offsetTop });
       }
       window.setTimeout(() => setStageOpacity(1), 40);
-    }, 180);
+    }, 160);
   }
 
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
@@ -434,20 +438,27 @@ export default function ForwardIndex({ works }: ForwardIndexProps) {
 
   const activeWork = filtered[Math.min(activeIndex, filtered.length - 1)];
   const railPct =
-    count <= 1 ? 100 : (Math.min(Math.max(activeIndex, 0), count - 1) / (count - 1)) * 100;
+    count <= 1
+      ? 100
+      : (Math.min(Math.max(activeIndex, 0), count - 1) / (count - 1)) * 100;
 
   if (reduced) {
     return (
       <section id="index" aria-label="Forward Index" className="relative py-10">
-        <div className="mx-auto mb-6 flex max-w-7xl flex-col gap-4 px-5 md:px-8">
-          <p className="font-meta text-primary">Forward Index</p>
+        <div className="page-gutter mx-auto mb-6 flex max-w-[1536px] flex-col gap-4">
           <FilterChips
             filters={filters}
             active={activeFilter}
             onChange={setFilter}
           />
         </div>
-        <ReducedStrip works={filtered.length ? filtered : works} />
+        {filtered.length === 0 ? (
+          <p className="page-gutter type-body text-muted">
+            No projects in this filter.
+          </p>
+        ) : (
+          <ReducedStrip works={filtered.length ? filtered : works} />
+        )}
       </section>
     );
   }
@@ -466,16 +477,15 @@ export default function ForwardIndex({ works }: ForwardIndexProps) {
         onKeyDown={onKeyDown}
         className="sticky top-0 h-[100svh] overflow-hidden outline-none"
         style={{
-          perspective: "1200px",
-          perspectiveOrigin: "38% 50%",
+          perspective: "1100px",
+          perspectiveOrigin: "34% 48%",
           opacity: stageOpacity,
-          transition: "opacity 320ms var(--ease-forward)",
+          transition: "opacity var(--duration-base) var(--ease-oxide)",
         }}
       >
-        <div className="absolute inset-x-0 top-0 z-30 border-b border-border/60 bg-base/70 px-5 py-3 backdrop-blur-md md:px-8">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <p className="font-meta text-primary">Forward Index</p>
-            <div className="overflow-x-auto">
+        <div className="absolute inset-x-0 top-0 z-30 page-gutter border-b border-border/60 bg-base/80 py-3">
+          <div className="mx-auto flex max-w-[1536px] items-center">
+            <div className="w-full overflow-x-auto">
               <FilterChips
                 filters={filters}
                 active={activeFilter}
@@ -485,59 +495,66 @@ export default function ForwardIndex({ works }: ForwardIndexProps) {
           </div>
         </div>
 
-        <div
-          className="relative h-full w-full"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {filtered.map((work, index) => (
-            <Plate
-              key={work.slug}
-              work={work}
-              index={index}
-              progress={progress}
-              mobile={mobile}
-              active={index === activeIndex}
-              onActivate={() => scrollToIndex(index)}
-            />
-          ))}
-        </div>
+        {filtered.length === 0 ? (
+          <div className="flex h-full items-center justify-center">
+            <p className="type-body text-muted">No projects in this filter.</p>
+          </div>
+        ) : (
+          <>
+            <div
+              className="relative h-full w-full"
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              {filtered.map((work, index) => (
+                <Plate
+                  key={work.slug}
+                  work={work}
+                  index={index}
+                  progress={progress}
+                  active={index === activeIndex}
+                  onActivate={() => scrollToIndex(index)}
+                />
+              ))}
+            </div>
 
-        <div className="pointer-events-none absolute top-1/2 left-[58%] hidden w-[min(34ch,38vw)] -translate-y-1/2 md:pointer-events-auto md:block">
-          <AnimatePresence mode="wait">
-            {activeWork ? <TitleBlock work={activeWork} /> : null}
-          </AnimatePresence>
-        </div>
+            <div className="pointer-events-none absolute top-1/2 left-[56%] hidden w-[min(32ch,38vw)] -translate-y-1/2 md:pointer-events-auto md:block">
+              <AnimatePresence mode="wait">
+                {activeWork ? <TitleBlock work={activeWork} /> : null}
+              </AnimatePresence>
+            </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 md:hidden">
-          <AnimatePresence mode="wait">
-            {activeWork ? (
-              <div className="pointer-events-auto px-5 text-center">
-                <TitleBlock work={activeWork} />
-              </div>
-            ) : null}
-          </AnimatePresence>
-          <p className="font-mono text-[0.75rem] text-secondary">
-            {String(activeIndex + 1).padStart(2, "0")} /{" "}
-            {String(count).padStart(2, "0")}
-          </p>
-        </div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-10 flex flex-col items-center gap-3 md:hidden">
+              <AnimatePresence mode="wait">
+                {activeWork ? (
+                  <div className="pointer-events-auto px-5 text-center">
+                    <TitleBlock work={activeWork} />
+                  </div>
+                ) : null}
+              </AnimatePresence>
+              <p className="font-meta text-rail">
+                {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                {String(count).padStart(2, "0")}
+              </p>
+            </div>
 
-        <div className="pointer-events-none absolute top-20 right-6 hidden md:block">
-          <p className="font-mono text-[0.75rem] text-secondary">
-            {String(activeIndex + 1).padStart(2, "0")} /{" "}
-            {String(count).padStart(2, "0")}
-          </p>
-        </div>
+            <div className="pointer-events-none absolute top-20 right-6 hidden md:block">
+              <p className="font-meta text-rail">
+                {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                {String(count).padStart(2, "0")}
+              </p>
+            </div>
 
-        <div
-          aria-hidden
-          className="absolute top-[20%] right-3 bottom-[20%] hidden w-0.5 overflow-hidden bg-border md:block"
-        >
-          <div
-            className="w-full bg-secondary transition-[height] duration-(--duration-fast)"
-            style={{ height: `${railPct}%` }}
-          />
-        </div>
+            <div
+              aria-hidden
+              className="absolute top-[20%] right-3 bottom-[20%] hidden w-0.5 overflow-hidden bg-border md:block"
+            >
+              <div
+                className="w-full bg-rail transition-[height] duration-(--duration-fast)"
+                style={{ height: `${railPct}%` }}
+              />
+            </div>
+          </>
+        )}
 
         <div className="sr-only" aria-live="polite">
           {activeWork

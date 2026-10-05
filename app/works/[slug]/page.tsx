@@ -42,67 +42,49 @@ export default async function ProjectSheetPage({ params }: PageProps) {
   const { prev, next } = getAdjacentWorks(work.slug);
   const poster = plateSrc(work);
 
+  const metaParts = [
+    work.type ? `TYPE · ${work.type}` : null,
+    work.year || work.date ? `YEAR · ${work.year || work.date}` : null,
+    work.location ? `LOCATION · ${work.location}` : null,
+    work.role ? `ROLE · ${work.role}` : null,
+  ].filter(Boolean);
+
   return (
-    <article className="mx-auto max-w-5xl px-5 py-14 md:px-8 md:py-20">
+    <article className="page-gutter mx-auto max-w-[720px] py-14 md:py-20">
       <ScrollReveal>
-        <header className="mb-10 space-y-4">
-          <p className="font-meta">
-            {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
+        <header className="mb-10 space-y-5">
+          <Link href="/works" className="btn-text text-muted">
+            ← Works
+          </Link>
+          <p className="font-meta leading-relaxed">
+            {metaParts.join("  ·  ")}
+            {work.with.length > 0 ? (
+              <>
+                {"  ·  WITH · "}
+                {work.with.map((c, i) => (
+                  <span key={c.name}>
+                    {i > 0 ? ", " : null}
+                    {c.url ? (
+                      <a
+                        href={c.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted hover:text-accent"
+                      >
+                        {c.name}
+                      </a>
+                    ) : (
+                      c.name
+                    )}
+                  </span>
+                ))}
+              </>
+            ) : null}
           </p>
           <h1 className="type-sheet-title text-text">{work.title}</h1>
           {work.subtitle ? (
             <p className="text-lg text-muted italic">{work.subtitle}</p>
           ) : null}
-          <dl className="grid gap-3 sm:grid-cols-2">
-            {work.type ? (
-              <div>
-                <dt className="font-meta">Type</dt>
-                <dd className="font-meta-value">{work.type}</dd>
-              </div>
-            ) : null}
-            {work.date ? (
-              <div>
-                <dt className="font-meta">Date</dt>
-                <dd className="font-meta-value">{work.date}</dd>
-              </div>
-            ) : null}
-            {work.location ? (
-              <div>
-                <dt className="font-meta">Location</dt>
-                <dd className="font-meta-value">{work.location}</dd>
-              </div>
-            ) : null}
-            {work.role ? (
-              <div>
-                <dt className="font-meta">Role</dt>
-                <dd className="font-meta-value">{work.role}</dd>
-              </div>
-            ) : null}
-            {work.with.length > 0 ? (
-              <div className="sm:col-span-2">
-                <dt className="font-meta">With</dt>
-                <dd className="font-meta-value">
-                  {work.with.map((c, i) => (
-                    <span key={c.name}>
-                      {i > 0 ? ", " : null}
-                      {c.url ? (
-                        <a
-                          href={c.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-text hover:text-primary"
-                        >
-                          {c.name}
-                        </a>
-                      ) : (
-                        c.name
-                      )}
-                    </span>
-                  ))}
-                </dd>
-              </div>
-            ) : null}
-          </dl>
         </header>
       </ScrollReveal>
 
@@ -113,16 +95,16 @@ export default async function ProjectSheetPage({ params }: PageProps) {
       ) : null}
 
       {work.primaryVideo ? (
-        <ScrollReveal className="mb-12 rounded-sm bg-surface-elevated p-1">
+        <ScrollReveal className="mb-12 rounded-md bg-elevated p-1">
           <LiteYouTube
             url={work.primaryVideo.url}
             title={work.primaryVideo.label || work.title}
-            poster={poster?.startsWith("http") ? poster : poster}
+            poster={poster}
             kind="youtube"
           />
         </ScrollReveal>
       ) : work.soundcloud ? (
-        <ScrollReveal className="mb-12 rounded-sm bg-surface-elevated p-1">
+        <ScrollReveal className="mb-12 rounded-md bg-elevated p-1">
           <LiteYouTube
             url={work.soundcloud}
             title={work.title}
@@ -131,13 +113,20 @@ export default async function ProjectSheetPage({ params }: PageProps) {
         </ScrollReveal>
       ) : null}
 
-      {work.stills.length > 0 || poster ? (
+      {work.stills.length > 0 ? (
         <ScrollReveal className="mb-10">
-          <h2 className="font-meta mb-4">Stills</h2>
-          <MediaSwitch
-            stills={work.stills}
-            fallbackPoster={work.stills.length === 0 ? poster : null}
-            title={work.title}
+          <MediaSwitch stills={work.stills} title={work.title} />
+        </ScrollReveal>
+      ) : !work.primaryVideo && !work.soundcloud && poster ? (
+        <ScrollReveal className="relative mb-12 aspect-video overflow-hidden rounded-md bg-elevated">
+          <Image
+            src={poster}
+            alt={work.title}
+            fill
+            className="object-cover"
+            style={{ objectPosition: work.focal }}
+            sizes="(max-width: 768px) 100vw, 720px"
+            unoptimized={poster.startsWith("http")}
           />
         </ScrollReveal>
       ) : null}
@@ -151,27 +140,13 @@ export default async function ProjectSheetPage({ params }: PageProps) {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-primary"
+                  className="font-ui text-accent"
                 >
                   {link.label}
                 </a>
               </li>
             ))}
           </ul>
-        </ScrollReveal>
-      ) : null}
-
-      {!work.primaryVideo && !work.soundcloud && poster ? (
-        <ScrollReveal className="relative mb-12 aspect-video overflow-hidden rounded-sm bg-surface-elevated">
-          <Image
-            src={poster}
-            alt={work.title}
-            fill
-            className="object-cover"
-            style={{ objectPosition: work.focal }}
-            sizes="(max-width: 768px) 100vw, 900px"
-            unoptimized={poster.startsWith("http")}
-          />
         </ScrollReveal>
       ) : null}
 
@@ -184,7 +159,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
             href={`/works/${encodeURI(prev.slug)}`}
             className="group max-w-[45%] no-underline"
           >
-            <p className="font-meta mb-1 group-hover:text-primary">← Prev</p>
+            <p className="font-meta mb-1 group-hover:text-accent">← Prev</p>
             <p className="text-text">{prev.title}</p>
           </Link>
         ) : (
@@ -195,7 +170,7 @@ export default async function ProjectSheetPage({ params }: PageProps) {
             href={`/works/${encodeURI(next.slug)}`}
             className="group max-w-[45%] text-right no-underline"
           >
-            <p className="font-meta mb-1 group-hover:text-primary">Next →</p>
+            <p className="font-meta mb-1 group-hover:text-accent">Next →</p>
             <p className="text-text">{next.title}</p>
           </Link>
         ) : null}

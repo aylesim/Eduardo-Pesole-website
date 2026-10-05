@@ -15,8 +15,8 @@ export default function FilterChips({
 }: FilterChipsProps) {
   return (
     <div
-      className="flex flex-wrap gap-2"
-      role="tablist"
+      className="flex flex-nowrap gap-2 overflow-x-auto md:flex-wrap"
+      role="radiogroup"
       aria-label="Filter by category"
     >
       {filters.map((filter) => {
@@ -25,11 +25,11 @@ export default function FilterChips({
           <button
             key={filter.id}
             type="button"
-            role="tab"
-            aria-selected={selected}
-            className={`cursor-pointer rounded-sm border px-3 py-1.5 font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] transition-colors duration-(--duration-fast) ${
+            role="radio"
+            aria-checked={selected}
+            className={`shrink-0 cursor-pointer rounded-sm border px-3 py-1.5 font-body text-[0.6875rem] font-medium tracking-[0.1em] uppercase transition-colors duration-(--duration-fast) ease-(--ease-oxide) ${
               selected
-                ? "border-primary bg-primary text-base"
+                ? "border-accent bg-accent text-accent-ink"
                 : "border-border text-muted hover:text-text"
             }`}
             onClick={() => onChange(filter.id)}

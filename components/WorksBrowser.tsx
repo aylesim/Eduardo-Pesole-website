@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
 import FilterChips from "@/components/FilterChips";
-import ScrollReveal from "@/components/ScrollReveal";
 import {
   getCategoryFilters,
-  getMusicWorks,
   getWorksByCategory,
   isExternalWork,
   plateSrc,
@@ -19,153 +18,152 @@ type WorksBrowserProps = {
   works: WorkItem[];
 };
 
+const SPAN_PATTERN = [7, 5, 5, 7, 4, 4, 4] as const;
+
+const SPAN_CLASS: Record<(typeof SPAN_PATTERN)[number], string> = {
+  7: "col-span-12 lg:col-span-7",
+  5: "col-span-12 lg:col-span-5",
+  4: "col-span-12 lg:col-span-4",
+};
+
+function mosaicSpan(index: number) {
+  return SPAN_PATTERN[index % SPAN_PATTERN.length]!;
+}
+
+function mosaicAspect(index: number) {
+  return index % 3 === 1
+    ? "aspect-[16/10] max-lg:aspect-[16/10]"
+    : "aspect-[4/5] max-lg:aspect-[16/10]";
+}
+
 function PlatePlaceholder({ work }: { work: WorkItem }) {
-  const gradient =
-    work.posterPlaceholder === "secondary"
-      ? "radial-gradient(circle at 40% 35%, var(--color-secondary), var(--color-base) 70%)"
-      : "radial-gradient(circle at 40% 35%, var(--color-primary), var(--color-base) 70%)";
   return (
     <div
       className="flex h-full w-full items-center justify-center p-6 text-center"
-      style={{ background: gradient }}
+      style={{
+        background:
+          "radial-gradient(circle at 40% 35%, color-mix(in oklab, var(--color-accent) 50%, var(--color-elevated)), var(--color-base) 72%)",
+      }}
     >
-      <span className="font-mono text-xs uppercase tracking-[0.08em] text-text/90">
-        {work.title}
-      </span>
+      <span className="font-meta text-text/90">{work.title}</span>
     </div>
+  );
+}
+
+function MosaicTile({
+  work,
+  index,
+}: {
+  work: WorkItem;
+  index: number;
+}) {
+  const href = workHref(work);
+  const external = isExternalWork(work);
+  const src = plateSrc(work);
+  const span = mosaicSpan(index);
+
+  const card = (
+    <article className="group relative bg-surface">
+      <div className={`relative overflow-hidden bg-elevated ${mosaicAspect(index)}`}>
+        {src ? (
+          <Image
+            src={src}
+            alt=""
+            fill
+            className="object-cover transition-transform duration-(--duration-base) ease-(--ease-oxide) group-hover:scale-[1.03]"
+            style={{ objectPosition: work.focal }}
+            sizes="(max-width: 1024px) 100vw, 58vw"
+            unoptimized={src.startsWith("http")}
+          />
+        ) : (
+          <PlatePlaceholder work={work} />
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent opacity-0 transition-opacity duration-(--duration-fast) group-hover:opacity-100 max-lg:hidden" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden p-4 opacity-0 transition-opacity duration-(--duration-fast) group-hover:opacity-100 lg:block">
+          <p className="font-meta mb-1 text-text/80">
+            {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
+          </p>
+          <h2 className="font-display text-xl font-semibold text-text">
+            {work.title}
+            {external ? " ↗" : ""}
+          </h2>
+        </div>
+      </div>
+      <div className="space-y-1 pt-3 lg:hidden">
+        <p className="font-meta">
+          {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
+        </p>
+        <h2 className="font-display text-lg font-semibold text-text">
+          {work.title}
+          {external ? " ↗" : ""}
+        </h2>
+      </div>
+    </article>
+  );
+
+  return (
+    <li className={SPAN_CLASS[span]}>
+      {external ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block no-underline"
+        >
+          {card}
+        </a>
+      ) : (
+        <Link href={href} className="block no-underline">
+          {card}
+        </Link>
+      )}
+    </li>
   );
 }
 
 export default function WorksBrowser({ works }: WorksBrowserProps) {
   const filters = getCategoryFilters();
-  const [active, setActive] = useState<"all" | WorkCategory>("all");
-  const music = getMusicWorks();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const filterParam = searchParams.get("filter");
+  const active: "all" | WorkCategory =
+    filterParam === "games" ||
+    filterParam === "art-collabs" ||
+    filterParam === "movies" ||
+    filterParam === "music"
+      ? filterParam
+      : "all";
 
   const gridWorks = useMemo(() => {
-    if (active === "music") return [];
-    const list =
-      active === "all"
-        ? works.filter((w) => w.category !== "music")
-        : getWorksByCategory(active);
-    return list;
+    if (active === "all") return works;
+    return getWorksByCategory(active);
   }, [works, active]);
 
-  const showMusic = active === "all" || active === "music";
+  function setFilter(id: "all" | WorkCategory) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (id === "all") params.delete("filter");
+    else params.set("filter", id);
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }
 
   return (
-    <div className="space-y-12">
-      <FilterChips filters={filters} active={active} onChange={setActive} />
+    <div className="space-y-10">
+      <div className="sticky top-[57px] z-20 -mx-[clamp(16px,4vw,48px)] border-b border-border bg-base/95 px-[clamp(16px,4vw,48px)] py-3">
+        <FilterChips filters={filters} active={active} onChange={setFilter} />
+      </div>
 
-      {active !== "music" ? (
-        <ScrollReveal>
-          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {gridWorks.map((work) => {
-              const href = workHref(work);
-              const external = isExternalWork(work);
-              const src = plateSrc(work);
-              const card = (
-                <article className="group overflow-hidden rounded-sm bg-surface">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-surface-elevated">
-                    {src ? (
-                      <Image
-                        src={src}
-                        alt=""
-                        fill
-                        className="object-cover transition-transform duration-(--duration-base) ease-(--ease-forward) group-hover:-translate-y-1 group-hover:scale-[1.04]"
-                        style={{ objectPosition: work.focal }}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        unoptimized={src.startsWith("http")}
-                      />
-                    ) : (
-                      <PlatePlaceholder work={work} />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-base via-base/20 to-transparent opacity-80 transition-opacity group-hover:opacity-95" />
-                    <div className="absolute inset-0 bg-secondary/0 transition-colors group-hover:bg-secondary/10" />
-                    <div className="absolute inset-x-0 bottom-0 p-4">
-                      <p className="font-meta mb-1">
-                        {[work.year, work.categoryLabel]
-                          .filter(Boolean)
-                          .join(" · ")}
-                      </p>
-                      <h2 className="text-xl font-bold text-text transition-colors group-hover:text-primary">
-                        {work.title}
-                      </h2>
-                    </div>
-                  </div>
-                </article>
-              );
-
-              return (
-                <li key={work.slug}>
-                  {external ? (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block no-underline"
-                    >
-                      {card}
-                    </a>
-                  ) : (
-                    <Link href={href} className="block no-underline">
-                      {card}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </ScrollReveal>
-      ) : null}
-
-      {showMusic ? (
-        <ScrollReveal>
-          <div className="space-y-4">
-            <div className="flex items-end justify-between gap-4">
-              <h2 className="type-h2">Music</h2>
-              <p className="font-meta text-secondary">External listens</p>
-            </div>
-            <div className="-mx-5 flex gap-4 overflow-x-auto px-5 pb-3 [scroll-snap-type:x_mandatory] md:mx-0 md:px-0">
-              {music.map((work) => {
-                const src = plateSrc(work);
-                return (
-                  <a
-                    key={work.slug}
-                    href={workHref(work)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group w-[280px] shrink-0 no-underline max-md:w-[64vw] [scroll-snap-align:start]"
-                  >
-                    <div className="relative mb-3 aspect-square overflow-hidden rounded-sm bg-surface-elevated transition-transform duration-(--duration-fast) group-hover:-translate-y-1.5">
-                      {src ? (
-                        <Image
-                          src={src}
-                          alt=""
-                          fill
-                          className="object-cover"
-                          sizes="280px"
-                          unoptimized={src.startsWith("http")}
-                        />
-                      ) : (
-                        <PlatePlaceholder work={work} />
-                      )}
-                      <span className="absolute right-3 bottom-3 hidden border border-secondary bg-base/80 px-2 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-secondary group-hover:inline-block">
-                        Listen ↗
-                      </span>
-                    </div>
-                    {work.year ? (
-                      <p className="font-meta mb-1 text-secondary">{work.year}</p>
-                    ) : null}
-                    <h3 className="text-lg font-bold text-text group-hover:text-primary">
-                      {work.title}
-                    </h3>
-                  </a>
-                );
-              })}
-            </div>
-          </div>
-        </ScrollReveal>
-      ) : null}
+      {gridWorks.length === 0 ? (
+        <p className="type-body text-muted">No projects in this filter.</p>
+      ) : (
+        <ul className="grid grid-cols-12 gap-3 md:gap-4 lg:gap-5">
+          {gridWorks.map((work, index) => (
+            <MosaicTile key={work.slug} work={work} index={index} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

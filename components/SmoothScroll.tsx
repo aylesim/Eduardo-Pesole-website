@@ -16,8 +16,8 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     if (reduced || coarse) return;
 
     const lenis = new Lenis({
-      lerp: 0.09,
-      wheelMultiplier: 0.9,
+      lerp: 0.085,
+      wheelMultiplier: 0.88,
       smoothWheel: true,
       syncTouch: false,
     });
@@ -40,6 +40,6 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
   return children;
 }
 
-export function forwardEase(t: number) {
+export function oxideEase(t: number) {
   return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }

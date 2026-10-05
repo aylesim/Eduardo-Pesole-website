@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import ForwardIndex from "@/components/ForwardIndex";
+import LandingBeat from "@/components/LandingBeat";
 import ScrollReveal from "@/components/ScrollReveal";
 import { getServices, getSite, getWorks } from "@/lib/content";
 
@@ -20,50 +21,57 @@ export default function IndexPage() {
 
   return (
     <>
-      <section className="relative mx-auto flex min-h-[88svh] max-w-7xl flex-col justify-end px-5 pb-16 pt-24 md:px-8 md:pb-24">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_18%_12%,color-mix(in_oklab,var(--color-primary)_16%,transparent),transparent_55%),radial-gradient(ellipse_at_82%_28%,color-mix(in_oklab,var(--color-secondary)_12%,transparent),transparent_50%)]"
-        />
-        <h1 className="type-hero mb-5 text-text">{site.global.brand_name}</h1>
-        <p className="mb-8 max-w-xl text-lg text-muted md:text-xl">
-          {site.global.role_line}
-        </p>
-        <Link
-          href="/about#showreel"
-          className="inline-flex w-fit border border-primary/50 px-4 py-2.5 font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-primary hover:bg-primary hover:text-base"
-        >
-          {site.global.showreel_cta}
-        </Link>
-      </section>
+      <LandingBeat
+        brandName={site.global.brand_name}
+        roleLine={site.global.role_line}
+        showreelUrl={site.global.showreel_video.url}
+        showreelTitle={site.global.showreel_video.aria_label}
+        email={site.contact.email}
+      />
 
       <Suspense fallback={<div className="h-[100svh]" />}>
         <ForwardIndex works={works} />
       </Suspense>
 
-      <ScrollReveal className="mx-auto max-w-7xl px-5 py-24 md:px-8">
-        <div className="border-t border-border pt-16">
-          <p className="font-meta mb-3 text-secondary">Next</p>
-          <h2 className="type-h2 mb-8">Services</h2>
-          <ul className="mb-10 flex flex-col gap-4 md:flex-row md:flex-wrap md:gap-x-8 md:gap-y-3">
-            {services.map((service) => (
-              <li key={service.id}>
+      <ScrollReveal>
+        <section className="w-full bg-surface">
+          <div className="page-gutter mx-auto max-w-[1536px] py-16 md:py-24">
+            <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+              <p className="font-meta shrink-0">Services</p>
+              <div className="flex flex-1 flex-wrap items-baseline gap-x-8 gap-y-3 md:justify-end">
+                {services.map((service) => (
+                  <Link
+                    key={service.id}
+                    href="/services"
+                    className="font-ui text-muted hover:text-accent"
+                  >
+                    {service.title}
+                  </Link>
+                ))}
                 <Link
                   href="/services"
-                  className="font-meta text-muted hover:text-primary"
+                  className="font-ui text-text hover:text-accent"
                 >
-                  {service.title}
+                  All services →
                 </Link>
-              </li>
-            ))}
-          </ul>
-          <Link
-            href="/services"
-            className="font-mono text-[0.75rem] font-medium uppercase tracking-[0.08em] text-primary"
-          >
-            All services →
-          </Link>
-        </div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 border-t border-border pt-10 sm:flex-row sm:gap-12">
+              <Link
+                href="/works"
+                className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.02em] no-underline hover:underline hover:decoration-accent hover:decoration-2 hover:underline-offset-8"
+              >
+                Works →
+              </Link>
+              <Link
+                href="/about"
+                className="font-display text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.02em] no-underline hover:underline hover:decoration-accent hover:decoration-2 hover:underline-offset-8"
+              >
+                About →
+              </Link>
+            </div>
+          </div>
+        </section>
       </ScrollReveal>
     </>
   );
