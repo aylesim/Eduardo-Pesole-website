@@ -32,6 +32,38 @@
     color: var(--color-text);
   }
 
+  /* Index editorial WebGL gallery — Design Embraced–inspired light field */
+  html.index-embraced {
+    background: #eeeeee;
+    color: #151417;
+  }
+
+  html.index-embraced body {
+    background: #eeeeee;
+    color: #151417;
+  }
+
+  html.index-embraced .site-chrome {
+    color: #151417;
+  }
+
+  html.index-embraced .site-chrome a {
+    color: #151417;
+  }
+
+  html.index-embraced .site-chrome a:hover {
+    color: #151417;
+    opacity: 0.65;
+  }
+
+  html.index-embraced footer {
+    display: none;
+  }
+
+  html.index-embraced main {
+    min-height: 100svh;
+  }
+
   body {
     @apply bg-base font-body text-text antialiased;
   }

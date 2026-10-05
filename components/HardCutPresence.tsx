@@ -10,6 +10,11 @@ export default function HardCutPresence({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const reduced = useReducedMotion();
 
+  // Index WebGL gallery owns the viewport — skip Hard Cut chrome here
+  if (pathname === "/") {
+    return <>{children}</>;
+  }
+
   if (reduced) {
     return (
       <AnimatePresence mode="wait" initial={false}>
