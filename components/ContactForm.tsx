@@ -53,11 +53,16 @@ export default function ContactForm({
   }
 
   return (
-    <form className="flex max-w-md flex-col gap-4" onSubmit={handleSubmit}>
+    <form className="grid grid-cols-2 gap-x-5 gap-y-8" onSubmit={handleSubmit}>
       {fields.map((field) => {
         const isMessage = field === "Message";
         return (
-          <label key={field} className="flex flex-col gap-1.5 text-sm">
+          <label
+            key={field}
+            className={`flex flex-col gap-2 text-sm ${
+              field === "Email" || isMessage ? "col-span-2" : "col-span-1"
+            }`}
+          >
             <span className="font-meta">{field}</span>
             {isMessage ? (
               <textarea
@@ -65,21 +70,21 @@ export default function ContactForm({
                 rows={5}
                 required
                 defaultValue={message}
-                className="rounded-none border border-border bg-elevated px-3 py-2 font-[inherit] text-text"
+                className="resize-none border-0 border-b border-text bg-transparent px-0 py-3 font-[inherit] text-text outline-none focus:border-b-2"
               />
             ) : (
               <input
                 type={field === "Email" ? "email" : "text"}
                 name={field}
                 required={field === "Email" || field === "Message"}
-                className="rounded-none border border-border bg-elevated px-3 py-2 font-[inherit] text-text"
+                className="border-0 border-b border-text bg-transparent px-0 py-3 font-[inherit] text-text outline-none focus:border-b-2"
               />
             )}
           </label>
         );
       })}
-      <button type="submit" className="btn-accent self-start">
-        {submitLabel}
+      <button type="submit" className="btn-ghost col-span-2 justify-self-start">
+        {submitLabel} →
       </button>
     </form>
   );

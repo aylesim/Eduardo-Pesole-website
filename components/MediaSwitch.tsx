@@ -33,7 +33,7 @@ export default function MediaSwitch({
 
   return (
     <div className="space-y-3">
-      <div className="relative aspect-video w-full overflow-hidden rounded-md bg-elevated">
+      <div className="relative aspect-video w-full overflow-hidden bg-elevated">
         <Image
           key={current.src}
           src={current.src}
@@ -53,8 +53,8 @@ export default function MediaSwitch({
                 type="button"
                 className={`relative aspect-[16/10] w-full cursor-pointer overflow-hidden bg-elevated ${
                   activeIndex === i
-                    ? "outline outline-2 outline-offset-2 outline-focus"
-                    : ""
+                    ? "opacity-100"
+                    : "opacity-45 hover:opacity-100"
                 }`}
                 onMouseEnter={() => setHeld(i)}
                 onMouseLeave={() => setHeld(null)}

@@ -4,10 +4,11 @@ import { getSite } from "@/lib/content";
 export default function Footer() {
   const site = getSite();
   return (
-    <footer className="site-chrome mt-20 border-t border-border">
-      <div className="page-gutter mx-auto flex max-w-[1536px] flex-col gap-5 py-8 md:flex-row md:items-center md:justify-between">
-        <p className="font-meta">{site.global.footer}</p>
-        <div className="flex flex-wrap gap-5">
+    <footer className="site-chrome border-t border-border">
+      <div className="page-gutter mx-auto grid max-w-[1720px] gap-8 py-8 md:grid-cols-12 md:items-end">
+        <p className="font-meta md:col-span-4">{site.global.footer}</p>
+        <p className="font-meta md:col-span-4">Sound designer · Sound artist</p>
+        <div className="flex flex-wrap gap-5 md:col-span-4 md:justify-end">
           <Link href="/about#contact" className="font-ui text-muted hover:text-accent">
             Mail
           </Link>

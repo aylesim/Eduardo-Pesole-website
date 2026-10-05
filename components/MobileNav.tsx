@@ -23,19 +23,19 @@ export default function MobileNav({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Trigger asChild>
-        <button type="button" className="btn-text" aria-label="Open menu">
+        <button type="button" className="btn-text justify-self-end" aria-label="Open menu">
           Menu
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-base" />
-        <Dialog.Content className="fixed inset-0 z-50 flex flex-col bg-base page-gutter outline-none">
-          <div className="flex items-center justify-between py-4">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-text/10" />
+        <Dialog.Content className="page-gutter fixed inset-0 z-50 flex flex-col bg-base outline-none">
+          <div className="flex items-center justify-between py-[18px]">
             <Dialog.Title className="sr-only">Navigation</Dialog.Title>
             <Dialog.Description className="sr-only">
               Site navigation links
             </Dialog.Description>
-            <span className="font-display text-sm font-bold tracking-[-0.02em]">
+            <span className="font-display text-sm font-bold tracking-[-0.035em]">
               Eduardo Pesole
             </span>
             <Dialog.Close asChild>
@@ -45,7 +45,7 @@ export default function MobileNav({
             </Dialog.Close>
           </div>
           <nav
-            className="flex flex-1 flex-col justify-center gap-6 pb-16"
+            className="flex flex-1 flex-col justify-center gap-1 pb-16"
             aria-label="Mobile"
           >
             {nav.map((item) => {
@@ -57,10 +57,10 @@ export default function MobileNav({
                 <Dialog.Close asChild key={item.href}>
                   <Link
                     href={item.href}
-                    className={`font-display text-[2rem] font-bold tracking-[-0.02em] no-underline ${
+                    className={`font-display text-[clamp(3rem,15vw,5rem)] font-extrabold leading-[0.9] tracking-[-0.055em] no-underline ${
                       active
-                        ? "text-text underline decoration-accent decoration-2 underline-offset-8"
-                        : "text-text hover:text-accent"
+                        ? "text-text"
+                        : "text-text/30 hover:text-text"
                     }`}
                     aria-current={active ? "page" : undefined}
                   >
@@ -72,7 +72,7 @@ export default function MobileNav({
             <Dialog.Close asChild>
               <Link
                 href={mailHref}
-                className="font-display text-[2rem] font-bold tracking-[-0.02em] text-text no-underline hover:text-accent"
+                className="mt-8 font-mono text-xs font-medium tracking-[0.13em] text-text uppercase no-underline"
               >
                 Mail
               </Link>
