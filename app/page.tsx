@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import IndexGallery from "@/components/index-gallery/IndexGallery";
 import { getGalleryWorks } from "@/lib/gallery-works";
-import { getSite } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: {
@@ -12,10 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default function IndexPage() {
-  const site = getSite();
   const works = getGalleryWorks(17);
 
-  return (
-    <IndexGallery works={works} brandName={site.global.brand_name} />
-  );
+  return <IndexGallery works={works} />;
 }

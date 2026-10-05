@@ -13,7 +13,6 @@ const IndexGalleryCanvas = dynamic(
 
 type Props = {
   works: GalleryWork[];
-  brandName: string;
 };
 
 function GallerySkeleton() {
@@ -67,7 +66,7 @@ function usePreferFallback() {
   return reduced || !webgl;
 }
 
-export default function IndexGallery({ works, brandName }: Props) {
+export default function IndexGallery({ works }: Props) {
   const client = useIsClient();
   const fallback = usePreferFallback();
   const compact = useMediaQuery("(max-width: 767px)", false);
@@ -117,9 +116,6 @@ export default function IndexGallery({ works, brandName }: Props) {
         >
           <div key={work.slug} className="flex flex-col items-start">
             <p className="font-mono text-[0.625rem] tracking-[0.13em] text-[#151417]/60 uppercase">
-              PR.{String(active + 1).padStart(2, "0")} /{" "}
-              {String(works.length).padStart(2, "0")}
-              <span className="mx-2 opacity-50">—</span>
               {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
             </p>
 
@@ -144,10 +140,6 @@ export default function IndexGallery({ works, brandName }: Props) {
           </div>
         </aside>
       ) : null}
-
-      <p className="pointer-events-none absolute top-[78px] left-[clamp(16px,4vw,48px)] z-10 font-mono text-[0.625rem] tracking-[0.14em] text-[#151417]/45 uppercase md:top-auto md:bottom-6">
-        {brandName} · circular index
-      </p>
     </div>
   );
 }
