@@ -11,8 +11,8 @@ export default function ExpandableBio({ lead, full }: ExpandableBioProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="max-w-[58ch] space-y-4">
-      <p className="type-body text-text">{lead}</p>
+    <div className="max-w-[60ch] space-y-4">
+      <p className="type-lead text-text">{lead}</p>
       {open ? (
         <div className="space-y-4 text-muted">
           {full.split(/\n\n+/).map((para) => (

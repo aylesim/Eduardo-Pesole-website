@@ -9,6 +9,10 @@ type LiteYouTubeProps = {
   title?: string;
   poster?: string | null;
   kind?: string;
+  autoPlay?: boolean;
+  onPlayIntent?: () => void;
+  ctaLabel?: string;
+  hideCtaChrome?: boolean;
 };
 
 export default function LiteYouTube({
@@ -16,8 +20,12 @@ export default function LiteYouTube({
   title = "Video",
   poster,
   kind,
+  autoPlay = false,
+  onPlayIntent,
+  ctaLabel,
+  hideCtaChrome = false,
 }: LiteYouTubeProps) {
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(autoPlay);
   const embed = getEmbedSrc(kind, url);
 
   if (embed.type === "soundcloud") {
@@ -49,8 +57,11 @@ export default function LiteYouTube({
     return (
       <button
         type="button"
-        className="group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-md bg-elevated"
-        onClick={() => setPlaying(true)}
+        className="group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-md bg-elevated text-left"
+        onClick={() => {
+          if (onPlayIntent) onPlayIntent();
+          else setPlaying(true);
+        }}
         aria-label={`Play ${title}`}
       >
         {posterSrc ? (
@@ -58,19 +69,20 @@ export default function LiteYouTube({
             src={posterSrc}
             alt=""
             fill
-            className="object-cover transition-transform duration-(--duration-base) ease-(--ease-oxide) group-hover:scale-[1.02]"
-            sizes="(max-width: 768px) 100vw, 800px"
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 70vw"
             unoptimized={posterSrc.startsWith("http")}
+            priority
           />
         ) : null}
         <span className="absolute inset-0 bg-base/35" />
-        <span className="absolute inset-0 flex items-center justify-center">
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-accent-ink transition-transform duration-(--duration-fast) ease-(--ease-oxide) group-hover:scale-105">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-              <path d="M8 5v14l11-7z" />
-            </svg>
+        {!hideCtaChrome ? (
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="btn-accent pointer-events-none">
+              {ctaLabel || "Play"}
+            </span>
           </span>
-        </span>
+        ) : null}
       </button>
     );
   }

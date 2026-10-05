@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { instrument, syne } from "@/app/fonts";
-import AppChrome from "@/components/AppChrome";
+import { bricolage, plexMono } from "@/app/fonts";
+import Footer from "@/components/Footer";
+import HardCutPresence from "@/components/HardCutPresence";
+import SiteHeader from "@/components/SiteHeader";
 import { getSite } from "@/lib/content";
 
 const site = getSite();
@@ -23,10 +25,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${instrument.variable}`}
+      className={`${bricolage.variable} ${plexMono.variable}`}
     >
       <body>
-        <AppChrome>{children}</AppChrome>
+        <SiteHeader />
+        <main>
+          <HardCutPresence>{children}</HardCutPresence>
+        </main>
+        <Footer />
       </body>
     </html>
   );
