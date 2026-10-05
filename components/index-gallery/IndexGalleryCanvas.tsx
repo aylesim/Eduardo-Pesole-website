@@ -43,7 +43,7 @@ function Scene({
   return (
     <>
       <color attach="background" args={["#eeeeec"]} />
-      <AmbientParticles compact={compact} />
+      <AmbientParticles compact={compact} store={store} />
       <group position={[layout.x, layout.y, 0]}>
         {works.map((work, index) => (
           <CurvedPlane
