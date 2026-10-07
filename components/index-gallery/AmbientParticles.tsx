@@ -11,10 +11,11 @@ attribute float aSize;
 uniform float uScroll;
 uniform float uVelocity;
 uniform float uDpr;
+uniform vec2 uCenter;
 
 void main() {
   vec2 p = position.xy;
-  vec2 center = vec2(-3.6, 0.0);
+  vec2 center = uCenter;
   vec2 offset = p - center;
   float radius = max(length(offset), 0.001);
   float angle = atan(offset.y, offset.x) + uScroll * aSpeed * 0.72;
@@ -40,7 +41,7 @@ void main() {
 }
 `;
 
-function makeParticles(count: number) {
+function makeParticles(count: number, centerX: number, centerY: number) {
   let seed = 0x1c28;
   const random = () => {
     seed = (seed * 1664525 + 1013904223) >>> 0;
@@ -53,9 +54,9 @@ function makeParticles(count: number) {
 
   for (let i = 0; i < count; i += 1) {
     const angle = random() * Math.PI * 2;
-    const radius = 1.4 + random() * 4.6;
-    positions[i * 3] = Math.cos(angle) * radius - 1.1;
-    positions[i * 3 + 1] = Math.sin(angle) * radius * 0.62;
+    const radius = 0.55 + random() * 3.15;
+    positions[i * 3] = centerX + Math.cos(angle) * radius;
+    positions[i * 3 + 1] = centerY + Math.sin(angle) * radius;
     positions[i * 3 + 2] = -1.35 - random() * 1.5;
     speeds[i] = 0.65 + random() * 0.7;
     sizes[i] = 2.6 + random() * 2.4;
@@ -67,15 +68,22 @@ function makeParticles(count: number) {
 type Props = {
   compact: boolean;
   store: { current: GalleryScrollState };
+  centerX: number;
+  centerY: number;
 };
 
-export default function AmbientParticles({ compact, store }: Props) {
+export default function AmbientParticles({
+  compact,
+  store,
+  centerX,
+  centerY,
+}: Props) {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const dpr = useThree((state) => state.gl.getPixelRatio());
   const particleCount = compact ? 42 : 72;
 
   const geometry = useMemo(() => {
-    const particles = makeParticles(particleCount);
+    const particles = makeParticles(particleCount, centerX, centerY);
     const geo = new THREE.BufferGeometry();
     geo.setAttribute(
       "position",
@@ -84,15 +92,16 @@ export default function AmbientParticles({ compact, store }: Props) {
     geo.setAttribute("aSpeed", new THREE.BufferAttribute(particles.speeds, 1));
     geo.setAttribute("aSize", new THREE.BufferAttribute(particles.sizes, 1));
     return geo;
-  }, [particleCount]);
+  }, [centerX, centerY, particleCount]);
 
   const uniforms = useMemo(
     () => ({
       uScroll: { value: 0 },
       uVelocity: { value: 0 },
       uDpr: { value: Math.min(dpr, 2) },
+      uCenter: { value: new THREE.Vector2(centerX, centerY) },
     }),
-    [dpr],
+    [centerX, centerY, dpr],
   );
 
   useFrame(() => {
@@ -100,6 +109,7 @@ export default function AmbientParticles({ compact, store }: Props) {
     if (!material) return;
     material.uniforms.uScroll.value = store.current.current;
     material.uniforms.uVelocity.value = store.current.velocity;
+    material.uniforms.uCenter.value.set(centerX, centerY);
   });
 
   return (

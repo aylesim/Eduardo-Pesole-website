@@ -25,6 +25,9 @@ type ScrollApi = {
   store: MutableRefObject<GalleryScrollState>;
 };
 
+const AUTOPLAY_CARDS_PER_SECOND = 0.2;
+const AUTOPLAY_RESUME_MS = 2800;
+
 const ScrollCtx = createContext<ScrollApi | null>(null);
 
 export function useGalleryScroll() {
@@ -53,6 +56,11 @@ export function GalleryScrollProvider({
   const rafRef = useRef(0);
   const touchY = useRef<number | null>(null);
   const snapTimer = useRef(0);
+  const resumeAt = useRef(0);
+
+  const pauseAutoplay = useCallback(() => {
+    resumeAt.current = performance.now() + AUTOPLAY_RESUME_MS;
+  }, []);
 
   const setTarget = useCallback(
     (index: number) => {
@@ -69,6 +77,9 @@ export function GalleryScrollProvider({
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       const s = store.current;
+      if (now >= resumeAt.current) {
+        s.target += AUTOPLAY_CARDS_PER_SECOND * dt;
+      }
       const next = s.current + (s.target - s.current) * (1 - Math.exp(-dt * 3.2));
       s.velocity = (next - s.current) / Math.max(dt, 0.001);
       s.current = next;
@@ -91,6 +102,7 @@ export function GalleryScrollProvider({
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
+      pauseAutoplay();
       const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
       const magnitude = Math.min(1.15, Math.abs(delta) / 180);
       store.current.target += Math.sign(delta) * magnitude * 0.72;
@@ -101,6 +113,16 @@ export function GalleryScrollProvider({
     };
 
     const onKey = (e: KeyboardEvent) => {
+      if (
+        e.key === "ArrowDown" ||
+        e.key === "ArrowRight" ||
+        e.key === "PageDown" ||
+        e.key === "ArrowUp" ||
+        e.key === "ArrowLeft" ||
+        e.key === "PageUp"
+      ) {
+        pauseAutoplay();
+      }
       if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") {
         e.preventDefault();
         setTarget(Math.round(store.current.target) + 1);
@@ -112,9 +134,11 @@ export function GalleryScrollProvider({
     };
 
     const onTouchStart = (e: TouchEvent) => {
+      pauseAutoplay();
       touchY.current = e.touches[0]?.clientY ?? null;
     };
     const onTouchMove = (e: TouchEvent) => {
+      pauseAutoplay();
       if (touchY.current == null) return;
       const y = e.touches[0]?.clientY ?? touchY.current;
       const dy = touchY.current - y;
@@ -122,6 +146,7 @@ export function GalleryScrollProvider({
       store.current.target += dy / 280;
     };
     const onTouchEnd = () => {
+      pauseAutoplay();
       touchY.current = null;
       store.current.target = Math.round(store.current.target);
     };
@@ -140,7 +165,7 @@ export function GalleryScrollProvider({
       window.removeEventListener("touchend", onTouchEnd);
       window.clearTimeout(snapTimer.current);
     };
-  }, [setTarget]);
+  }, [pauseAutoplay, setTarget]);
 
   const api = useMemo<ScrollApi>(
     () => ({

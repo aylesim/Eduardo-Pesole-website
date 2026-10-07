@@ -52,13 +52,12 @@ function useIsClient() {
 }
 
 function usePreferFallback() {
-  const reduced = useMediaQuery("(prefers-reduced-motion: reduce)", false);
   const webgl = useSyncExternalStore(
     () => () => {},
     hasWebGL,
     () => false,
   );
-  return reduced || !webgl;
+  return !webgl;
 }
 
 export default function IndexGallery({ works }: Props) {

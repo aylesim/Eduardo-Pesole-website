@@ -32,18 +32,23 @@ function Scene({
   const layout = compact
     ? { width: 1.9, height: 1.069, radius: 2.6, step: 0.44, x: 0, y: 0.34 }
     : {
-        width: 2.65,
-        height: 1.491,
-        radius: 3.85,
-        step: 0.38,
-        x: -0.35,
-        y: 0.04,
+        width: 2.4,
+        height: 1.35,
+        radius: 2.35,
+        step: 0.58,
+        x: -0.85,
+        y: -0.28,
       };
 
   return (
     <>
       <color attach="background" args={["#eeeeec"]} />
-      <AmbientParticles compact={compact} store={store} />
+      <AmbientParticles
+        compact={compact}
+        store={store}
+        centerX={layout.x - layout.radius}
+        centerY={layout.y}
+      />
       <group position={[layout.x, layout.y, 0]}>
         {works.map((work, index) => (
           <CurvedPlane
@@ -96,7 +101,7 @@ export default function IndexGalleryCanvas({
           toneMapping: THREE.NoToneMapping,
         }}
         camera={{
-          position: [0, compact ? 0.2 : 0, compact ? 5.5 : 8.6],
+          position: [0, compact ? 0.2 : 0, compact ? 5.5 : 7.5],
           fov: compact ? 40 : 30,
           near: 0.1,
           far: 40,
