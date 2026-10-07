@@ -16,13 +16,7 @@ export default function SiteHeader() {
   const isIndex = pathname === "/";
 
   return (
-    <header
-      className={`site-chrome fixed inset-x-0 top-0 z-40 ${
-        isIndex
-          ? "pointer-events-none border-0"
-          : "border-border border-b bg-white/25 backdrop-blur-md"
-      }`}
-    >
+    <header className="site-chrome pointer-events-none fixed inset-x-0 top-0 z-40 border-0">
       {isIndex ? (
         <div className="pointer-events-none absolute top-4 left-[clamp(18px,4vw,48px)]">
           <Link

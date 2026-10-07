@@ -1,14 +1,15 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { useClientReducedMotion } from "@/lib/use-client-reduced-motion";
 
 const cutEase = [0.77, 0, 0.175, 1] as const;
 
 export default function HardCutPresence({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const reduced = useReducedMotion();
+  const reduced = useClientReducedMotion();
 
   // Index WebGL gallery owns the viewport — skip Hard Cut chrome here
   if (pathname === "/") {

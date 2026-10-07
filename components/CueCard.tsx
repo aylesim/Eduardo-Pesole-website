@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { motion, useInView } from "motion/react";
 import { useRef } from "react";
+import { useClientReducedMotion } from "@/lib/use-client-reduced-motion";
 import { isExternalWork, plateSrc, workHref } from "@/lib/content";
 import type { WorkItem } from "@/lib/types";
 
@@ -25,7 +26,7 @@ export default function CueCard({
   const src = plateSrc(work);
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
-  const reduced = useReducedMotion();
+  const reduced = useClientReducedMotion();
 
   const body = (
     <article

@@ -28,11 +28,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${bricolage.variable} ${plexMono.variable}`}
     >
       <body>
-        <SiteHeader />
-        <main>
-          <HardCutPresence>{children}</HardCutPresence>
-        </main>
-        <Footer />
+        <div className="site-gradient" aria-hidden="true" />
+        <div className="site-stack">
+          <SiteHeader />
+          <main>
+            <HardCutPresence>{children}</HardCutPresence>
+          </main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
