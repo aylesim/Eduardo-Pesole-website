@@ -83,6 +83,13 @@ export default async function ProjectSheetPage({ params }: PageProps) {
           {work.subtitle ? (
             <p className="type-body text-muted mt-5">{work.subtitle}</p>
           ) : null}
+          {work.full ? (
+            <div className="type-body text-muted mt-8 max-w-[60ch] space-y-5 whitespace-pre-wrap">
+              {work.full.split(/\n\n+/).map((para) => (
+                <p key={para.slice(0, 32)}>{para}</p>
+              ))}
+            </div>
+          ) : null}
         </div>
       </header>
 

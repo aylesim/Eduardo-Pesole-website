@@ -1,4 +1,5 @@
-import { getWorks, plateSrc, workHref, isExternalWork } from "@/lib/content";
+import { getWorks } from "@/lib/content";
+import { isExternalWork, plateSrc, workHref } from "@/lib/work-utils";
 import type { WorkItem } from "@/lib/types";
 
 export type GalleryWork = {

@@ -1,0 +1,32 @@
+{
+  "slug": "betahaus-ads",
+  "title": "Betahaus Ads",
+  "subtitle": "",
+  "year": "2025",
+  "date": "March 2025",
+  "location": "Berlin",
+  "type": "Meta ads campaign",
+  "role": "Composer",
+  "category": "movies",
+  "selected": true,
+  "order": 7,
+  "legacyPath": "/copy-of-ineffable-qualitè-2019",
+  "short": "Original music for Betahaus's Meta ad campaign in Berlin.",
+  "full": "",
+  "with": [],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=FcN6wg9Sr9Q"
+  },
+  "archiveVideos": [],
+  "stills": [],
+  "poster": "https://i.ytimg.com/vi/FcN6wg9Sr9Q/maxresdefault.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 50%"
+}

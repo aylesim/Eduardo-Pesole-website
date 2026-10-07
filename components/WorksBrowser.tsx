@@ -4,11 +4,17 @@ import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import CueCard from "@/components/CueCard";
 import WorksNavFilters from "@/components/WorksNavFilters";
-import { getWorksByFilter, parseFilterParam } from "@/lib/content";
-import type { WorkItem } from "@/lib/types";
+import {
+  categorySlugsFromFilters,
+  filterWorks,
+  parseFilterParam,
+} from "@/lib/work-utils";
+import type { CategoryFilter, WorkItem } from "@/lib/types";
 
 type WorksBrowserProps = {
   works: WorkItem[];
+  filters: CategoryFilter[];
+  emptyMessage: string;
 };
 
 const SPANS = [
@@ -18,23 +24,28 @@ const SPANS = [
   "col-span-12 lg:col-span-6 lg:col-start-7",
 ] as const;
 
-export default function WorksBrowser({ works }: WorksBrowserProps) {
+export default function WorksBrowser({
+  works,
+  filters,
+  emptyMessage,
+}: WorksBrowserProps) {
   const searchParams = useSearchParams();
-  const active = parseFilterParam(searchParams.get("filter"));
+  const categorySlugs = categorySlugsFromFilters(filters);
+  const active = parseFilterParam(searchParams.get("filter"), categorySlugs);
 
   const gridWorks = useMemo(() => {
     if (active === "all") return works;
-    return getWorksByFilter(active);
+    return filterWorks(works, active);
   }, [works, active]);
 
   return (
     <div>
       <div className="works-filters-bar">
-        <WorksNavFilters />
+        <WorksNavFilters filters={filters} />
       </div>
 
       {gridWorks.length === 0 ? (
-        <p className="font-meta">Nothing in this category.</p>
+        <p className="font-meta">{emptyMessage}</p>
       ) : (
         <ul className="grid grid-cols-12 gap-x-5 gap-y-16 md:gap-x-8 md:gap-y-24">
           {gridWorks.map((work, index) => (

@@ -1,20 +1,25 @@
 import Link from "next/link";
-import { getSite } from "@/lib/content";
+import type { ContactContent } from "@/lib/types";
 
-export default function Footer() {
-  const site = getSite();
+type FooterProps = {
+  footer: string;
+  mailLabel: string;
+  contact: ContactContent;
+};
+
+export default function Footer({ footer, mailLabel, contact }: FooterProps) {
   return (
     <footer className="site-chrome border-border border-t">
       <div className="page-gutter mx-auto flex max-w-[1720px] flex-wrap items-end justify-between gap-8 py-8">
-        <p className="font-meta">{site.global.footer}</p>
+        <p className="font-meta">{footer}</p>
         <div className="flex flex-wrap gap-5">
           <Link
             href="/about#contacts"
             className="font-ui text-muted hover:text-accent"
           >
-            Mail
+            {mailLabel}
           </Link>
-          {site.contact.socials.map((social) => (
+          {contact.socials.map((social) => (
             <a
               key={social.url}
               href={social.url}

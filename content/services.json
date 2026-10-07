@@ -1,0 +1,34 @@
+[
+  {
+    "id": "games",
+    "title": "Game & Interactive Audio",
+    "line1": "Sound design and tech audio in Wwise and Unreal.",
+    "line2": "Interactive systems, spatial mix and optimization for release.",
+    "cta": "Inquire",
+    "isPlaceholder": false
+  },
+  {
+    "id": "installations",
+    "title": "Installation & Spatial Sound",
+    "line1": "Multichannel sound for exhibitions, AV installs and digital twins.",
+    "line2": "Simulation in the studio, tuning on site.",
+    "cta": "Collaborate",
+    "isPlaceholder": false
+  },
+  {
+    "id": "composition",
+    "title": "Composition for Film, Fashion & Ads",
+    "line1": "Original scores and sonic identity for film, fashion and ads.",
+    "line2": "",
+    "cta": "Commission",
+    "isPlaceholder": false
+  },
+  {
+    "id": "mix",
+    "title": "Mix & Post-Production",
+    "line1": "Editing, sound design and final mix.",
+    "line2": "Production sound when the project calls for it.",
+    "cta": "Book",
+    "isPlaceholder": false
+  }
+]

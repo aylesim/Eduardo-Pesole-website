@@ -1,0 +1,47 @@
+{
+  "slug": "moongaze",
+  "title": "Moongaze",
+  "subtitle": "",
+  "year": "2020",
+  "date": "2019–2020",
+  "location": "Rome",
+  "type": "Videogame, bachelor thesis (PC)",
+  "role": "Technical Sound Designer",
+  "category": "games",
+  "selected": true,
+  "order": 4,
+  "legacyPath": "/games-moongaze",
+  "short": "Bachelor thesis game for PC. Ambisonic environments in Reaper, custom death and sea systems, integrated in Wwise and Unreal.",
+  "full": "Environment sound design, creating ambisonics tracks in Reaper with IEM plugins.\nTech audio system design such as death system and distanced based sea's sound.\nIntegration using unreal and Wwise.\nDynamic mix.",
+  "with": [],
+  "primaryVideo": {
+    "label": "Moongaze Trailer",
+    "url": "https://www.youtube.com/watch?v=AMEr0dlrpwo"
+  },
+  "archiveVideos": [
+    {
+      "label": "Wwise + UE4 Reel 2020",
+      "url": "https://www.youtube.com/watch?v=jrzq1BnMFmQ"
+    },
+    {
+      "label": "Gameplay",
+      "url": "https://www.youtube.com/watch?v=YczGdHYNpzE"
+    }
+  ],
+  "stills": [
+    {
+      "src": "/media/moongaze/moongaze-01.jpg",
+      "alt": "Moongaze title art",
+      "focal": "50% 50%"
+    }
+  ],
+  "poster": "/media/moongaze/moongaze-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "sddefault",
+  "posterFallback": "https://i.ytimg.com/vi/AMEr0dlrpwo/sddefault.jpg",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 50%"
+}

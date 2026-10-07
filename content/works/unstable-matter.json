@@ -1,0 +1,43 @@
+{
+  "slug": "unstable-matter",
+  "title": "Unstable Matter",
+  "subtitle": "",
+  "year": "2023",
+  "date": "May 2023",
+  "location": "Berlin, Monopol, for End of Nations",
+  "type": "8-screen / 8-speaker AV installation",
+  "role": "Sound Designer",
+  "category": "art-collabs",
+  "selected": true,
+  "order": 3,
+  "legacyPath": "/sound-art-unstable-matter",
+  "short": "Eight screens and eight speakers at Monopol, Berlin, with Function Store. Image crosses the room as sound, then becomes light again.",
+  "full": "Modern physics has demonstrated that matter is a form of energy. Instability arises due to changing environmental conditions. The energy engaged in the visual process, that is, the visual material, effortlessly transcends the limitations of screens, transforming from a fluid ethereal vision into a sound wave that travels through physical space. Subsequently, it reaches other screens where it is converted back into light. This process of conceptual and structural transformation ideally represents the intersection of two languages, two states of matter, and two artists engaged in an ongoing conversation.",
+  "with": [
+    {
+      "name": "Daniel Molnar / Function Store (visuals)",
+      "url": "https://functionstore.xyz"
+    }
+  ],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=IVQj9uBhQ2E"
+  },
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/unstable-matter/unstable-matter-01.jpg",
+      "alt": "Unstable Matter installation",
+      "focal": "50% 55%"
+    }
+  ],
+  "poster": "/media/unstable-matter/unstable-matter-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 55%"
+}

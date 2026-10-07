@@ -10,6 +10,8 @@ type MobileNavProps = {
   onOpenChange: (open: boolean) => void;
   nav: NavItem[];
   mailHref: string;
+  brandName: string;
+  contactsLabel: string;
 };
 
 export default function MobileNav({
@@ -17,6 +19,8 @@ export default function MobileNav({
   onOpenChange,
   nav,
   mailHref,
+  brandName,
+  contactsLabel,
 }: MobileNavProps) {
   const pathname = usePathname();
 
@@ -40,7 +44,7 @@ export default function MobileNav({
               Site navigation links
             </Dialog.Description>
             <span className="font-display text-sm font-bold tracking-[-0.035em]">
-              Eduardo Pesole
+              {brandName}
             </span>
             <Dialog.Close asChild>
               <button type="button" className="btn-text">
@@ -76,7 +80,7 @@ export default function MobileNav({
                 href={mailHref}
                 className="text-text mt-8 font-mono text-xs font-medium tracking-[0.13em] uppercase no-underline"
               >
-                Contacts
+                {contactsLabel}
               </Link>
             </Dialog.Close>
           </nav>

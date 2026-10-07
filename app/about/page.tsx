@@ -1,34 +1,40 @@
 import type { Metadata } from "next";
 import ExpandableBio from "@/components/ExpandableBio";
 import LiteYouTube from "@/components/LiteYouTube";
-import { getSite } from "@/lib/content";
+import { getAbout, getContact, getSiteSettings } from "@/lib/content";
+
+const settings = getSiteSettings();
 
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "Berlin-based sound designer, sound artist and composer — bio, showreel, and contact.",
+  description: settings.meta.about_description,
 };
 
 export default function AboutPage() {
-  const site = getSite();
-  const { contact, global, about_bio, about_lead } = site;
+  const about = getAbout();
+  const contact = getContact();
 
   return (
     <div className="editorial-page">
       <header className="pt-10 pb-16 md:pt-16 md:pb-24">
-        <h1 className="type-sheet-title">About</h1>
+        <h1 className="type-sheet-title">{about.page_title}</h1>
       </header>
 
       <div className="about-stack">
         <div className="about-row">
           <div className="about-panel about-panel--slant-a about-panel--tone-base">
             <div className="about-panel-head">
-              <h2 className="about-panel-title">Biography</h2>
+              <h2 className="about-panel-title">{about.biography_title}</h2>
               <span className="about-panel-mark" aria-hidden="true">
                 ♫
               </span>
             </div>
-            <ExpandableBio lead={about_lead} full={about_bio} />
+            <ExpandableBio
+              lead={about.lead}
+              full={about.full}
+              expandLabel={about.expand_label}
+              collapseLabel={about.collapse_label}
+            />
           </div>
 
           <div
@@ -36,15 +42,15 @@ export default function AboutPage() {
             className="about-panel about-panel--showreel about-panel--slant-b about-panel--tone-warm scroll-mt-24"
           >
             <div className="about-panel-head">
-              <h2 className="about-panel-title">Showreel</h2>
+              <h2 className="about-panel-title">{about.showreel_title}</h2>
               <span className="about-panel-mark" aria-hidden="true">
                 ▶
               </span>
             </div>
             <LiteYouTube
-              url={global.showreel_video.url}
-              title={global.showreel_video.aria_label}
-              poster="/images/showreel-2025-poster.jpg"
+              url={about.showreel.url}
+              title={about.showreel.aria_label}
+              poster={about.showreel.poster}
               kind="youtube"
             />
           </div>
@@ -52,15 +58,15 @@ export default function AboutPage() {
 
         <div className="about-panel about-panel--credits about-panel--slant-a about-panel--tone-lilac">
           <div className="about-panel-head">
-            <h2 className="about-panel-title">Studios & collaborators</h2>
+            <h2 className="about-panel-title">{about.credits_title}</h2>
             <span className="about-panel-mark" aria-hidden="true">
               ◎
             </span>
           </div>
           <ul className="about-credit-list">
-            {global.credits.map((name) => (
-              <li key={name}>
-                <span className="about-credit-chip">{name}</span>
+            {about.credits.map((entry) => (
+              <li key={entry.name}>
+                <span className="about-credit-chip">{entry.name}</span>
               </li>
             ))}
           </ul>

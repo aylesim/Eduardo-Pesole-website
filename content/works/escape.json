@@ -1,0 +1,42 @@
+{
+  "slug": "escape",
+  "title": "Escape",
+  "subtitle": "",
+  "year": "2020",
+  "date": "May 2020",
+  "location": "Rome",
+  "type": "Rescore (sound design and music)",
+  "role": "Mix Engineer",
+  "category": "movies",
+  "selected": false,
+  "order": 18,
+  "legacyPath": "/movies-escape",
+  "short": "Mix for Lorenzo Flati's re-sound and rescore of the animated short Escape.",
+  "full": "",
+  "with": [
+    {
+      "name": "Lorenzo Flati (re-sound & rescore)"
+    }
+  ],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=IgjsYLSMQes"
+  },
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/escape/escape-01.jpg",
+      "alt": "Escape still",
+      "focal": "45% 40%"
+    }
+  ],
+  "poster": "/media/escape/escape-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "45% 40%"
+}

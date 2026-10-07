@@ -1,0 +1,40 @@
+{
+  "slug": "anedonia",
+  "title": "Anedonia",
+  "subtitle": "",
+  "year": "2021",
+  "date": "April 2021",
+  "location": "Rieti",
+  "type": "Medium-length film",
+  "role": "Floor Sound Engineer",
+  "category": "movies",
+  "selected": false,
+  "order": 14,
+  "legacyPath": "/movies-anedonia",
+  "short": "Medium-length film by Fabrizio Pesaro, shot in Rieti. On-set production sound.",
+  "full": "",
+  "with": [],
+  "primaryVideo": null,
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/anedonia/anedonia-01.jpg",
+      "alt": "Anedonia poster",
+      "focal": "50% 30%"
+    },
+    {
+      "src": "/media/anedonia/anedonia-02.jpg",
+      "alt": "Anedonia still",
+      "focal": "50% 50%"
+    }
+  ],
+  "poster": "/media/anedonia/anedonia-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 30%"
+}

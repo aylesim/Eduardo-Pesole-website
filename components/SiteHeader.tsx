@@ -5,11 +5,23 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import HomeNote from "@/components/index-gallery/HomeNote";
 import MobileNav from "@/components/MobileNav";
-import { getNav, getSite } from "@/lib/content";
+import type { NavItem } from "@/lib/types";
 
-export default function SiteHeader() {
-  const nav = getNav();
-  const site = getSite();
+type SiteHeaderProps = {
+  brandName: string;
+  nav: NavItem[];
+  contactsLabel: string;
+  homeNote: string;
+  homeShowreelLabel: string;
+};
+
+export default function SiteHeader({
+  brandName,
+  nav,
+  contactsLabel,
+  homeNote,
+  homeShowreelLabel,
+}: SiteHeaderProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const mailHref = "/about#contacts";
@@ -29,9 +41,13 @@ export default function SiteHeader() {
               href="/"
               className="font-display pointer-events-auto text-[clamp(1.85rem,3.2vw,2.5rem)] leading-[0.92] font-extrabold tracking-[-0.05em] no-underline"
             >
-              {site.global.brand_name}
+              {brandName}
             </Link>
-            <HomeNote className="mt-3" />
+            <HomeNote
+              className="mt-3"
+              note={homeNote}
+              showreelLabel={homeShowreelLabel}
+            />
           </div>
         ) : null}
 
@@ -41,7 +57,7 @@ export default function SiteHeader() {
               href="/"
               className="font-display pointer-events-auto text-[0.875rem] font-bold tracking-[-0.035em] no-underline"
             >
-              {site.global.brand_name}
+              {brandName}
             </Link>
           )}
 
@@ -75,7 +91,7 @@ export default function SiteHeader() {
               href={mailHref}
               className="font-ui text-text/45 hover:text-text"
             >
-              Contacts
+              {contactsLabel}
             </Link>
           </nav>
 
@@ -89,6 +105,8 @@ export default function SiteHeader() {
               onOpenChange={setMenuOpen}
               nav={nav}
               mailHref={mailHref}
+              brandName={brandName}
+              contactsLabel={contactsLabel}
             />
           </div>
         </div>

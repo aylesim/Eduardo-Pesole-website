@@ -1,0 +1,49 @@
+{
+  "slug": "berlin-winter",
+  "title": "Berlin Winter",
+  "subtitle": "A Blind Walk Through Uncertain and Unexplored Territories",
+  "year": "2022",
+  "date": "September 2022",
+  "location": "Seoul, Oksangfactory, for \"Patch & Stitch\"",
+  "type": "Headphone and video installation",
+  "role": "Composer",
+  "category": "art-collabs",
+  "selected": true,
+  "order": 5,
+  "legacyPath": "/collabs-art",
+  "short": "Headphones piece for Jung Soo Cho's Berlin Winter at Patch & Stitch in Seoul. Abstract city sound where loneliness and curiosity share the same winter night.",
+  "full": "Pesole and Jung-soo shared ideas for this exhibition. Pesole designed the sound by capturing the loneliness of being a stranger in an unfamiliar place and the melancholy that cannot be turned away from the work \"Berlin Winter\". For the artist who has left for an unknown place called Berlin, everything is uncertain and unknown. However, with an emphasis on ambivalence, opposing emotions of loneliness and curiosity about a new realm exist at the same time. Pesole induces familiar and unfamiliar auditory effects through the use of specific sounds that are abstract and evoking the surroundings of the city during the dark Berlin winter.",
+  "with": [
+    {
+      "name": "Jung Soo Cho (video art)"
+    }
+  ],
+  "primaryVideo": null,
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/berlin-winter/berlin-winter-01.jpg",
+      "alt": "Berlin wall projection",
+      "focal": "45% 50%"
+    },
+    {
+      "src": "/media/berlin-winter/berlin-winter-02.jpg",
+      "alt": "Berlin Winter still",
+      "focal": "50% 50%"
+    },
+    {
+      "src": "/media/berlin-winter/berlin-winter-03.jpg",
+      "alt": "Berlin Winter still",
+      "focal": "50% 50%"
+    }
+  ],
+  "poster": "/media/berlin-winter/berlin-winter-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": "https://soundcloud.com/user-571648323/walking-blind-in-uncertain-and-unexplored-territories/s-rYwvWXhjfZd",
+  "externalLinks": [],
+  "focal": "45% 50%"
+}

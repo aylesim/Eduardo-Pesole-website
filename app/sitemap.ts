@@ -1,10 +1,9 @@
 import type { MetadataRoute } from "next";
-import { getInternalWorks, getSite } from "@/lib/content";
+import { getInternalWorks } from "@/lib/content";
 
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const site = getSite();
   const base = "https://www.eduardopesole.com";
   const staticRoutes = ["", "/works", "/services", "/about"];
   const projectRoutes = getInternalWorks().map(
@@ -13,6 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticRoutes, ...projectRoutes].map((path) => ({
     url: `${base}${path}`,
-    lastModified: new Date(site.extracted_at),
+    lastModified: new Date(),
   }));
 }

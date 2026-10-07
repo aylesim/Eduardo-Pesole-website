@@ -1,0 +1,38 @@
+{
+  "slug": "la-storia-della-balena-spiaggiata",
+  "title": "La Storia della Balena Spiaggiata",
+  "subtitle": "",
+  "year": "2020",
+  "date": "July–September 2020",
+  "location": "Rome",
+  "type": "Short film",
+  "role": "Sound Editor, Mix Engineer",
+  "category": "movies",
+  "selected": false,
+  "order": 16,
+  "legacyPath": "/movies-balena-spiaggiata",
+  "short": "Short film in Rome. Sound editing and final mix.",
+  "full": "",
+  "with": [],
+  "primaryVideo": {
+    "label": "Trailer",
+    "url": "https://www.youtube.com/watch?v=OJB0EYUHrOY"
+  },
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/la-storia-della-balena-spiaggiata/la-storia-della-balena-spiaggiata-01.jpg",
+      "alt": "La Storia della Balena Spiaggiata poster",
+      "focal": "50% 40%"
+    }
+  ],
+  "poster": "/media/la-storia-della-balena-spiaggiata/la-storia-della-balena-spiaggiata-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 40%"
+}

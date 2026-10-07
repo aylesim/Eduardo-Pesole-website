@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import IndexGallery from "@/components/index-gallery/IndexGallery";
+import { getSiteSettings } from "@/lib/content";
 import { getGalleryWorks } from "@/lib/gallery-works";
+
+const settings = getSiteSettings();
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Eduardo Pesole | Sound designer",
+    absolute: settings.meta.site_title_default,
   },
-  description:
-    "Eduardo Pesole is a Berlin-based sound designer, sound artist and composer.",
+  description: settings.meta.home_description,
 };
 
 export default function IndexPage() {

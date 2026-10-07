@@ -1,0 +1,38 @@
+{
+  "slug": "per-non-sparire-lentamente",
+  "title": "Per Non Sparire Lentamente",
+  "subtitle": "",
+  "year": "2020",
+  "date": "July 2020–February 2021",
+  "location": "Rome",
+  "type": "Short film",
+  "role": "Sound Design, Editing, Production Sound, Mix",
+  "category": "movies",
+  "selected": false,
+  "order": 13,
+  "legacyPath": "/movies-per-non-sparire-lentamente",
+  "short": "Short film in Rome. Production sound, design, editing and mix on the same project.",
+  "full": "",
+  "with": [],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=-3qrebxszR8"
+  },
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/per-non-sparire-lentamente/per-non-sparire-lentamente-01.jpg",
+      "alt": "Per Non Sparire Lentamente poster",
+      "focal": "50% 55%"
+    }
+  ],
+  "poster": "/media/per-non-sparire-lentamente/per-non-sparire-lentamente-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 55%"
+}

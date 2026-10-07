@@ -1,0 +1,42 @@
+{
+  "slug": "ori-and-the-will-of-the-wisps",
+  "title": "Ori and the Will of the Wisps",
+  "subtitle": "",
+  "year": "2020",
+  "date": "May 2020",
+  "location": "Rome",
+  "type": "Rescore (sound design and music)",
+  "role": "Mix Engineer",
+  "category": "movies",
+  "selected": false,
+  "order": 17,
+  "legacyPath": "/movies-ori",
+  "short": "Mix for Lorenzo Flati's rescore of the Ori and the Will of the Wisps E3 2017 teaser.",
+  "full": "",
+  "with": [
+    {
+      "name": "Lorenzo Flati (rescore)"
+    }
+  ],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=r582pCNvPzI"
+  },
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/ori-and-the-will-of-the-wisps/ori-and-the-will-of-the-wisps-01.jpg",
+      "alt": "Ori and the Will of the Wisps still",
+      "focal": "50% 50%"
+    }
+  ],
+  "poster": "/media/ori-and-the-will-of-the-wisps/ori-and-the-will-of-the-wisps-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 50%"
+}

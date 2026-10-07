@@ -1,0 +1,38 @@
+{
+  "slug": "neural-investigations",
+  "title": "Neural Investigations",
+  "subtitle": "",
+  "year": "2020",
+  "date": "October 2020",
+  "location": "Rome",
+  "type": "Game pitch",
+  "role": "Sound Designer",
+  "category": "games",
+  "selected": false,
+  "order": 10,
+  "legacyPath": "/games-neural-investigation",
+  "short": "Pitch for Lazio Gaming Project Sprint 2020. Sound logo, original music, editing and voice-over.",
+  "full": "Game concepting.\nSound logo design.\nMusic composition.\nSound editing.\nVoice over.",
+  "with": [],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=Eoeagk5wv2o"
+  },
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/neural-investigations/neural-investigations-01.jpg",
+      "alt": "Neural Investigations logo",
+      "focal": "50% 42%"
+    }
+  ],
+  "poster": "/media/neural-investigations/neural-investigations-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 42%"
+}

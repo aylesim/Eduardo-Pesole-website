@@ -1,0 +1,38 @@
+{
+  "slug": "from-now-on",
+  "title": "From Now On",
+  "subtitle": "",
+  "year": "2020",
+  "date": "January–April 2020",
+  "location": "Rome",
+  "type": "Short film",
+  "role": "Sound Design, Editing, Production Sound, Mix",
+  "category": "movies",
+  "selected": false,
+  "order": 12,
+  "legacyPath": "/from-now-on",
+  "short": "Short film in Rome. Production sound, design, editing and final mix—from set to deliverable.",
+  "full": "",
+  "with": [],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=aWfF8m0mgXQ"
+  },
+  "archiveVideos": [],
+  "stills": [
+    {
+      "src": "/media/from-now-on/from-now-on-01.jpg",
+      "alt": "From Now On still",
+      "focal": "55% 45%"
+    }
+  ],
+  "poster": "/media/from-now-on/from-now-on-01.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "55% 45%"
+}

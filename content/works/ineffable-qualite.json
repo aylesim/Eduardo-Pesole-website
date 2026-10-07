@@ -1,0 +1,32 @@
+{
+  "slug": "ineffable-qualite",
+  "title": "Ineffable Qualitè",
+  "subtitle": "",
+  "year": "2019",
+  "date": "June 2019",
+  "location": "Rome",
+  "type": "Fashion film",
+  "role": "Composer",
+  "category": "movies",
+  "selected": false,
+  "order": 15,
+  "legacyPath": "/movies-ineffable-qualitè",
+  "short": "Fashion film in Rome. Original score for picture.",
+  "full": "",
+  "with": [],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=0xkCuXvutdI"
+  },
+  "archiveVideos": [],
+  "stills": [],
+  "poster": "https://i.ytimg.com/vi/0xkCuXvutdI/maxresdefault.jpg",
+  "posterScale": 1,
+  "posterQuality": "",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 50%"
+}

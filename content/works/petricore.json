@@ -1,0 +1,32 @@
+{
+  "slug": "petricore",
+  "title": "Petricore",
+  "subtitle": "",
+  "year": "2020",
+  "date": "January 2020",
+  "location": "Rome",
+  "type": "Fashion film",
+  "role": "Composer, Sound Designer",
+  "category": "movies",
+  "selected": true,
+  "order": 8,
+  "legacyPath": "/movies-petricore",
+  "short": "Fashion film produced at IED Rome. Original score and sound design.",
+  "full": "",
+  "with": [],
+  "primaryVideo": {
+    "label": "",
+    "url": "https://www.youtube.com/watch?v=rptVEs7lgQM"
+  },
+  "archiveVideos": [],
+  "stills": [],
+  "poster": "https://i.ytimg.com/vi/rptVEs7lgQM/sddefault.jpg",
+  "posterScale": 1.35,
+  "posterQuality": "sddefault",
+  "posterFallback": "",
+  "posterPlaceholder": "",
+  "externalUrl": null,
+  "soundcloud": null,
+  "externalLinks": [],
+  "focal": "50% 50%"
+}

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { useClientReducedMotion } from "@/lib/use-client-reduced-motion";
-import { isExternalWork, plateSrc, workHref } from "@/lib/content";
+import { isExternalWork, plateSrc, workHref } from "@/lib/work-utils";
 import type { WorkItem } from "@/lib/types";
 
 type CueCardProps = {

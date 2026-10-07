@@ -1,0 +1,413 @@
+media:
+  input: public/media
+  output: /media
+  categories: [image]
+
+components:
+  nav_item:
+    type: object
+    fields:
+      - name: label
+        label: Etichetta
+        type: string
+        required: true
+      - name: href
+        label: Percorso
+        type: string
+        required: true
+  collaborator:
+    type: object
+    fields:
+      - name: name
+        label: Nome
+        type: string
+        required: true
+      - name: url
+        label: URL
+        type: string
+  video:
+    type: object
+    fields:
+      - name: label
+        label: Etichetta
+        type: string
+      - name: url
+        label: URL
+        type: string
+        required: true
+  still:
+    type: object
+    fields:
+      - name: src
+        label: Immagine
+        type: image
+        required: true
+      - name: alt
+        label: Testo alternativo
+        type: string
+        required: true
+      - name: focal
+        label: Punto focale (CSS object-position)
+        type: string
+  external_link:
+    type: object
+    fields:
+      - name: label
+        label: Etichetta
+        type: string
+        required: true
+      - name: url
+        label: URL
+        type: string
+        required: true
+
+content:
+  - name: site
+    label: Sito
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: brand_name
+        label: Nome brand
+        type: string
+        required: true
+      - name: nav
+        label: Menu principale
+        type: object
+        component: nav_item
+        list: true
+      - name: footer
+        label: Testo footer
+        type: string
+      - name: home_note
+        label: Nota in home (sotto il nome)
+        type: string
+      - name: home_showreel_label
+        label: Link showreel in home
+        type: string
+      - name: nav_contacts_label
+        label: Voce Contatti nel menu
+        type: string
+      - name: footer_mail_label
+        label: Link mail nel footer
+        type: string
+      - name: meta
+        label: SEO e titoli
+        type: object
+        fields:
+          - name: site_title_default
+            label: Titolo sito (default)
+            type: string
+          - name: site_title_template
+            label: Template titolo pagine
+            type: string
+          - name: home_description
+            label: Meta description home
+            type: text
+          - name: works_description
+            label: Meta description Works
+            type: text
+          - name: about_description
+            label: Meta description About
+            type: text
+          - name: services_description
+            label: Meta description Services
+            type: text
+      - name: works_filters
+        label: Filtri pagina Works
+        type: object
+        fields:
+          - name: selected_label
+            label: Etichetta filtro Selected
+            type: string
+          - name: all_label
+            label: Etichetta filtro All
+            type: string
+          - name: empty_message
+            label: Messaggio categoria vuota
+            type: string
+      - name: favicon
+        label: Favicon (percorso)
+        type: string
+
+  - name: about
+    label: About
+    type: file
+    path: content/about.json
+    format: json
+    fields:
+      - name: page_title
+        label: Titolo pagina
+        type: string
+      - name: biography_title
+        label: Titolo sezione biografia
+        type: string
+      - name: showreel_title
+        label: Titolo sezione showreel
+        type: string
+      - name: credits_title
+        label: Titolo sezione crediti
+        type: string
+      - name: lead
+        label: Biografia — riassunto
+        type: text
+        required: true
+      - name: full
+        label: Biografia — testo completo
+        type: text
+        required: true
+      - name: expand_label
+        label: Pulsante espandi biografia
+        type: string
+      - name: collapse_label
+        label: Pulsante chiudi biografia
+        type: string
+      - name: showreel
+        label: Showreel
+        type: object
+        fields:
+          - name: url
+            label: URL YouTube
+            type: string
+            required: true
+          - name: aria_label
+            label: Titolo accessibile
+            type: string
+          - name: poster
+            label: Poster (immagine o percorso)
+            type: image
+      - name: credits
+        label: Studi e collaboratori
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Nome
+            type: string
+            required: true
+
+  - name: contact
+    label: Contatti
+    type: file
+    path: content/contact.json
+    format: json
+    fields:
+      - name: heading
+        label: Titolo sezione
+        type: string
+      - name: phone
+        label: Telefono
+        type: string
+      - name: email
+        label: Email
+        type: string
+        required: true
+      - name: socials
+        label: Social
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+        fields:
+          - name: label
+            label: Etichetta
+            type: string
+            required: true
+          - name: url
+            label: URL
+            type: string
+            required: true
+
+  - name: services
+    label: Servizi
+    type: file
+    path: content/services.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: ID (slug interno)
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: title
+        label: Titolo
+        type: string
+        required: true
+      - name: line1
+        label: Prima riga
+        type: text
+        required: true
+      - name: line2
+        label: Seconda riga
+        type: text
+      - name: cta
+        label: Testo CTA
+        type: string
+        required: true
+
+  - name: categories
+    label: Categorie
+    type: collection
+    path: content/categories
+    format: json
+    filename: "{slug}.json"
+    view:
+      fields: [label, order]
+      primary: label
+      sort: [order, label]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: slug
+        label: Slug (id menu)
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: label
+        label: Nome in menu Works
+        type: string
+        required: true
+      - name: order
+        label: Ordine in menu
+        type: number
+        required: true
+
+  - name: works
+    label: Progetti
+    type: collection
+    path: content/works
+    format: json
+    filename: "{slug}.json"
+    view:
+      fields: [title, category, year, selected, order]
+      primary: title
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: slug
+        label: Slug URL
+        type: string
+        required: true
+        pattern: "^[a-z0-9-]+$"
+      - name: title
+        label: Titolo
+        type: string
+        required: true
+      - name: subtitle
+        label: Sottotitolo
+        type: string
+      - name: year
+        label: Anno (visualizzato)
+        type: string
+      - name: date
+        label: Date (dettaglio)
+        type: string
+      - name: location
+        label: Luogo
+        type: string
+      - name: type
+        label: Tipo progetto
+        type: string
+      - name: role
+        label: Ruolo
+        type: string
+      - name: category
+        label: Categoria
+        type: reference
+        required: true
+        options:
+          collection: categories
+          value: "{fields.slug}"
+          label: "{fields.label}"
+      - name: selected
+        label: In evidenza (filtro Selected)
+        type: boolean
+      - name: order
+        label: Ordine generale
+        type: number
+        required: true
+      - name: legacyPath
+        label: Percorso sito vecchio (opzionale)
+        type: string
+      - name: short
+        label: Testo breve
+        type: text
+      - name: full
+        label: Testo completo (sito vecchio)
+        type: text
+      - name: with
+        label: Collaboratori
+        component: collaborator
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+      - name: primaryVideo
+        label: Video principale
+        component: video
+      - name: archiveVideos
+        label: Video aggiuntivi
+        component: video
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+      - name: stills
+        label: Immagini
+        component: still
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{alt}"
+      - name: poster
+        label: Poster (URL o percorso immagine)
+        type: string
+      - name: posterScale
+        label: Scala poster
+        type: number
+      - name: posterQuality
+        label: Qualità poster YouTube
+        type: string
+      - name: posterFallback
+        label: Poster fallback (URL)
+        type: string
+      - name: posterPlaceholder
+        label: Placeholder poster
+        type: select
+        options:
+          values:
+            - name: ""
+              label: Nessuno
+            - name: primary
+              label: Primary
+            - name: secondary
+              label: Secondary
+      - name: externalUrl
+        label: Link esterno (apre fuori dal sito)
+        type: string
+      - name: soundcloud
+        label: URL SoundCloud
+        type: string
+      - name: externalLinks
+        label: Link in fondo pagina
+        component: external_link
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{label}"
+      - name: focal
+        label: Punto focale poster
+        type: string
+
+settings:
+  content:
+    merge: true

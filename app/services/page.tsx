@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import ServiceCards from "@/components/ServiceCards";
-import { getServices } from "@/lib/content";
+import { getServices, getSiteSettings } from "@/lib/content";
+
+const settings = getSiteSettings();
 
 export const metadata: Metadata = {
   title: "Services",
-  description:
-    "Game and interactive audio, spatial sound for installations, composition for picture, mix and post-production.",
+  description: settings.meta.services_description,
 };
 
 export default function ServicesPage() {

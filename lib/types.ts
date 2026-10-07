@@ -3,22 +3,45 @@ export type NavItem = {
   href: string;
 };
 
-export type ShowreelVideo = {
-  url: string;
-  aria_label: string;
-};
-
-export type SiteGlobal = {
+export type SiteSettings = {
+  brand_name: string;
   nav: NavItem[];
   footer: string;
-  hero_tagline: string;
-  showreel_cta: string;
-  showreel_video: ShowreelVideo;
-  meta_description_home: string;
-  role_line: string;
-  contact_cta: string;
-  brand_name: string;
-  credits: string[];
+  home_note: string;
+  home_showreel_label: string;
+  nav_contacts_label: string;
+  footer_mail_label: string;
+  meta: {
+    site_title_default: string;
+    site_title_template: string;
+    home_description: string;
+    works_description: string;
+    about_description: string;
+    services_description: string;
+  };
+  works_filters: {
+    selected_label: string;
+    all_label: string;
+    empty_message: string;
+  };
+  favicon: string;
+};
+
+export type AboutContent = {
+  page_title: string;
+  biography_title: string;
+  showreel_title: string;
+  credits_title: string;
+  lead: string;
+  full: string;
+  expand_label: string;
+  collapse_label: string;
+  showreel: {
+    url: string;
+    aria_label: string;
+    poster: string;
+  };
+  credits: { name: string }[];
 };
 
 export type ContactSocial = {
@@ -26,14 +49,11 @@ export type ContactSocial = {
   url: string;
 };
 
-export type Contact = {
+export type ContactContent = {
   heading: string;
   phone: string;
   email: string;
   socials: ContactSocial[];
-  form_fields: string[];
-  form_submit_label: string;
-  form_success_message: string;
 };
 
 export type ProjectVideo = {
@@ -60,9 +80,15 @@ export type ExternalLink = {
   url: string;
 };
 
-export type WorkCategory = "games" | "art-collabs" | "movies" | "music";
+export type WorkCategory = string;
 
 export type FilterId = "selected" | "all" | WorkCategory;
+
+export type CategoryEntry = {
+  slug: string;
+  label: string;
+  order: number;
+};
 
 export type WorkItem = {
   slug: string;
@@ -78,6 +104,7 @@ export type WorkItem = {
   role: string;
   with: Collaborator[];
   short: string;
+  full: string;
   primaryVideo: ProjectVideo | null;
   stills: WorkStill[];
   poster: string | null;
@@ -106,18 +133,4 @@ export type ServiceOffer = {
 export type CategoryFilter = {
   id: FilterId;
   label: string;
-};
-
-export type SiteContent = {
-  source: string;
-  extracted_at: string;
-  global: SiteGlobal;
-  about_bio: string;
-  about_lead: string;
-  contact: Contact;
-  works: WorkItem[];
-  services: ServiceOffer[];
-  category_filters: CategoryFilter[];
-  favicon: string;
-  gaps?: string[];
 };

@@ -1,22 +1,34 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import WorksBrowser from "@/components/WorksBrowser";
-import { getWorks } from "@/lib/content";
+import {
+  getCategoryFilters,
+  getSiteSettings,
+  getWorks,
+  getWorksEmptyMessage,
+} from "@/lib/content";
+
+const settings = getSiteSettings();
 
 export const metadata: Metadata = {
   title: "Works",
-  description:
-    "Selected works by Eduardo Pesole — games, art collabs, movies, music.",
+  description: settings.meta.works_description,
 };
 
 export default function WorksPage() {
   const works = getWorks();
+  const filters = getCategoryFilters();
+  const emptyMessage = getWorksEmptyMessage();
 
   return (
     <div className="editorial-page">
       <h1 className="sr-only">Works</h1>
       <Suspense fallback={<div className="h-40" />}>
-        <WorksBrowser works={works} />
+        <WorksBrowser
+          works={works}
+          filters={filters}
+          emptyMessage={emptyMessage}
+        />
       </Suspense>
     </div>
   );

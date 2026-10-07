@@ -1,37 +1,156 @@
-import siteData from "@/content/site.json";
+import fs from "node:fs";
+import path from "node:path";
+import { filterWorks } from "@/lib/work-utils";
 import type {
+  AboutContent,
+  CategoryEntry,
   CategoryFilter,
+  ContactContent,
   FilterId,
   ServiceOffer,
-  SiteContent,
+  SiteSettings,
   WorkCategory,
   WorkItem,
 } from "@/lib/types";
 
-const site = siteData as SiteContent;
+export {
+  filterWorks,
+  getWorksByCategory as filterWorksByCategory,
+  isExternalWork,
+  parseFilterParam,
+  plateSrc,
+  workHref,
+} from "@/lib/work-utils";
 
-export const SELECTED_SLUGS = [
-  "stray-blade",
-  "feel-the-sound",
-  "unstable-matter",
-  "moongaze",
-  "berlin-winter",
-  "hypocyrta-glabra",
-  "betahaus-ads",
-  "petricore",
-] as const;
+const contentDir = path.join(process.cwd(), "content");
 
-export function getSite(): SiteContent {
-  return site;
+type WorkFile = Omit<WorkItem, "categoryLabel"> & {
+  category: WorkCategory | string;
+  posterPlaceholder?: string;
+  primaryVideo?: { label?: string; url: string } | null;
+};
+
+function readJson<T>(relativePath: string): T {
+  const filePath = path.join(contentDir, relativePath);
+  return JSON.parse(fs.readFileSync(filePath, "utf8")) as T;
+}
+
+function loadCategories(): CategoryEntry[] {
+  const dir = path.join(contentDir, "categories");
+  return fs
+    .readdirSync(dir)
+    .filter((name) => name.endsWith(".json"))
+    .map((name) => readJson<CategoryEntry>(path.join("categories", name)))
+    .sort((a, b) => a.order - b.order);
+}
+
+function normalizePlaceholder(
+  value: string | undefined,
+): "primary" | "secondary" | undefined {
+  if (value === "primary" || value === "secondary") return value;
+  return undefined;
+}
+
+function normalizeWork(
+  raw: WorkFile,
+  categoryLabel: string,
+): WorkItem {
+  const primary =
+    raw.primaryVideo?.url?.trim() ?
+      { label: raw.primaryVideo.label, url: raw.primaryVideo.url.trim() }
+    : null;
+
+  return {
+    slug: raw.slug,
+    legacyPath: raw.legacyPath?.trim() || null,
+    title: raw.title,
+    subtitle: raw.subtitle?.trim() || undefined,
+    year: raw.year,
+    date: raw.date,
+    location: raw.location,
+    type: raw.type,
+    category: raw.category as WorkCategory,
+    categoryLabel,
+    role: raw.role,
+    with: raw.with ?? [],
+    short: raw.short,
+    full: raw.full ?? "",
+    primaryVideo: primary,
+    stills: raw.stills ?? [],
+    poster: raw.poster?.trim() || null,
+    posterScale: raw.posterScale,
+    posterQuality: raw.posterQuality?.trim() || undefined,
+    posterFallback: raw.posterFallback?.trim() || undefined,
+    posterPlaceholder: normalizePlaceholder(raw.posterPlaceholder),
+    archiveVideos: raw.archiveVideos?.filter((v) => v.url?.trim()) ?? [],
+    externalUrl: raw.externalUrl?.trim() || null,
+    soundcloud: raw.soundcloud?.trim() || null,
+    externalLinks: raw.externalLinks ?? [],
+    order: raw.order,
+    focal: raw.focal,
+    selected: raw.selected,
+  };
+}
+
+function loadWorks(categoryMap: Map<string, CategoryEntry>): WorkItem[] {
+  const dir = path.join(contentDir, "works");
+  return fs
+    .readdirSync(dir)
+    .filter((name) => name.endsWith(".json"))
+    .map((name) => readJson<WorkFile>(path.join("works", name)))
+    .map((raw) => {
+      const cat = categoryMap.get(raw.category as string);
+      const categoryLabel = cat?.label ?? String(raw.category);
+      return normalizeWork(raw, categoryLabel);
+    })
+    .sort((a, b) => a.order - b.order);
+}
+
+let settingsCache: SiteSettings | null = null;
+let aboutCache: AboutContent | null = null;
+let contactCache: ContactContent | null = null;
+let servicesCache: ServiceOffer[] | null = null;
+let categoriesCache: CategoryEntry[] | null = null;
+let worksCache: WorkItem[] | null = null;
+
+export function getSiteSettings(): SiteSettings {
+  settingsCache ??= readJson<SiteSettings>("site.json");
+  return settingsCache;
+}
+
+export function getAbout(): AboutContent {
+  aboutCache ??= readJson<AboutContent>("about.json");
+  return aboutCache;
+}
+
+export function getContact(): ContactContent {
+  contactCache ??= readJson<ContactContent>("contact.json");
+  return contactCache;
+}
+
+export function getServices(): ServiceOffer[] {
+  servicesCache ??= readJson<ServiceOffer[]>("services.json");
+  return servicesCache;
+}
+
+export function getCategories(): CategoryEntry[] {
+  categoriesCache ??= loadCategories();
+  return categoriesCache;
 }
 
 export function getWorks(): WorkItem[] {
-  return [...site.works].sort((a, b) => a.order - b.order);
+  if (!worksCache) {
+    const categoryMap = new Map(
+      getCategories().map((c) => [c.slug, c]),
+    );
+    worksCache = loadWorks(categoryMap);
+  }
+  return worksCache;
 }
 
 export function getWorkBySlug(slug: string): WorkItem | undefined {
   const decoded = decodeURIComponent(slug);
-  return site.works.find(
+  return getWorks().find(
     (w) =>
       w.slug === slug ||
       w.slug === decoded ||
@@ -44,24 +163,12 @@ export function getInternalWorks(): WorkItem[] {
 }
 
 export function getSelectedWorks(limit?: number): WorkItem[] {
-  const bySlug = new Map(getWorks().map((w) => [w.slug, w]));
-  const list = SELECTED_SLUGS.map((slug) => bySlug.get(slug)).filter(
-    (w): w is WorkItem => Boolean(w),
-  );
+  const list = filterWorks(getWorks(), "selected");
   return typeof limit === "number" ? list.slice(0, limit) : list;
 }
 
 export function getWorksByFilter(filter: FilterId): WorkItem[] {
-  if (filter === "selected") return getSelectedWorks();
-  if (filter === "all") return getWorks();
-  return getWorks()
-    .filter((w) => w.category === filter)
-    .sort((a, b) => {
-      const ya = Number(a.year) || 0;
-      const yb = Number(b.year) || 0;
-      if (yb !== ya) return yb - ya;
-      return a.order - b.order;
-    });
+  return filterWorks(getWorks(), filter);
 }
 
 export function getWorksByCategory(
@@ -91,42 +198,28 @@ export function getAdjacentWorks(slug: string): {
 }
 
 export function getNav() {
-  return site.global.nav;
-}
-
-export function getServices(): ServiceOffer[] {
-  return site.services;
+  return getSiteSettings().nav;
 }
 
 export function getCategoryFilters(): CategoryFilter[] {
-  return site.category_filters;
-}
+  const settings = getSiteSettings();
+  const categories = getCategories();
+  const usedSlugs = new Set(getWorks().map((w) => w.category));
 
-export function workHref(work: WorkItem): string {
-  if (work.externalUrl) return work.externalUrl;
-  return `/works/${encodeURI(work.slug)}`;
-}
+  const filters: CategoryFilter[] = [
+    { id: "selected", label: settings.works_filters.selected_label },
+    { id: "all", label: settings.works_filters.all_label },
+  ];
 
-export function isExternalWork(work: WorkItem): boolean {
-  return Boolean(work.externalUrl);
-}
-
-export function plateSrc(work: WorkItem): string | null {
-  if (work.stills[0]?.src) return work.stills[0].src;
-  if (work.poster) return work.poster;
-  return work.posterFallback ?? null;
-}
-
-export function parseFilterParam(value: string | null): FilterId {
-  if (
-    value === "selected" ||
-    value === "all" ||
-    value === "games" ||
-    value === "art-collabs" ||
-    value === "movies" ||
-    value === "music"
-  ) {
-    return value;
+  for (const cat of categories) {
+    if (usedSlugs.has(cat.slug)) {
+      filters.push({ id: cat.slug, label: cat.label });
+    }
   }
-  return "selected";
+
+  return filters;
+}
+
+export function getWorksEmptyMessage(): string {
+  return getSiteSettings().works_filters.empty_message;
 }

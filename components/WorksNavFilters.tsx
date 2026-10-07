@@ -2,15 +2,22 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import FilterChips from "@/components/FilterChips";
-import { getCategoryFilters, parseFilterParam } from "@/lib/content";
-import type { FilterId } from "@/lib/types";
+import {
+  categorySlugsFromFilters,
+  parseFilterParam,
+} from "@/lib/work-utils";
+import type { CategoryFilter, FilterId } from "@/lib/types";
 
-export default function WorksNavFilters() {
-  const filters = getCategoryFilters();
+type WorksNavFiltersProps = {
+  filters: CategoryFilter[];
+};
+
+export default function WorksNavFilters({ filters }: WorksNavFiltersProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const active = parseFilterParam(searchParams.get("filter"));
+  const categorySlugs = categorySlugsFromFilters(filters);
+  const active = parseFilterParam(searchParams.get("filter"), categorySlugs);
 
   function setFilter(id: FilterId) {
     const params = new URLSearchParams(searchParams.toString());

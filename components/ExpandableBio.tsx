@@ -5,9 +5,16 @@ import { useState } from "react";
 type ExpandableBioProps = {
   lead: string;
   full: string;
+  expandLabel: string;
+  collapseLabel: string;
 };
 
-export default function ExpandableBio({ lead, full }: ExpandableBioProps) {
+export default function ExpandableBio({
+  lead,
+  full,
+  expandLabel,
+  collapseLabel,
+}: ExpandableBioProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -28,7 +35,7 @@ export default function ExpandableBio({ lead, full }: ExpandableBioProps) {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
-        {open ? "Close biography ↑" : "Full biography ↓"}
+        {open ? collapseLabel : expandLabel}
       </button>
     </div>
   );
