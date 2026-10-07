@@ -34,13 +34,19 @@ function useMediaQuery(query: string, serverValue = false) {
   );
 }
 
+let webglSupport: boolean | undefined;
+
 function hasWebGL() {
+  if (webglSupport != null) return webglSupport;
   try {
     const canvas = document.createElement("canvas");
-    return Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl"));
+    const gl = canvas.getContext("webgl2") || canvas.getContext("webgl");
+    webglSupport = Boolean(gl);
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
   } catch {
-    return false;
+    webglSupport = false;
   }
+  return webglSupport;
 }
 
 function useIsClient() {

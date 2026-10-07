@@ -17,7 +17,7 @@ vec2 curlPlane(float x, float s, float r, float k, bool flip) {
   float e1 = flip ? n1 * v1 : n1 * x;
   float e2 = flip ? n1 * x : n1 * v1;
 
-  if (r <= 0.01) return vec2(x, 0.0);
+  if (r <= 0.25) return vec2(x, 0.0);
   if (e1 <= e2) return vec2(x, 0.0);
 
   float r2 = abs(s) / r;
@@ -92,6 +92,7 @@ export default function CurvedPlane({
 }: CurvedPlaneProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const matRef = useRef<THREE.ShaderMaterial>(null);
+  const aspectRef = useRef(0);
 
   const texture = useMemo(() => {
     const loader = new THREE.TextureLoader();
@@ -122,6 +123,12 @@ export default function CurvedPlane({
     const mesh = meshRef.current;
     if (!mat || !mesh) return;
 
+    let distance = index - store.current.current;
+    distance -= Math.round(distance / count) * count;
+    const theta = distance * step;
+    const abs = Math.abs(theta);
+    const fade = 1 - THREE.MathUtils.smoothstep(abs, step * 1.6, step * 4.2);
+
     const image = texture.image as
       | {
           naturalWidth?: number;
@@ -133,13 +140,12 @@ export default function CurvedPlane({
     const imageWidth = image?.naturalWidth ?? image?.width ?? 0;
     const imageHeight = image?.naturalHeight ?? image?.height ?? 0;
     if (imageWidth > 0 && imageHeight > 0) {
-      mat.uniforms.uImageAspect.value = imageWidth / imageHeight;
+      const aspect = imageWidth / imageHeight;
+      if (aspect !== aspectRef.current) {
+        aspectRef.current = aspect;
+        mat.uniforms.uImageAspect.value = aspect;
+      }
     }
-
-    let distance = index - store.current.current;
-    distance -= Math.round(distance / count) * count;
-    const theta = distance * step;
-    const abs = Math.abs(theta);
 
     // A face-on disc: every plane sits tangent to the same circle in XY.
     mesh.position.x = (Math.cos(theta) - 1) * radius;
@@ -147,12 +153,12 @@ export default function CurvedPlane({
     mesh.position.z = -abs * 0.025;
     mesh.rotation.z = theta;
 
-    mat.uniforms.uProgress.value = THREE.MathUtils.clamp(distance, -1, 1);
-    const fade = 1 - THREE.MathUtils.smoothstep(abs, step * 1.1, step * 3.25);
+    mat.uniforms.uProgress.value =
+      Math.abs(distance) < 0.2 ? 0 : THREE.MathUtils.clamp(distance, -1, 1);
     mat.uniforms.uOpacity.value = fade;
-    mat.depthWrite = fade > 0.9;
-    mesh.visible = fade > 0.03;
+    mesh.visible = fade > 0.02;
     mesh.renderOrder = 100 - Math.round(abs * 20);
+    mesh.updateMatrixWorld();
   });
 
   return (
@@ -176,14 +182,16 @@ export default function CurvedPlane({
       onPointerOut={() => {
         document.body.style.cursor = "auto";
       }}
+      frustumCulled={false}
     >
-      <planeGeometry args={[width, height, 1, 72]} />
+      <planeGeometry args={[width, height, 1, 28]} />
       <shaderMaterial
         ref={matRef}
         vertexShader={vertexShader}
         fragmentShader={fragmentShader}
         uniforms={uniforms}
         transparent
+        depthWrite={false}
         toneMapped={false}
         side={THREE.FrontSide}
       />

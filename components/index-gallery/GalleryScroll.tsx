@@ -27,6 +27,13 @@ type ScrollApi = {
 
 const AUTOPLAY_CARDS_PER_SECOND = 0.2;
 const AUTOPLAY_RESUME_MS = 2800;
+const MAX_LEAD = 1.35;
+const MAX_CARDS_PER_SECOND = 2.4;
+
+function clampLead(current: number, target: number) {
+  const lead = target - current;
+  return current + Math.max(-MAX_LEAD, Math.min(MAX_LEAD, lead));
+}
 
 const ScrollCtx = createContext<ScrollApi | null>(null);
 
@@ -57,17 +64,16 @@ export function GalleryScrollProvider({
   const touchY = useRef<number | null>(null);
   const snapTimer = useRef(0);
   const resumeAt = useRef(0);
+  const pendingWheel = useRef(0);
 
   const pauseAutoplay = useCallback(() => {
     resumeAt.current = performance.now() + AUTOPLAY_RESUME_MS;
   }, []);
 
-  const setTarget = useCallback(
-    (index: number) => {
-      store.current.target = index;
-    },
-    [],
-  );
+  const setTarget = useCallback((index: number) => {
+    const s = store.current;
+    s.target = clampLead(s.current, index);
+  }, []);
 
   useEffect(() => {
     let last = performance.now();
@@ -77,11 +83,21 @@ export function GalleryScrollProvider({
       const dt = Math.min(0.05, (now - last) / 1000);
       last = now;
       const s = store.current;
+      if (pendingWheel.current !== 0) {
+        const delta = pendingWheel.current;
+        pendingWheel.current = 0;
+        const magnitude = Math.min(0.9, Math.abs(delta) / 240);
+        s.target = clampLead(s.current, s.target + Math.sign(delta) * magnitude);
+      }
       if (now >= resumeAt.current) {
         s.target += AUTOPLAY_CARDS_PER_SECOND * dt;
       }
-      const next = s.current + (s.target - s.current) * (1 - Math.exp(-dt * 3.2));
-      s.velocity = (next - s.current) / Math.max(dt, 0.001);
+      const gap = s.target - s.current;
+      const eased = gap * (1 - Math.exp(-dt * 8));
+      const maxStep = MAX_CARDS_PER_SECOND * dt;
+      const step = Math.max(-maxStep, Math.min(maxStep, eased));
+      const next = s.current + step;
+      s.velocity = step / Math.max(dt, 0.001);
       s.current = next;
 
       const active =
@@ -103,13 +119,15 @@ export function GalleryScrollProvider({
     const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       pauseAutoplay();
-      const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      const magnitude = Math.min(1.15, Math.abs(delta) / 180);
-      store.current.target += Math.sign(delta) * magnitude * 0.72;
+      let delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (e.deltaMode === WheelEvent.DOM_DELTA_LINE) delta *= 16;
+      else if (e.deltaMode === WheelEvent.DOM_DELTA_PAGE) delta *= window.innerHeight;
+      pendingWheel.current += delta;
       window.clearTimeout(snapTimer.current);
       snapTimer.current = window.setTimeout(() => {
-        store.current.target = Math.round(store.current.target);
-      }, 180);
+        pendingWheel.current = 0;
+        store.current.target = Math.round(store.current.current);
+      }, 160);
     };
 
     const onKey = (e: KeyboardEvent) => {
@@ -143,12 +161,15 @@ export function GalleryScrollProvider({
       const y = e.touches[0]?.clientY ?? touchY.current;
       const dy = touchY.current - y;
       touchY.current = y;
-      store.current.target += dy / 280;
+      store.current.target = clampLead(
+        store.current.current,
+        store.current.target + dy / 320,
+      );
     };
     const onTouchEnd = () => {
       pauseAutoplay();
       touchY.current = null;
-      store.current.target = Math.round(store.current.target);
+      store.current.target = Math.round(store.current.current);
     };
 
     window.addEventListener("wheel", onWheel, { passive: false });

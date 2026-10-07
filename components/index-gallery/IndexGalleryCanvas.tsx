@@ -94,6 +94,7 @@ export default function IndexGalleryCanvas({
         className="h-full w-full touch-none"
         style={{ width: "100%", height: "100%" }}
         dpr={[1, 1.5]}
+        resize={{ scroll: false }}
         gl={{
           antialias: true,
           alpha: false,
