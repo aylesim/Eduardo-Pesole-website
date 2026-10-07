@@ -294,10 +294,11 @@ content:
         order: asc
     fields:
       - name: slug
-        label: Slug URL
+        label: Percorso
         type: string
         required: true
         pattern: "^[a-z0-9-]+$"
+        description: "Diventa /works/questo-valore. Solo lettere minuscole, numeri e trattini."
       - name: title
         label: Titolo
         type: string
@@ -335,9 +336,6 @@ content:
         label: Ordine generale
         type: number
         required: true
-      - name: legacyPath
-        label: Percorso sito vecchio (opzionale)
-        type: string
       - name: short
         label: Testo breve
         type: text

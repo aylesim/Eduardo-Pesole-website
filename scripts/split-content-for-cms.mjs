@@ -138,7 +138,6 @@ for (const work of site.works) {
     category: work.category,
     selected: Boolean(work.selected),
     order: work.order,
-    legacyPath: work.legacyPath,
     short: work.short,
     full: fullText,
     with: work.with,

@@ -92,7 +92,6 @@ export type CategoryEntry = {
 
 export type WorkItem = {
   slug: string;
-  legacyPath: string | null;
   title: string;
   subtitle?: string;
   year: string;

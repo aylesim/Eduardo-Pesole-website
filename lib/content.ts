@@ -62,7 +62,6 @@ function normalizeWork(
 
   return {
     slug: raw.slug,
-    legacyPath: raw.legacyPath?.trim() || null,
     title: raw.title,
     subtitle: raw.subtitle?.trim() || undefined,
     year: raw.year,

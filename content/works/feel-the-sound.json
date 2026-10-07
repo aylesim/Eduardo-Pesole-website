@@ -10,7 +10,6 @@
   "category": "art-collabs",
   "selected": true,
   "order": 2,
-  "legacyPath": "/feel-the-sound",
   "short": "With Tom Slater, a digital twin of the Barbican exhibition in Wwise and UE5. Simulated d&b speakers and modeled acoustics let the team rehearse the show before opening.",
   "full": "Together with Tom Slater (Call and Response Studio) the audio system designer of the exhibition, we built a digital twin of the exhibition space. My role was to recreate the sonic environment using Audiokinetic Wwise and Unreal Engine 5's spatial audio features, making the virtual experience feel as close as possible to being there in person.\nThe digital twin gave designers and architects a virtual playground to test curatorial ideas before accessing the real space. I simulated d&b audiotechnik speakers, modeled acoustic materials, and developed real-time audio systems to handle reflections, diffraction, and CPU-heavy processing, ensuring an immersive yet efficient workflow.\nWhat started as an experiment became a powerful tool that accelerated the design process and gave the team a clearer vision for the final show.",
   "with": [

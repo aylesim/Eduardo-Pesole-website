@@ -10,7 +10,6 @@
   "category": "games",
   "selected": true,
   "order": 4,
-  "legacyPath": "/games-moongaze",
   "short": "Bachelor thesis game for PC. Ambisonic environments in Reaper, custom death and sea systems, integrated in Wwise and Unreal.",
   "full": "Environment sound design, creating ambisonics tracks in Reaper with IEM plugins.\nTech audio system design such as death system and distanced based sea's sound.\nIntegration using unreal and Wwise.\nDynamic mix.",
   "with": [],
