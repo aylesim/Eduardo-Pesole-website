@@ -14,13 +14,6 @@ export default function WorksPage() {
 
   return (
     <div className="editorial-page">
-      <header className="mb-14 pt-10 md:mb-20 md:pt-16">
-        <h1 className="type-sheet-title">
-          Selected
-          <br />
-          Works
-        </h1>
-      </header>
       <Suspense fallback={<div className="h-40" />}>
         <WorksBrowser works={works} />
       </Suspense>

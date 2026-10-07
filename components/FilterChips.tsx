@@ -15,7 +15,7 @@ export default function FilterChips({
 }: FilterChipsProps) {
   return (
     <div
-      className="flex flex-nowrap gap-5 overflow-x-auto md:gap-8"
+      className="flex flex-nowrap gap-8 overflow-x-auto md:gap-12"
       role="radiogroup"
       aria-label="Filter by category"
     >
@@ -27,10 +27,10 @@ export default function FilterChips({
             type="button"
             role="radio"
             aria-checked={selected}
-            className={`shrink-0 cursor-pointer border-b py-2 font-ui transition-opacity duration-(--duration-ui) ${
+            className={`type-h2 shrink-0 cursor-pointer border-b-2 py-1 transition-opacity duration-(--duration-ui) ${
               selected
                 ? "border-text text-text"
-                : "border-transparent text-muted hover:text-text"
+                : "border-transparent text-text/42 hover:text-text"
             }`}
             onClick={() => onChange(filter.id)}
           >

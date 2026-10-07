@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-base: #eeeeec;
-  --color-surface: #e8e8e5;
-  --color-elevated: #deded9;
+  --color-base: #eee9f2;
+  --color-surface: #e6dff0;
+  --color-elevated: #dbd2e8;
   --color-text: #151417;
-  --color-muted: #67666a;
-  --color-border: #c9c8c4;
+  --color-muted: #6f4f63;
+  --color-border: color-mix(in srgb, var(--color-text) 26%, transparent);
   --color-accent: #151417;
   --color-accent-ink: #eeeeec;
   --color-focus: #151417;
@@ -79,6 +79,32 @@
     min-height: 100svh;
   }
 
+  .nav-gradient {
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    pointer-events: none;
+    background: #f6e6f8;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 3.5rem,
+      transparent 9rem
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 3.5rem,
+      transparent 9rem
+    );
+  }
+
+  .nav-gradient .site-gradient {
+    position: absolute;
+    width: 220vmax;
+    height: 220vmax;
+  }
+
   a {
     @apply text-text no-underline transition-colors duration-(--duration-ui) ease-(--ease-ui);
   }
@@ -108,11 +134,11 @@
   }
 
   .font-meta {
-    @apply font-mono text-[0.625rem] font-medium tracking-[0.13em] text-muted uppercase;
+    @apply text-muted font-mono text-[0.625rem] font-medium tracking-[0.13em] uppercase;
   }
 
   .font-meta-value {
-    @apply font-mono text-[0.75rem] font-normal leading-relaxed text-text;
+    @apply text-text font-mono text-[0.75rem] leading-relaxed font-normal;
   }
 
   .font-ui {
@@ -161,15 +187,15 @@
   }
 
   .btn-accent {
-    @apply inline-flex cursor-pointer items-center justify-center border border-text bg-text px-5 py-3 font-mono text-[0.6875rem] font-medium tracking-[0.13em] text-base uppercase transition-colors duration-(--duration-ui) hover:bg-transparent hover:text-text;
+    @apply border-text bg-text hover:text-text inline-flex cursor-pointer items-center justify-center border px-5 py-3 font-mono text-base text-[0.6875rem] font-medium tracking-[0.13em] uppercase transition-colors duration-(--duration-ui) hover:bg-transparent;
   }
 
   .btn-ghost {
-    @apply inline-flex cursor-pointer items-center justify-center border border-text px-5 py-3 font-mono text-[0.6875rem] font-medium tracking-[0.13em] text-text uppercase transition-colors duration-(--duration-ui) hover:bg-text hover:text-base;
+    @apply border-text text-text hover:bg-text inline-flex cursor-pointer items-center justify-center border px-5 py-3 font-mono text-[0.6875rem] font-medium tracking-[0.13em] uppercase transition-colors duration-(--duration-ui) hover:text-base;
   }
 
   .btn-text {
-    @apply inline-flex cursor-pointer items-center font-mono text-[0.625rem] font-medium tracking-[0.13em] text-text uppercase transition-opacity duration-(--duration-ui) hover:opacity-50;
+    @apply text-text inline-flex cursor-pointer items-center font-mono text-[0.625rem] font-medium tracking-[0.13em] uppercase transition-opacity duration-(--duration-ui) hover:opacity-50;
   }
 
   .editorial-rule {
@@ -177,7 +203,7 @@
   }
 
   .editorial-kicker {
-    @apply font-mono text-[0.625rem] font-medium tracking-[0.13em] text-muted uppercase;
+    @apply text-muted font-mono text-[0.625rem] font-medium tracking-[0.13em] uppercase;
   }
 
   .editorial-page {
@@ -218,15 +244,32 @@
 .gallery-stage {
   -webkit-mask-image:
     linear-gradient(to bottom, transparent 0%, transparent 8rem, #000 18rem),
-    linear-gradient(to left, transparent 0%, transparent 28%, #000 48%);
-  -webkit-mask-composite: source-in;
+    linear-gradient(to right, transparent 0%, transparent 28%, #000 44%),
+    linear-gradient(to left, transparent 0%, transparent 40%, #000 58%);
+  -webkit-mask-composite: source-in, source-in;
   mask-image:
     linear-gradient(to bottom, transparent 0%, transparent 8rem, #000 18rem),
-    linear-gradient(to left, transparent 0%, transparent 28%, #000 48%);
-  mask-composite: intersect;
+    linear-gradient(to right, transparent 0%, transparent 28%, #000 44%),
+    linear-gradient(to left, transparent 0%, transparent 40%, #000 58%);
+  mask-composite: intersect, intersect;
 }
 
 @media (max-width: 767px) {
+  .nav-gradient {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 3.25rem,
+      transparent 7.5rem
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 3.25rem,
+      transparent 7.5rem
+    );
+  }
+
   .gallery-stage {
     -webkit-mask-image:
       linear-gradient(to bottom, transparent 0%, transparent 7rem, #000 16rem),
