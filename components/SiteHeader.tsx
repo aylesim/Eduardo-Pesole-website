@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import HomeNote from "@/components/index-gallery/HomeNote";
 import MobileNav from "@/components/MobileNav";
 import { getNav, getSite } from "@/lib/content";
 
@@ -18,28 +19,45 @@ export default function SiteHeader() {
     <header
       className={`site-chrome fixed inset-x-0 top-0 z-40 ${
         isIndex
-          ? "pointer-events-none h-[22svh] border-0"
+          ? "pointer-events-none border-0"
           : "border-border bg-base/95 border-b backdrop-blur-sm"
       }`}
       style={
         isIndex
           ? {
+              height: "max(20svh, 18rem)",
               background:
-                "linear-gradient(to bottom, #eeeeec 0%, rgba(238,238,236,.96) 42%, rgba(238,238,236,0) 100%)",
+                "linear-gradient(to bottom, #eeeeec 0%, rgba(238,238,236,.96) 11rem, rgba(238,238,236,0) 100%)",
             }
           : undefined
       }
     >
-      <div className="page-gutter pointer-events-auto mx-auto flex max-w-[1720px] items-center justify-between gap-4 py-4">
-        <Link
-          href="/"
-          className="font-display text-[0.875rem] font-bold tracking-[-0.035em] no-underline"
-        >
-          {site.global.brand_name}
-        </Link>
+      {isIndex ? (
+        <div className="pointer-events-none absolute top-4 left-[clamp(18px,4vw,48px)]">
+          <Link
+            href="/"
+            className="pointer-events-auto font-display text-[clamp(1.85rem,3.2vw,2.5rem)] leading-[0.92] font-extrabold tracking-[-0.05em] no-underline"
+          >
+            {site.global.brand_name}
+          </Link>
+          <HomeNote className="mt-3" />
+        </div>
+      ) : null}
+
+      <div className="page-gutter pointer-events-none mx-auto flex max-w-[1720px] items-center justify-between gap-4 py-4">
+        {isIndex ? null : (
+          <Link
+            href="/"
+            className="pointer-events-auto font-display text-[0.875rem] font-bold tracking-[-0.035em] no-underline"
+          >
+            {site.global.brand_name}
+          </Link>
+        )}
 
         <nav
-          className="hidden items-center justify-end gap-7 md:flex"
+          className={`pointer-events-auto hidden items-center justify-end gap-7 md:flex ${
+            isIndex ? "ml-auto" : ""
+          }`}
           aria-label="Main"
         >
           {nav.map((item) => {
@@ -70,7 +88,11 @@ export default function SiteHeader() {
           </Link>
         </nav>
 
-        <div className="flex justify-end md:hidden">
+        <div
+          className={`pointer-events-auto flex justify-end md:hidden ${
+            isIndex ? "ml-auto" : ""
+          }`}
+        >
           <MobileNav
             open={menuOpen}
             onOpenChange={setMenuOpen}

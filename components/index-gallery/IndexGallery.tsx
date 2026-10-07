@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useLayoutEffect, useState, useSyncExternalStore } from "react";
-import HomeNote from "@/components/index-gallery/HomeNote";
 import IndexGalleryFallback from "@/components/index-gallery/IndexGalleryFallback";
 import type { GalleryWork } from "@/lib/gallery-works";
 
@@ -103,8 +102,6 @@ export default function IndexGallery({ works }: Props) {
           onActiveChange={setActive}
         />
       </div>
-
-      <HomeNote className="pointer-events-none absolute top-[4.6rem] left-[clamp(18px,4vw,48px)] z-30" />
 
       {work ? (
         <aside

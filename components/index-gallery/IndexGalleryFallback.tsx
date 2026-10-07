@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import HomeNote from "@/components/index-gallery/HomeNote";
 import type { GalleryWork } from "@/lib/gallery-works";
 
 type Props = {
@@ -14,8 +13,7 @@ export default function IndexGalleryFallback({ works }: Props) {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex h-[100svh] flex-col bg-[#eeeeec] text-[#151417]">
-      <HomeNote className="px-[clamp(16px,6vw,72px)] pt-24" />
+    <div className="flex h-[100svh] flex-col bg-[#eeeeec] pt-40 text-[#151417]">
       <div
         ref={scrollerRef}
         className="flex flex-1 snap-x snap-mandatory items-center gap-8 overflow-x-auto scroll-smooth px-[clamp(16px,6vw,72px)] py-16"
