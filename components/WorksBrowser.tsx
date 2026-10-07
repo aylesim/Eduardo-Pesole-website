@@ -50,7 +50,7 @@ export default function WorksBrowser({ works }: WorksBrowserProps) {
 
   return (
     <div className="space-y-16 md:space-y-24">
-      <div className="border-border bg-base/95 sticky top-[55px] z-20 -mx-[clamp(18px,4.2vw,72px)] border-y px-[clamp(18px,4.2vw,72px)] py-3 backdrop-blur-sm">
+      <div className="border-border sticky top-[55px] z-20 -mx-[clamp(18px,4.2vw,72px)] border-y bg-white/25 px-[clamp(18px,4.2vw,72px)] py-3 backdrop-blur-md">
         <FilterChips filters={filters} active={active} onChange={setFilter} />
       </div>
 

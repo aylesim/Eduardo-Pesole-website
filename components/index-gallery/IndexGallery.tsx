@@ -16,7 +16,7 @@ type Props = {
 };
 
 function GallerySkeleton() {
-  return <div className="h-[100svh] bg-[#eeeeec]" />;
+  return <div className="h-[100svh]" />;
 }
 
 function subscribeMedia(query: string, onChange: () => void) {
@@ -79,7 +79,7 @@ export default function IndexGallery({ works }: Props) {
 
   if (!client) {
     return (
-      <div className="index-gallery-root relative bg-[#eeeeec] text-[#151417]">
+      <div className="index-gallery-root relative text-[#151417]">
         <GallerySkeleton />
       </div>
     );
@@ -87,15 +87,15 @@ export default function IndexGallery({ works }: Props) {
 
   if (fallback) {
     return (
-      <div className="index-gallery-root relative bg-[#eeeeec] text-[#151417]">
+      <div className="index-gallery-root relative text-[#151417]">
         <IndexGalleryFallback works={works} />
       </div>
     );
   }
 
   return (
-    <div className="index-gallery-root relative h-[100svh] overflow-hidden bg-[#eeeeec] text-[#151417]">
-      <div className="absolute inset-0 overflow-hidden">
+    <div className="index-gallery-root relative h-[100svh] overflow-hidden text-[#151417]">
+      <div className="gallery-stage absolute inset-0 overflow-hidden">
         <IndexGalleryCanvas
           works={works}
           compact={compact}
@@ -106,11 +106,6 @@ export default function IndexGallery({ works }: Props) {
       {work ? (
         <aside
           className="pointer-events-none absolute inset-x-0 bottom-0 z-20 flex h-[58%] flex-col justify-end px-[clamp(18px,5vw,32px)] pb-7 md:inset-y-0 md:right-0 md:left-auto md:h-auto md:w-[48%] md:justify-center md:pr-[clamp(30px,5vw,72px)] md:pl-[14%]"
-          style={{
-            background: compact
-              ? "linear-gradient(to top, #eeeeec 0%, rgba(238,238,236,.96) 42%, rgba(238,238,236,0) 100%)"
-              : "linear-gradient(to left, #eeeeec 0%, rgba(238,238,236,.96) 58%, rgba(238,238,236,0) 100%)",
-          }}
           aria-live="polite"
         >
           <div key={work.slug} className="flex flex-col items-start">

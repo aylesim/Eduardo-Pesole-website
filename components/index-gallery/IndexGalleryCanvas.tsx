@@ -42,7 +42,6 @@ function Scene({
 
   return (
     <>
-      <color attach="background" args={["#eeeeec"]} />
       <AmbientParticles
         compact={compact}
         store={store}
@@ -97,7 +96,7 @@ export default function IndexGalleryCanvas({
         resize={{ scroll: false }}
         gl={{
           antialias: true,
-          alpha: false,
+          alpha: true,
           powerPreference: "high-performance",
           toneMapping: THREE.NoToneMapping,
         }}
@@ -108,7 +107,7 @@ export default function IndexGalleryCanvas({
           far: 40,
         }}
         onCreated={({ gl }) => {
-          gl.setClearColor("#eeeeec", 1);
+          gl.setClearColor(0x000000, 0);
           gl.outputColorSpace = THREE.SRGBColorSpace;
         }}
       >

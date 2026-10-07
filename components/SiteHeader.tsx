@@ -20,17 +20,8 @@ export default function SiteHeader() {
       className={`site-chrome fixed inset-x-0 top-0 z-40 ${
         isIndex
           ? "pointer-events-none border-0"
-          : "border-border bg-base/95 border-b backdrop-blur-sm"
+          : "border-border border-b bg-white/25 backdrop-blur-md"
       }`}
-      style={
-        isIndex
-          ? {
-              height: "max(20svh, 18rem)",
-              background:
-                "linear-gradient(to bottom, #eeeeec 0%, rgba(238,238,236,.96) 11rem, rgba(238,238,236,0) 100%)",
-            }
-          : undefined
-      }
     >
       {isIndex ? (
         <div className="pointer-events-none absolute top-4 left-[clamp(18px,4vw,48px)]">
