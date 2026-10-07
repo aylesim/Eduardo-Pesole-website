@@ -1223,23 +1223,23 @@
     {
       "id": "games",
       "title": "Game & Interactive Audio",
-      "line1": "Sound design, tech audio and Wwise/Unreal implementation — systems, spatial mix, optimization.",
-      "line2": "",
+      "line1": "Sound design and tech audio in Wwise and Unreal.",
+      "line2": "Interactive systems, spatial mix and optimization for release.",
       "cta": "Inquire",
       "isPlaceholder": false
     },
     {
       "id": "installations",
       "title": "Installation & Spatial Sound",
-      "line1": "Multichannel for exhibitions, AV installs, digital twins — simulation to on-site tuning.",
-      "line2": "",
+      "line1": "Multichannel sound for exhibitions, AV installs and digital twins.",
+      "line2": "Simulation in the studio, tuning on site.",
       "cta": "Collaborate",
       "isPlaceholder": false
     },
     {
       "id": "composition",
       "title": "Composition for Film, Fashion & Ads",
-      "line1": "Scores and sonic identities written to picture.",
+      "line1": "Original scores and sonic identity for film, fashion and ads.",
       "line2": "",
       "cta": "Commission",
       "isPlaceholder": false
@@ -1247,8 +1247,8 @@
     {
       "id": "mix",
       "title": "Mix & Post-Production",
-      "line1": "Editing, design, final mix; production sound when needed.",
-      "line2": "",
+      "line1": "Editing, sound design and final mix.",
+      "line2": "Production sound when the project calls for it.",
       "cta": "Book",
       "isPlaceholder": false
     }
@@ -1266,7 +1266,7 @@
       "categoryLabel": "Games",
       "role": "Sound Designer",
       "with": [],
-      "short": "Third-person action RPG for PC, PS5 and Xbox Series X|S. Creature and boss sound design, ambisonic environments and Wwise/UE4 audio systems, plus interactive music supervision and the credits track.",
+      "short": "Third-person action RPG for PC, PS5 and Xbox. Creature and boss sound, ambisonic worlds and Wwise systems; interactive music supervision and the credits track.",
       "primaryVideo": {
         "label": "Sound Design Reel 2024",
         "url": "https://www.youtube.com/watch?v=mTxFCiWiDk8"
@@ -1313,7 +1313,7 @@
           "url": "https://www.linkedin.com/in/tom-slater-7702a717/"
         }
       ],
-      "short": "A digital twin of the Barbican Centre exhibition space, built with audio system designer Tom Slater. Simulated d&b audiotechnik speakers, modeled acoustic materials and real-time reflections in Wwise and Unreal Engine 5 let curators test ideas before entering the room.",
+      "short": "With Tom Slater, a digital twin of the Barbican exhibition in Wwise and UE5. Simulated d&b speakers and modeled acoustics let the team rehearse the show before opening.",
       "primaryVideo": {
         "label": "",
         "url": "https://www.youtube.com/watch?v=VxD-vS5RfAA"
@@ -1352,7 +1352,7 @@
           "url": "https://functionstore.xyz"
         }
       ],
-      "short": "Eight-screen, eight-speaker AV installation with visual artist Daniel Molnar (Function Store) for End of Nations at Monopol, Berlin. Image becomes a sound wave, crosses the room, and turns back into light on the next screen.",
+      "short": "Eight screens and eight speakers at Monopol, Berlin, with Function Store. Image crosses the room as sound, then becomes light again.",
       "primaryVideo": {
         "label": "",
         "url": "https://www.youtube.com/watch?v=IVQj9uBhQ2E"
@@ -1386,7 +1386,7 @@
       "categoryLabel": "Games",
       "role": "Technical Sound Designer",
       "with": [],
-      "short": "Bachelor-thesis game for PC. Ambisonic environments built in Reaper, plus custom audio systems (a death system and distance-based sea) integrated with Wwise and Unreal Engine.",
+      "short": "Bachelor thesis game for PC. Ambisonic environments in Reaper, custom death and sea systems, integrated in Wwise and Unreal.",
       "primaryVideo": {
         "label": "Moongaze Trailer",
         "url": "https://www.youtube.com/watch?v=AMEr0dlrpwo"
@@ -1436,7 +1436,7 @@
           "name": "Jung Soo Cho (video art)"
         }
       ],
-      "short": "Headphone soundtrack for Jung Soo Cho's video installation Berlin Winter, shown in Seoul for Patch & Stitch. Abstract city textures hold loneliness and curiosity side by side: the feeling of arriving somewhere unknown in the dark of a Berlin winter.",
+      "short": "Headphones piece for Jung Soo Cho's Berlin Winter at Patch & Stitch in Seoul. Abstract city sound where loneliness and curiosity share the same winter night.",
       "primaryVideo": null,
       "stills": [
         {
@@ -1477,7 +1477,7 @@
       "categoryLabel": "Music",
       "role": "",
       "with": [],
-      "short": "",
+      "short": "Album Botanical Garden on Nostro Hood System, Bristol. Released September 2024 as Hypocyrta Glabra.",
       "primaryVideo": null,
       "stills": [],
       "poster": null,
@@ -1560,7 +1560,7 @@
       "categoryLabel": "Art Collabs",
       "role": "Sound Designer / Sound Programmer",
       "with": [],
-      "short": "Interactive AV installation at IED Rome for PNA 2019, set on the border between physical and digital reality. Visitors, machine and space drive generative sound and image that never repeat.",
+      "short": "Interactive AV at IED Rome for PNA 2019. Visitors, machine and space drive generative sound and image that never repeat.",
       "primaryVideo": {
         "label": "",
         "url": "https://www.youtube.com/watch?v=boezig9Pwsg"
@@ -1588,7 +1588,7 @@
       "categoryLabel": "Games",
       "role": "Sound Designer",
       "with": [],
-      "short": "Game pitch created for the Lazio Gaming Project Sprint 2020. Concept, sound logo, original music, sound editing and voice-over.",
+      "short": "Pitch for Lazio Gaming Project Sprint 2020. Sound logo, original music, editing and voice-over.",
       "primaryVideo": {
         "label": "",
         "url": "https://www.youtube.com/watch?v=Eoeagk5wv2o"
@@ -1622,7 +1622,7 @@
       "categoryLabel": "Art Collabs",
       "role": "Member",
       "with": [],
-      "short": "Intermedia art collective based in Moabit, Berlin, mixing sound, installation, performance, design and writing. Open studios and open rehearsals share the process as much as the finished work.",
+      "short": "Intermedia collective in Moabit, Berlin. Open studios and rehearsals share the making of sound, installation and performance with the audience.",
       "primaryVideo": null,
       "stills": [
         {
@@ -1658,7 +1658,7 @@
       "categoryLabel": "Movies",
       "role": "Sound Design, Editing, Production Sound, Mix",
       "with": [],
-      "short": "Short film, Rome. The full sound chain from set to final mix: production sound, sound design, editing and mix.",
+      "short": "Short film in Rome. Production sound, design, editing and final mix—from set to deliverable.",
       "primaryVideo": {
         "label": "",
         "url": "https://www.youtube.com/watch?v=aWfF8m0mgXQ"
@@ -1692,7 +1692,7 @@
       "categoryLabel": "Movies",
       "role": "Sound Design, Editing, Production Sound, Mix",
       "with": [],
-      "short": "Short film, Rome. Production sound, sound design, editing and final mix.",
+      "short": "Short film in Rome. Production sound, design, editing and mix on the same project.",
       "primaryVideo": {
         "label": "",
         "url": "https://www.youtube.com/watch?v=-3qrebxszR8"
@@ -1762,7 +1762,7 @@
       "categoryLabel": "Movies",
       "role": "Composer",
       "with": [],
-      "short": "Fashion film, Rome. Original score.",
+      "short": "Fashion film in Rome. Original score for picture.",
       "primaryVideo": {
         "label": "",
         "url": "https://www.youtube.com/watch?v=0xkCuXvutdI"
@@ -1790,7 +1790,7 @@
       "categoryLabel": "Movies",
       "role": "Sound Editor, Mix Engineer",
       "with": [],
-      "short": "Short film, Rome. Sound editing and final mix.",
+      "short": "Short film in Rome. Sound editing and final mix.",
       "primaryVideo": {
         "label": "Trailer",
         "url": "https://www.youtube.com/watch?v=OJB0EYUHrOY"
@@ -1900,7 +1900,7 @@
       "categoryLabel": "Music",
       "role": "",
       "with": [],
-      "short": "",
+      "short": "2021 release on Bandcamp under Tonino D'Avola.",
       "primaryVideo": null,
       "stills": [],
       "poster": null,
@@ -1926,7 +1926,7 @@
       "categoryLabel": "Music",
       "role": "",
       "with": [],
-      "short": "",
+      "short": "Releases on Spotify as Pixie Fairy Lawn.",
       "primaryVideo": null,
       "stills": [],
       "poster": "/media/music/pixie-fairy-lawn.jpg",
@@ -1951,7 +1951,7 @@
       "categoryLabel": "Music",
       "role": "",
       "with": [],
-      "short": "",
+      "short": "Personal SoundCloud set—sketches and experiments outside client work.",
       "primaryVideo": null,
       "stills": [],
       "poster": "/media/music/just-for-fun.jpg",

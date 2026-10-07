@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/ContactForm";
 import ExpandableBio from "@/components/ExpandableBio";
 import LiteYouTube from "@/components/LiteYouTube";
 import { getSite } from "@/lib/content";
@@ -20,79 +19,100 @@ export default function AboutPage() {
         <h1 className="type-sheet-title">About</h1>
       </header>
 
-      <div className="border-border grid grid-cols-12 gap-x-5 gap-y-14 border-t py-12 md:py-20">
-        <div className="col-span-12 md:col-span-6">
-          <ExpandableBio lead={about_lead} full={about_bio} />
+      <div className="about-stack">
+        <div className="about-row">
+          <div className="about-panel about-panel--slant-a about-panel--tone-base">
+            <div className="about-panel-head">
+              <h2 className="about-panel-title">Biography</h2>
+              <span className="about-panel-mark" aria-hidden="true">
+                ♫
+              </span>
+            </div>
+            <ExpandableBio lead={about_lead} full={about_bio} />
+          </div>
+
+          <div
+            id="showreel"
+            className="about-panel about-panel--showreel about-panel--slant-b about-panel--tone-warm scroll-mt-24"
+          >
+            <div className="about-panel-head">
+              <h2 className="about-panel-title">Showreel</h2>
+              <span className="about-panel-mark" aria-hidden="true">
+                ▶
+              </span>
+            </div>
+            <LiteYouTube
+              url={global.showreel_video.url}
+              title={global.showreel_video.aria_label}
+              poster="/images/showreel-2025-poster.jpg"
+              kind="youtube"
+            />
+          </div>
         </div>
 
-        <div
-          id="showreel"
-          className="col-span-12 scroll-mt-24 md:col-span-5 md:col-start-8"
-        >
-          <LiteYouTube
-            url={global.showreel_video.url}
-            title={global.showreel_video.aria_label}
-            poster="/images/showreel-2025-poster.jpg"
-            kind="youtube"
-          />
-        </div>
-
-        <div className="border-border col-span-12 mt-6 grid grid-cols-12 gap-5 border-t pt-6">
-          <h2 className="font-meta col-span-12 md:col-span-3">
-            Studios & collaborators
-          </h2>
-          <p className="font-meta-value text-muted col-span-12 md:col-span-7 md:col-start-6">
-            {global.credits.join(" · ")}
-          </p>
+        <div className="about-panel about-panel--credits about-panel--slant-a about-panel--tone-lilac">
+          <div className="about-panel-head">
+            <h2 className="about-panel-title">Studios & collaborators</h2>
+            <span className="about-panel-mark" aria-hidden="true">
+              ◎
+            </span>
+          </div>
+          <ul className="about-credit-list">
+            {global.credits.map((name) => (
+              <li key={name}>
+                <span className="about-credit-chip">{name}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
       <section
-        id="contact"
-        className="border-border scroll-mt-24 border-t pt-12 md:pt-20"
+        id="contacts"
+        className="about-contacts scroll-mt-24"
+        aria-labelledby="contacts-heading"
       >
-        <h2 className="type-sheet-title mb-16 md:mb-24">{contact.heading}</h2>
-        <div className="grid grid-cols-12 gap-x-5 gap-y-14">
-          <div className="col-span-12 md:col-span-5">
-            <ul className="space-y-4">
-              <li>
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="font-display text-text text-[clamp(1.3rem,2.4vw,2.5rem)] font-bold tracking-[-0.04em]"
-                >
-                  {contact.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                  className="font-meta-value text-text"
-                >
-                  {contact.phone}
-                </a>
-              </li>
-              {contact.socials.map((social) => (
-                <li key={social.url}>
-                  <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="font-meta-value text-text"
-                  >
-                    {social.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+        <div className="about-panel about-panel--contact about-panel--slant-b about-panel--tone-base">
+          <div className="about-panel-head">
+            <h2 id="contacts-heading" className="about-panel-title">
+              {contact.heading}
+            </h2>
+            <span className="about-panel-mark" aria-hidden="true">
+              @
+            </span>
           </div>
-          <div className="col-span-12 md:col-span-5 md:col-start-8">
-            <ContactForm
-              email={contact.email}
-              fields={contact.form_fields}
-              submitLabel={contact.form_submit_label}
-              successMessage={contact.form_success_message}
-              services={site.services}
-            />
+
+          <a
+            href={`mailto:${contact.email}`}
+            className="contact-hero-link about-contact-email"
+          >
+            {contact.email}
+          </a>
+
+          <div className="about-contact-row">
+            <a
+              href={`tel:${contact.phone.replace(/\s+/g, "")}`}
+              className="contact-phone-link"
+            >
+              {contact.phone}
+            </a>
+
+            {contact.socials.length > 0 ? (
+              <ul className="flex flex-wrap gap-3">
+                {contact.socials.map((social, i) => (
+                  <li key={social.url}>
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`contact-chip ${i % 2 === 0 ? "contact-chip--tilt-a" : "contact-chip--tilt-b"}`}
+                    >
+                      {social.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </div>
       </section>

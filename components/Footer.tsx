@@ -9,7 +9,7 @@ export default function Footer() {
         <p className="font-meta">{site.global.footer}</p>
         <div className="flex flex-wrap gap-5">
           <Link
-            href="/about#contact"
+            href="/about#contacts"
             className="font-ui text-muted hover:text-accent"
           >
             Mail

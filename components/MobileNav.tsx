@@ -76,7 +76,7 @@ export default function MobileNav({
                 href={mailHref}
                 className="text-text mt-8 font-mono text-xs font-medium tracking-[0.13em] uppercase no-underline"
               >
-                Mail
+                Contacts
               </Link>
             </Dialog.Close>
           </nav>

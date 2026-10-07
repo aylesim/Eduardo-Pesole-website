@@ -62,17 +62,22 @@ export default function CueCard({
           </div>
         )}
       </motion.div>
-      <div className="grid grid-cols-12 gap-3 border-b border-border py-4">
-        <p className="font-meta col-span-4">
+      <div className="grid gap-x-5 gap-y-2 pt-4 md:grid-cols-[auto_minmax(0,1fr)] md:items-start">
+        <p className="font-meta whitespace-nowrap md:pt-1">
           {[work.year, work.categoryLabel].filter(Boolean).join(" · ")}
         </p>
-        <div className="col-span-8">
+        <div className="min-w-0">
           <h3 className="font-display text-[clamp(1.35rem,2.2vw,2.6rem)] font-bold leading-[0.95] tracking-[-0.04em] text-text">
             {work.title}
             {external ? " ↗" : ""}
           </h3>
           {work.role ? (
             <p className="font-meta-value mt-2 text-muted">{work.role}</p>
+          ) : null}
+          {work.short ? (
+            <p className="type-body text-muted mt-3 max-w-[42ch] line-clamp-3">
+              {work.short}
+            </p>
           ) : null}
         </div>
       </div>

@@ -12,7 +12,7 @@ export default function SiteHeader() {
   const site = getSite();
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-  const mailHref = "/about#contact";
+  const mailHref = "/about#contacts";
   const isIndex = pathname === "/";
 
   return (
@@ -75,7 +75,7 @@ export default function SiteHeader() {
               href={mailHref}
               className="font-ui text-text/45 hover:text-text"
             >
-              Mail
+              Contacts
             </Link>
           </nav>
 
