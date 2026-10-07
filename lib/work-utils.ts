@@ -1,5 +1,7 @@
 import type { FilterId, WorkCategory, WorkItem } from "@/lib/types";
 
+export { plateSrc, workCardFocal } from "@/lib/work-media";
+
 export function parseFilterParam(
   value: string | null,
   categorySlugs: string[] = [],
@@ -44,12 +46,6 @@ export function workHref(work: WorkItem): string {
 
 export function isExternalWork(work: WorkItem): boolean {
   return Boolean(work.externalUrl);
-}
-
-export function plateSrc(work: WorkItem): string | null {
-  if (work.stills[0]?.src) return work.stills[0].src;
-  if (work.poster) return work.poster;
-  return work.posterFallback ?? null;
 }
 
 export function getWorksByCategory(

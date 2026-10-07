@@ -17,32 +17,32 @@
       "name": "Jung Soo Cho (video art)"
     }
   ],
-  "primaryVideo": null,
-  "archiveVideos": [],
-  "stills": [
+  "poster": "/media/berlin-winter/berlin-winter-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "45% 50%",
+  "primaryMedia": {
+    "kind": "image",
+    "src": "/media/berlin-winter/berlin-winter-01.jpg",
+    "alt": "Berlin wall projection",
+    "focal": "45% 50%"
+  },
+  "media": [
     {
-      "src": "/media/berlin-winter/berlin-winter-01.jpg",
-      "alt": "Berlin wall projection",
-      "focal": "45% 50%"
-    },
-    {
+      "kind": "image",
       "src": "/media/berlin-winter/berlin-winter-02.jpg",
       "alt": "Berlin Winter still",
       "focal": "50% 50%"
     },
     {
+      "kind": "image",
       "src": "/media/berlin-winter/berlin-winter-03.jpg",
       "alt": "Berlin Winter still",
       "focal": "50% 50%"
+    },
+    {
+      "kind": "soundcloud",
+      "url": "https://soundcloud.com/user-571648323/walking-blind-in-uncertain-and-unexplored-territories/s-rYwvWXhjfZd"
     }
-  ],
-  "poster": "/media/berlin-winter/berlin-winter-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": "https://soundcloud.com/user-571648323/walking-blind-in-uncertain-and-unexplored-territories/s-rYwvWXhjfZd",
-  "externalLinks": [],
-  "focal": "45% 50%"
+  ]
 }

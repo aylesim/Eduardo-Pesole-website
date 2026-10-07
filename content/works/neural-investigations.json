@@ -13,25 +13,20 @@
   "short": "Pitch for Lazio Gaming Project Sprint 2020. Sound logo, original music, editing and voice-over.",
   "full": "Game concepting.\nSound logo design.\nMusic composition.\nSound editing.\nVoice over.",
   "with": [],
-  "primaryVideo": {
-    "label": "",
+  "poster": "/media/neural-investigations/neural-investigations-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "50% 42%",
+  "primaryMedia": {
+    "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=Eoeagk5wv2o"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/neural-investigations/neural-investigations-01.jpg",
       "alt": "Neural Investigations logo",
       "focal": "50% 42%"
     }
-  ],
-  "poster": "/media/neural-investigations/neural-investigations-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "50% 42%"
+  ]
 }

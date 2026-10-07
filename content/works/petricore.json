@@ -13,19 +13,12 @@
   "short": "Fashion film produced at IED Rome. Original score and sound design.",
   "full": "",
   "with": [],
-  "primaryVideo": {
-    "label": "",
-    "url": "https://www.youtube.com/watch?v=rptVEs7lgQM"
-  },
-  "archiveVideos": [],
-  "stills": [],
   "poster": "https://i.ytimg.com/vi/rptVEs7lgQM/sddefault.jpg",
-  "posterScale": 1.35,
-  "posterQuality": "sddefault",
-  "posterFallback": "",
-  "posterPlaceholder": "",
   "externalUrl": null,
-  "soundcloud": null,
   "externalLinks": [],
-  "focal": "50% 50%"
+  "focal": "50% 50%",
+  "primaryMedia": {
+    "kind": "youtube",
+    "url": "https://www.youtube.com/watch?v=rptVEs7lgQM"
+  }
 }

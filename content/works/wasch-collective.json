@@ -13,27 +13,19 @@
   "short": "Intermedia collective in Moabit, Berlin. Open studios and rehearsals share the making of sound, installation and performance with the audience.",
   "full": "Wasch is a multicultural intermedia art collective based in Moabit, Berlin. We share our work and creative processes with the goal of mutually stimulating growth, encouraging cooperation and critical thinking, and connecting with audiences to create something fresh and innovative. Wasch—the German word for \"wash\"—is a nod towards our values. Like brightly colored laundry entangling and rearranging itself on a spin cycle, we mix techniques, styles, and identities. Our varied artistic backgrounds span audiovisual and multimedia arts, installation and fine arts, dance and performing arts, graphic design, and writing. Diversity is valued and taken as an accidental common ground, where curious and unexpected things can occur. We also value the happy accidents that happen during the creative process, which can be as relevant as its outcome, and even coincide with it. Among our public initiatives, open studios and open rehearsals play an essential role, as we believe in sharing not only the finished artworks but the creative process itself. We intend to include the audience in the discussion to trigger illuminating interactions and fuel the building of an art-focused community.",
   "with": [],
-  "primaryVideo": null,
-  "archiveVideos": [],
-  "stills": [
-    {
-      "src": "/media/wasch-collective/wasch-collective-01.jpg",
-      "alt": "Wasch Collective mark",
-      "focal": "50% 50%"
-    }
-  ],
   "poster": "/media/wasch-collective/wasch-collective-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
   "externalUrl": null,
-  "soundcloud": null,
   "externalLinks": [
     {
       "label": "Wasch on Instagram ↗",
       "url": "https://www.instagram.com/wasch_berlin/"
     }
   ],
-  "focal": "50% 50%"
+  "focal": "50% 50%",
+  "primaryMedia": {
+    "kind": "image",
+    "src": "/media/wasch-collective/wasch-collective-01.jpg",
+    "alt": "Wasch Collective mark",
+    "focal": "50% 50%"
+  }
 }

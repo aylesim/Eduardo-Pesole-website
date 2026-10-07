@@ -13,19 +13,12 @@
   "short": "Fashion film in Rome. Original score for picture.",
   "full": "",
   "with": [],
-  "primaryVideo": {
-    "label": "",
-    "url": "https://www.youtube.com/watch?v=0xkCuXvutdI"
-  },
-  "archiveVideos": [],
-  "stills": [],
   "poster": "https://i.ytimg.com/vi/0xkCuXvutdI/maxresdefault.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
   "externalUrl": null,
-  "soundcloud": null,
   "externalLinks": [],
-  "focal": "50% 50%"
+  "focal": "50% 50%",
+  "primaryMedia": {
+    "kind": "youtube",
+    "url": "https://www.youtube.com/watch?v=0xkCuXvutdI"
+  }
 }

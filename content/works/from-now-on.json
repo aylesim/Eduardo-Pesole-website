@@ -13,25 +13,20 @@
   "short": "Short film in Rome. Production sound, design, editing and final mix—from set to deliverable.",
   "full": "",
   "with": [],
-  "primaryVideo": {
-    "label": "",
+  "poster": "/media/from-now-on/from-now-on-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "55% 45%",
+  "primaryMedia": {
+    "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=aWfF8m0mgXQ"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/from-now-on/from-now-on-01.jpg",
       "alt": "From Now On still",
       "focal": "55% 45%"
     }
-  ],
-  "poster": "/media/from-now-on/from-now-on-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "55% 45%"
+  ]
 }

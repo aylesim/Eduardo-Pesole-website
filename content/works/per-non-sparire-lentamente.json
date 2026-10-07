@@ -13,25 +13,20 @@
   "short": "Short film in Rome. Production sound, design, editing and mix on the same project.",
   "full": "",
   "with": [],
-  "primaryVideo": {
-    "label": "",
+  "poster": "/media/per-non-sparire-lentamente/per-non-sparire-lentamente-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "50% 55%",
+  "primaryMedia": {
+    "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=-3qrebxszR8"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/per-non-sparire-lentamente/per-non-sparire-lentamente-01.jpg",
       "alt": "Per Non Sparire Lentamente poster",
       "focal": "50% 55%"
     }
-  ],
-  "poster": "/media/per-non-sparire-lentamente/per-non-sparire-lentamente-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "50% 55%"
+  ]
 }

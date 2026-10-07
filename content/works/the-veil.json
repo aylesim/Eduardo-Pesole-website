@@ -13,19 +13,12 @@
   "short": "Interactive AV at IED Rome for PNA 2019. Visitors, machine and space drive generative sound and image that never repeat.",
   "full": "Our reality is increasingly characterized by contaminations and overruns between real and virtual perceptions. The world as we have always known it for millennia of storytelling, no longer exists. Society and relationships between people develop between the two worlds. The more time passes and space becomes concentrated, the more humanity transmigrates, evolves, changes dimension. The three Aristotelian units are rethought in an involuntary way, contaminated by new technologies and re-semantized in a digital elsewhere in which the presence of man can exist in multiple simultaneous realities and with topological coordinates totally extraneous to the concept of natural orientation that has crossed millennia of history . In this world everything is possible and liquid, shopenaunerian illusory but at the same time codified, autonomous and reproducible in a thousand unpredictable variations.\nOur installation aims to explore the boundary between real and digital, investigating the evolution that humanity is building in the daily, hyper-technological and apparently involuntary creation of a new representative universe. The world imagined in the installation is not just the product of a \"digitization of reality\" or a transformation capable of translating all physical information into strings of data. On the contrary, it is an \"other\" and completely autonomous dimension, in which the interaction between man, machine and environment create a network of autonomous generative variations, capable of arousing emotions and visual and sound suggestions in an unpredictable and constantly evolving way.",
   "with": [],
-  "primaryVideo": {
-    "label": "",
-    "url": "https://www.youtube.com/watch?v=boezig9Pwsg"
-  },
-  "archiveVideos": [],
-  "stills": [],
   "poster": "https://i.ytimg.com/vi/boezig9Pwsg/maxresdefault.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
   "externalUrl": null,
-  "soundcloud": null,
   "externalLinks": [],
-  "focal": "50% 50%"
+  "focal": "50% 50%",
+  "primaryMedia": {
+    "kind": "youtube",
+    "url": "https://www.youtube.com/watch?v=boezig9Pwsg"
+  }
 }

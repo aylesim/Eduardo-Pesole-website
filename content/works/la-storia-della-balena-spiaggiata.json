@@ -13,25 +13,21 @@
   "short": "Short film in Rome. Sound editing and final mix.",
   "full": "",
   "with": [],
-  "primaryVideo": {
+  "poster": "/media/la-storia-della-balena-spiaggiata/la-storia-della-balena-spiaggiata-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "50% 40%",
+  "primaryMedia": {
+    "kind": "youtube",
     "label": "Trailer",
     "url": "https://www.youtube.com/watch?v=OJB0EYUHrOY"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/la-storia-della-balena-spiaggiata/la-storia-della-balena-spiaggiata-01.jpg",
       "alt": "La Storia della Balena Spiaggiata poster",
       "focal": "50% 40%"
     }
-  ],
-  "poster": "/media/la-storia-della-balena-spiaggiata/la-storia-della-balena-spiaggiata-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "50% 40%"
+  ]
 }

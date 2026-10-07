@@ -56,23 +56,20 @@ export type ContactContent = {
   socials: ContactSocial[];
 };
 
-export type ProjectVideo = {
+export type WorkMediaKind = "youtube" | "image" | "soundcloud";
+
+export type WorkMediaItem = {
+  kind: WorkMediaKind;
   label?: string;
-  url: string;
-  kind?: string;
+  url?: string;
+  src?: string;
+  alt?: string;
+  focal?: string;
 };
 
 export type Collaborator = {
   name: string;
   url?: string;
-};
-
-export type WorkStill = {
-  src: string;
-  alt: string;
-  focal?: string;
-  width?: number;
-  height?: number;
 };
 
 export type ExternalLink = {
@@ -104,16 +101,10 @@ export type WorkItem = {
   with: Collaborator[];
   short: string;
   full: string;
-  primaryVideo: ProjectVideo | null;
-  stills: WorkStill[];
+  primaryMedia: WorkMediaItem | null;
+  media: WorkMediaItem[];
   poster: string | null;
-  posterScale?: number;
-  posterQuality?: string;
-  posterFallback?: string;
-  posterPlaceholder?: "primary" | "secondary";
-  archiveVideos?: ProjectVideo[];
   externalUrl: string | null;
-  soundcloud: string | null;
   externalLinks: ExternalLink[];
   order: number;
   focal: string;

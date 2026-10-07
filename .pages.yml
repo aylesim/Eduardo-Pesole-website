@@ -60,6 +60,36 @@ components:
         label: URL
         type: string
         required: true
+  work_media:
+    type: object
+    fields:
+      - name: kind
+        label: Tipo contenuto
+        type: select
+        required: true
+        options:
+          values:
+            - name: youtube
+              label: YouTube
+            - name: image
+              label: Immagine
+            - name: soundcloud
+              label: SoundCloud
+      - name: label
+        label: Etichetta (opzionale)
+        type: string
+      - name: url
+        label: URL (YouTube o SoundCloud)
+        type: string
+      - name: src
+        label: Immagine
+        type: image
+      - name: alt
+        label: Testo alternativo
+        type: string
+      - name: focal
+        label: Punto focale (CSS object-position)
+        type: string
 
 content:
   - name: site
@@ -340,7 +370,7 @@ content:
         label: Testo breve
         type: text
       - name: full
-        label: Testo completo (sito vecchio)
+        label: Testo completo
         type: text
       - name: with
         label: Collaboratori
@@ -349,51 +379,24 @@ content:
           collapsible:
             collapsed: true
             summary: "{name}"
-      - name: primaryVideo
-        label: Video principale
-        component: video
-      - name: archiveVideos
-        label: Video aggiuntivi
-        component: video
+      - name: primaryMedia
+        label: Contenuto principale
+        component: work_media
+        description: "Scegli quello che resta in alto: un video YouTube, un'immagine o un SoundCloud. Uno solo."
+      - name: media
+        label: Galleria
+        component: work_media
         list:
           collapsible:
             collapsed: true
-            summary: "{label}"
-      - name: stills
-        label: Immagini
-        component: still
-        list:
-          collapsible:
-            collapsed: true
-            summary: "{alt}"
+            summary: "{kind} — {label}"
+        description: "Tutti gli altri contenuti. Compaiono nella galleria sotto il contenuto principale."
       - name: poster
-        label: Poster (URL o percorso immagine)
+        label: Poster scheda (override anteprima in elenco)
         type: string
-      - name: posterScale
-        label: Scala poster
-        type: number
-      - name: posterQuality
-        label: Qualità poster YouTube
-        type: string
-      - name: posterFallback
-        label: Poster fallback (URL)
-        type: string
-      - name: posterPlaceholder
-        label: Placeholder poster
-        type: select
-        options:
-          values:
-            - name: ""
-              label: Nessuno
-            - name: primary
-              label: Primary
-            - name: secondary
-              label: Secondary
+        description: "URL o percorso immagine per la griglia Works; se vuoto, si usa il contenuto principale."
       - name: externalUrl
         label: Link esterno (apre fuori dal sito)
-        type: string
-      - name: soundcloud
-        label: URL SoundCloud
         type: string
       - name: externalLinks
         label: Link in fondo pagina

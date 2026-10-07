@@ -18,25 +18,20 @@
       "url": "https://functionstore.xyz"
     }
   ],
-  "primaryVideo": {
-    "label": "",
+  "poster": "/media/unstable-matter/unstable-matter-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "50% 55%",
+  "primaryMedia": {
+    "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=IVQj9uBhQ2E"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/unstable-matter/unstable-matter-01.jpg",
       "alt": "Unstable Matter installation",
       "focal": "50% 55%"
     }
-  ],
-  "poster": "/media/unstable-matter/unstable-matter-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "50% 55%"
+  ]
 }

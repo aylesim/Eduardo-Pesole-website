@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { resolveWorkMedia } from "@/lib/work-media";
 import { filterWorks } from "@/lib/work-utils";
 import type {
   AboutContent,
@@ -18,16 +19,20 @@ export {
   getWorksByCategory as filterWorksByCategory,
   isExternalWork,
   parseFilterParam,
-  plateSrc,
   workHref,
 } from "@/lib/work-utils";
+export { plateSrc, workCardFocal } from "@/lib/work-media";
 
 const contentDir = path.join(process.cwd(), "content");
 
-type WorkFile = Omit<WorkItem, "categoryLabel"> & {
+type WorkFile = Omit<WorkItem, "categoryLabel" | "primaryMedia" | "media"> & {
   category: WorkCategory | string;
-  posterPlaceholder?: string;
+  primaryMedia?: WorkItem["primaryMedia"];
+  media?: WorkItem["media"];
   primaryVideo?: { label?: string; url: string } | null;
+  archiveVideos?: { label?: string; url: string }[];
+  stills?: { src: string; alt: string; focal?: string }[];
+  soundcloud?: string | null;
 };
 
 function readJson<T>(relativePath: string): T {
@@ -44,21 +49,11 @@ function loadCategories(): CategoryEntry[] {
     .sort((a, b) => a.order - b.order);
 }
 
-function normalizePlaceholder(
-  value: string | undefined,
-): "primary" | "secondary" | undefined {
-  if (value === "primary" || value === "secondary") return value;
-  return undefined;
-}
-
 function normalizeWork(
   raw: WorkFile,
   categoryLabel: string,
 ): WorkItem {
-  const primary =
-    raw.primaryVideo?.url?.trim() ?
-      { label: raw.primaryVideo.label, url: raw.primaryVideo.url.trim() }
-    : null;
+  const { primaryMedia, media } = resolveWorkMedia(raw);
 
   return {
     slug: raw.slug,
@@ -74,16 +69,10 @@ function normalizeWork(
     with: raw.with ?? [],
     short: raw.short,
     full: raw.full ?? "",
-    primaryVideo: primary,
-    stills: raw.stills ?? [],
+    primaryMedia,
+    media,
     poster: raw.poster?.trim() || null,
-    posterScale: raw.posterScale,
-    posterQuality: raw.posterQuality?.trim() || undefined,
-    posterFallback: raw.posterFallback?.trim() || undefined,
-    posterPlaceholder: normalizePlaceholder(raw.posterPlaceholder),
-    archiveVideos: raw.archiveVideos?.filter((v) => v.url?.trim()) ?? [],
     externalUrl: raw.externalUrl?.trim() || null,
-    soundcloud: raw.soundcloud?.trim() || null,
     externalLinks: raw.externalLinks ?? [],
     order: raw.order,
     focal: raw.focal,

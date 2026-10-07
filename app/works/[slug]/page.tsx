@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import LiteYouTube from "@/components/LiteYouTube";
-import MediaSwitch from "@/components/MediaSwitch";
+import WorkMediaBlock from "@/components/WorkMediaBlock";
 import {
   getAdjacentWorks,
   getInternalWorks,
   getWorkBySlug,
   plateSrc,
 } from "@/lib/content";
+import { mediaItemKey, workCardFocal } from "@/lib/work-media";
+import type { WorkItem, WorkMediaItem } from "@/lib/types";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -40,144 +41,232 @@ export default async function ProjectSheetPage({ params }: PageProps) {
 
   const { prev, next } = getAdjacentWorks(work.slug);
   const poster = plateSrc(work);
+  const prevWork = prev && prev.slug !== work.slug ? prev : null;
+  const nextWork =
+    next && next.slug !== work.slug && next.slug !== prevWork?.slug
+      ? next
+      : null;
 
-  const meta = [work.type, work.location, work.role].filter(Boolean);
+  const facts = sheetFacts(work);
+  const paragraphs = work.full
+    .split(/\n\n+/)
+    .map((para) => para.trim())
+    .filter(Boolean);
+  const hasAside =
+    facts.length > 0 ||
+    work.with.length > 0 ||
+    work.externalLinks.length > 0;
+  const hasCopy = Boolean(work.short) || paragraphs.length > 0;
+  const hero = work.primaryMedia ?? work.media[0] ?? null;
+  const gallery = work.primaryMedia ? work.media : work.media.slice(1);
+
+  const kicker = [work.year, work.categoryLabel].filter(Boolean).join(" · ");
 
   return (
     <article className="editorial-page">
-      <header className="grid grid-cols-12 gap-x-5 gap-y-8 pt-10 pb-16 md:pt-16 md:pb-24">
-        <Link href="/works" className="btn-text col-span-6 md:col-span-3">
+      <header className="sheet-top">
+        <Link href="/works" className="btn-text">
           ← All works
         </Link>
-        <p className="font-meta col-span-6 text-right md:col-span-3 md:col-start-10">
-          {work.year} · {work.categoryLabel}
-        </p>
-
-        <h1 className="type-sheet-title col-span-12 mt-6 md:col-span-10 md:col-start-3">
-          {work.title}
-        </h1>
-
-        <div className="border-border col-span-12 space-y-4 border-t pt-5 md:col-span-4 md:col-start-3">
-          <p className="font-meta leading-relaxed">{meta.join("  ·  ")}</p>
-          {work.with.length > 0 ? (
-            <p className="font-meta-value text-muted">
-              With{" "}
-              {work.with.map((c, i) => (
-                <span key={c.name}>
-                  {i > 0 ? ", " : null}
-                  {c.url ? (
-                    <a href={c.url} target="_blank" rel="noopener noreferrer">
-                      {c.name}
-                    </a>
-                  ) : (
-                    c.name
-                  )}
-                </span>
-              ))}
-            </p>
-          ) : null}
-        </div>
-
-        <div className="col-span-12 md:col-span-5 md:col-start-8">
-          {work.short ? <p className="type-lead">{work.short}</p> : null}
-          {work.subtitle ? (
-            <p className="type-body text-muted mt-5">{work.subtitle}</p>
-          ) : null}
-          {work.full ? (
-            <div className="type-body text-muted mt-8 max-w-[60ch] space-y-5 whitespace-pre-wrap">
-              {work.full.split(/\n\n+/).map((para) => (
-                <p key={para.slice(0, 32)}>{para}</p>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        {kicker ? <p className="font-meta">{kicker}</p> : null}
       </header>
 
-      <div className="grid grid-cols-12 gap-x-5 gap-y-8">
-        {work.primaryVideo ? (
-          <div className="col-span-12 md:col-span-10 md:col-start-2">
-            <LiteYouTube
-              url={work.primaryVideo.url}
-              title={work.primaryVideo.label || work.title}
-              poster={poster}
-              kind="youtube"
-            />
-          </div>
-        ) : work.soundcloud ? (
-          <div className="col-span-12 md:col-span-8 md:col-start-3">
-            <LiteYouTube
-              url={work.soundcloud}
+      <div className={hasAside ? "sheet-layout" : "sheet-layout sheet-layout--solo"}>
+        <h1 className="sheet-title">{work.title}</h1>
+        {work.subtitle ? (
+          <p className="sheet-subtitle">{work.subtitle}</p>
+        ) : null}
+
+        {hero ? (
+          <div className="sheet-stage">
+            <WorkMediaBlock
+              item={hero}
               title={work.title}
-              kind="soundcloud"
+              poster={poster}
+              priority
             />
           </div>
         ) : null}
 
-        {work.stills.length > 0 ? (
-          <div className="col-span-12 mt-8 md:col-span-8 md:col-start-3">
-            <MediaSwitch stills={work.stills} title={work.title} />
-          </div>
-        ) : !work.primaryVideo && !work.soundcloud && poster ? (
-          <div className="bg-elevated relative col-span-12 aspect-video overflow-hidden md:col-span-10 md:col-start-2">
-            <Image
-              src={poster}
-              alt={work.title}
-              fill
-              className="object-cover"
-              style={{ objectPosition: work.focal }}
-              sizes="(max-width: 768px) 100vw, 83vw"
-              unoptimized={poster.startsWith("http")}
-            />
+        {hasAside ? (
+          <aside className="sheet-aside" aria-label="Project details">
+            {facts.length > 0 ? (
+              <dl className="sheet-facts">
+                {facts.map((fact) => (
+                  <div key={fact.label}>
+                    <dt className="font-meta">{fact.label}</dt>
+                    <dd className="sheet-fact-value">{fact.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+
+            {work.with.length > 0 ? (
+              <p className="sheet-with">
+                <span className="font-meta">With</span>
+                <span className="sheet-fact-value">
+                  {work.with.map((c, i) => (
+                    <span key={c.name}>
+                      {i > 0 ? ", " : null}
+                      {c.url ? (
+                        <a
+                          href={c.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {c.name}
+                        </a>
+                      ) : (
+                        c.name
+                      )}
+                    </span>
+                  ))}
+                </span>
+              </p>
+            ) : null}
+
+            {work.externalLinks.length > 0 ? (
+              <ul className="sheet-links">
+                {work.externalLinks.map((link, i) => (
+                  <li key={link.url}>
+                    <a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`contact-chip ${i % 2 === 0 ? "contact-chip--tilt-a" : "contact-chip--tilt-b"}`}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </aside>
+        ) : null}
+
+        {hasCopy ? (
+          <div className="sheet-copy">
+            {work.short ? <p className="sheet-lead">{work.short}</p> : null}
+            {paragraphs.length > 0 ? (
+              <div className="sheet-prose">
+                {paragraphs.map((para) => (
+                  <p key={para.slice(0, 48)}>{para}</p>
+                ))}
+              </div>
+            ) : null}
           </div>
         ) : null}
       </div>
 
-      {work.externalLinks.length > 0 ? (
-        <ul className="border-border mt-12 flex flex-wrap gap-6 border-t pt-5">
-          {work.externalLinks.map((link) => (
-            <li key={link.url}>
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-ui"
+      {gallery.length > 0 ? (
+        <div className="sheet-gallery">
+          {groupGallery(gallery).map((group) =>
+            group.kind === "images" ? (
+              <div
+                key={mediaItemKey(group.items[0]!.item, group.items[0]!.index)}
+                className="sheet-gallery-images"
               >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+                {group.items.map(({ item, index }) => (
+                  <WorkMediaBlock
+                    key={mediaItemKey(item, index)}
+                    item={item}
+                    title={work.title}
+                  />
+                ))}
+              </div>
+            ) : (
+              group.items.map(({ item, index }) => (
+                <WorkMediaBlock
+                  key={mediaItemKey(item, index)}
+                  item={item}
+                  title={work.title}
+                />
+              ))
+            ),
+          )}
+        </div>
       ) : null}
 
-      <nav
-        className="border-border mt-24 grid grid-cols-12 gap-5 border-t pt-8 md:mt-36"
-        aria-label="Adjacent projects"
-      >
-        {prev ? (
-          <Link
-            href={`/works/${encodeURI(prev.slug)}`}
-            className="group col-span-6 no-underline md:col-span-5"
-          >
-            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] leading-none font-bold tracking-[-0.045em]">
-              ← {prev.title}
-            </p>
-          </Link>
-        ) : (
-          <span />
-        )}
-        {next ? (
-          <Link
-            href={`/works/${encodeURI(next.slug)}`}
-            className="group col-span-6 text-right no-underline md:col-span-5 md:col-start-8"
-          >
-            <p className="font-display text-[clamp(1.5rem,3vw,3.5rem)] leading-none font-bold tracking-[-0.045em]">
-              {next.title} →
-            </p>
-          </Link>
-        ) : (
-          <span />
-        )}
-      </nav>
+      {prevWork || nextWork ? (
+        <nav className="sheet-pager" aria-label="Adjacent projects">
+          {prevWork ? (
+            <PagerLink work={prevWork} label="Previous" align="start" />
+          ) : (
+            <span />
+          )}
+          {nextWork ? (
+            <PagerLink work={nextWork} label="Next" align="end" />
+          ) : null}
+        </nav>
+      ) : null}
     </article>
   );
+}
+
+function PagerLink({
+  work,
+  label,
+  align,
+}: {
+  work: WorkItem;
+  label: string;
+  align: "start" | "end";
+}) {
+  const src = plateSrc(work);
+  const focal = workCardFocal(work);
+  return (
+    <Link
+      href={`/works/${encodeURI(work.slug)}`}
+      className={`sheet-pager-link${align === "end" ? " sheet-pager-link--end" : ""}`}
+    >
+      <span className="font-meta">{label}</span>
+      {src ? (
+        <span className="sheet-pager-thumb">
+          <Image
+            src={src}
+            alt=""
+            fill
+            className="object-cover"
+            style={{ objectPosition: focal }}
+            sizes="(max-width: 768px) 100vw, 40vw"
+            unoptimized={src.startsWith("http")}
+          />
+        </span>
+      ) : null}
+      <span className="sheet-pager-title">{work.title}</span>
+    </Link>
+  );
+}
+
+function groupGallery(items: WorkMediaItem[]): {
+  kind: "images" | "embed";
+  items: { item: WorkMediaItem; index: number }[];
+}[] {
+  const groups: {
+    kind: "images" | "embed";
+    items: { item: WorkMediaItem; index: number }[];
+  }[] = [];
+
+  items.forEach((item, index) => {
+    const kind = item.kind === "image" ? "images" : "embed";
+    const last = groups[groups.length - 1];
+    if (last?.kind === "images" && kind === "images") {
+      last.items.push({ item, index });
+      return;
+    }
+    groups.push({ kind, items: [{ item, index }] });
+  });
+
+  return groups;
+}
+
+function sheetFacts(work: WorkItem): { label: string; value: string }[] {
+  const facts: { label: string; value: string }[] = [];
+  if (work.role) facts.push({ label: "Role", value: work.role });
+  if (work.type) facts.push({ label: "Type", value: work.type });
+  if (work.location) facts.push({ label: "Place", value: work.location });
+  if (work.date && work.date !== work.year) {
+    facts.push({ label: "Date", value: work.date });
+  }
+  return facts;
 }

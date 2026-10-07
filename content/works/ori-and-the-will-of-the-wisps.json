@@ -17,25 +17,20 @@
       "name": "Lorenzo Flati (rescore)"
     }
   ],
-  "primaryVideo": {
-    "label": "",
+  "poster": "/media/ori-and-the-will-of-the-wisps/ori-and-the-will-of-the-wisps-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "50% 50%",
+  "primaryMedia": {
+    "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=r582pCNvPzI"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/ori-and-the-will-of-the-wisps/ori-and-the-will-of-the-wisps-01.jpg",
       "alt": "Ori and the Will of the Wisps still",
       "focal": "50% 50%"
     }
-  ],
-  "poster": "/media/ori-and-the-will-of-the-wisps/ori-and-the-will-of-the-wisps-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "50% 50%"
+  ]
 }

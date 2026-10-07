@@ -17,25 +17,20 @@
       "name": "Lorenzo Flati (re-sound & rescore)"
     }
   ],
-  "primaryVideo": {
-    "label": "",
+  "poster": "/media/escape/escape-01.jpg",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "45% 40%",
+  "primaryMedia": {
+    "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=IgjsYLSMQes"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/escape/escape-01.jpg",
       "alt": "Escape still",
       "focal": "45% 40%"
     }
-  ],
-  "poster": "/media/escape/escape-01.jpg",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "45% 40%"
+  ]
 }

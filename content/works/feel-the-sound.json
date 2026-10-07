@@ -18,25 +18,20 @@
       "url": "https://www.linkedin.com/in/tom-slater-7702a717/"
     }
   ],
-  "primaryVideo": {
-    "label": "",
+  "poster": "/media/feel-the-sound/feel-the-sound-01.png",
+  "externalUrl": null,
+  "externalLinks": [],
+  "focal": "55% 45%",
+  "primaryMedia": {
+    "kind": "youtube",
     "url": "https://www.youtube.com/watch?v=VxD-vS5RfAA"
   },
-  "archiveVideos": [],
-  "stills": [
+  "media": [
     {
+      "kind": "image",
       "src": "/media/feel-the-sound/feel-the-sound-01.png",
       "alt": "Feel The Sound installation",
       "focal": "55% 45%"
     }
-  ],
-  "poster": "/media/feel-the-sound/feel-the-sound-01.png",
-  "posterScale": 1,
-  "posterQuality": "",
-  "posterFallback": "",
-  "posterPlaceholder": "",
-  "externalUrl": null,
-  "soundcloud": null,
-  "externalLinks": [],
-  "focal": "55% 45%"
+  ]
 }
