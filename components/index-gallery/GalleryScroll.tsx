@@ -29,10 +29,24 @@ const AUTOPLAY_CARDS_PER_SECOND = 0.2;
 const AUTOPLAY_RESUME_MS = 2800;
 const MAX_LEAD = 1.35;
 const MAX_CARDS_PER_SECOND = 2.4;
+const SWIPE_DISTANCE_PX = 48;
+const SWIPE_VELOCITY_PX_MS = 0.45;
+
+type TouchGesture =
+  | { phase: "idle" }
+  | { phase: "dragging"; originY: number; startT: number; lastY: number };
 
 function clampLead(current: number, target: number) {
   const lead = target - current;
   return current + Math.max(-MAX_LEAD, Math.min(MAX_LEAD, lead));
+}
+
+function swipePageDelta(dy: number, dtMs: number): -1 | 0 | 1 {
+  if (dy === 0) return 0;
+  const distance = Math.abs(dy);
+  const speed = dtMs > 0 ? distance / dtMs : 0;
+  if (distance < SWIPE_DISTANCE_PX && speed < SWIPE_VELOCITY_PX_MS) return 0;
+  return dy > 0 ? 1 : -1;
 }
 
 const ScrollCtx = createContext<ScrollApi | null>(null);
@@ -61,7 +75,7 @@ export function GalleryScrollProvider({
     velocity: 0,
   });
   const rafRef = useRef(0);
-  const touchY = useRef<number | null>(null);
+  const gesture = useRef<TouchGesture>({ phase: "idle" });
   const snapTimer = useRef(0);
   const resumeAt = useRef(0);
   const pendingWheel = useRef(0);
@@ -153,22 +167,43 @@ export function GalleryScrollProvider({
 
     const onTouchStart = (e: TouchEvent) => {
       pauseAutoplay();
-      touchY.current = e.touches[0]?.clientY ?? null;
+      const y = e.touches[0]?.clientY;
+      if (y == null) return;
+      gesture.current = {
+        phase: "dragging",
+        originY: y,
+        startT: performance.now(),
+        lastY: y,
+      };
     };
     const onTouchMove = (e: TouchEvent) => {
       pauseAutoplay();
-      if (touchY.current == null) return;
-      const y = e.touches[0]?.clientY ?? touchY.current;
-      const dy = touchY.current - y;
-      touchY.current = y;
+      const g = gesture.current;
+      if (g.phase !== "dragging") return;
+      const y = e.touches[0]?.clientY;
+      if (y == null) return;
+      const dy = g.lastY - y;
+      g.lastY = y;
       store.current.target = clampLead(
         store.current.current,
-        store.current.target + dy / 320,
+        store.current.target + dy / 180,
       );
     };
     const onTouchEnd = () => {
       pauseAutoplay();
-      touchY.current = null;
+      const g = gesture.current;
+      if (g.phase !== "dragging") return;
+      const delta = swipePageDelta(g.originY - g.lastY, performance.now() - g.startT);
+      if (delta !== 0) {
+        setTarget(Math.round(store.current.current) + delta);
+      } else {
+        store.current.target = Math.round(store.current.current);
+      }
+      gesture.current = { phase: "idle" };
+    };
+    const onTouchCancel = () => {
+      pauseAutoplay();
+      gesture.current = { phase: "idle" };
       store.current.target = Math.round(store.current.current);
     };
 
@@ -177,6 +212,7 @@ export function GalleryScrollProvider({
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("touchcancel", onTouchCancel);
 
     return () => {
       window.removeEventListener("wheel", onWheel);
@@ -184,6 +220,7 @@ export function GalleryScrollProvider({
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchcancel", onTouchCancel);
       window.clearTimeout(snapTimer.current);
     };
   }, [pauseAutoplay, setTarget]);
