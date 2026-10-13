@@ -11,8 +11,7 @@ type LiteYouTubeProps = {
   kind?: string;
   autoPlay?: boolean;
   onPlayIntent?: () => void;
-  ctaLabel?: string;
-  hideCtaChrome?: boolean;
+  caption?: string;
 };
 
 export default function LiteYouTube({
@@ -22,8 +21,7 @@ export default function LiteYouTube({
   kind,
   autoPlay = false,
   onPlayIntent,
-  ctaLabel,
-  hideCtaChrome = false,
+  caption,
 }: LiteYouTubeProps) {
   const [playing, setPlaying] = useState(autoPlay);
   const embed = getEmbedSrc(kind, url);
@@ -57,7 +55,7 @@ export default function LiteYouTube({
     return (
       <button
         type="button"
-        className="group relative block aspect-video w-full cursor-pointer overflow-hidden bg-elevated text-left"
+        className="lite-yt group relative block aspect-video w-full cursor-pointer overflow-hidden bg-elevated text-left"
         onClick={() => {
           if (onPlayIntent) onPlayIntent();
           else setPlaying(true);
@@ -76,12 +74,15 @@ export default function LiteYouTube({
           />
         ) : null}
         <span className="absolute inset-0 bg-text/10 transition-colors group-hover:bg-transparent" />
-        {!hideCtaChrome ? (
-          <span className="absolute inset-0 flex items-center justify-center">
-            <span className="btn-accent pointer-events-none">
-              {ctaLabel || "Play"}
-            </span>
+        <span className="absolute inset-0 flex items-center justify-center">
+          <span className="lite-yt-play pointer-events-none">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8 5v14l11-7z" fill="currentColor" />
+            </svg>
           </span>
+        </span>
+        {caption ? (
+          <span className="lite-yt-caption pointer-events-none">{caption}</span>
         ) : null}
       </button>
     );
