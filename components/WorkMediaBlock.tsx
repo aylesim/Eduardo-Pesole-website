@@ -45,9 +45,9 @@ export default function WorkMediaBlock({
             title={item.label || title}
             poster={poster}
             kind="youtube"
+            caption={item.label}
           />
         </div>
-        {item.label ? <p className="font-meta">{item.label}</p> : null}
       </div>
     );
   }

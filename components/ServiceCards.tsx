@@ -34,7 +34,7 @@ function ServiceCard({
   return (
     <li className="service-card-item">
       <Link
-        href={`/about#contacts?topic=${service.id}`}
+        href="/about#contacts"
         className={`service-card-link ${toneClass(index)} ${slantClass(index)}`}
       >
         <span className="service-card-head">
